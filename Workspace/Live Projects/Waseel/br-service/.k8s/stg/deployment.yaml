@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: br-service
+  namespace: pbm-stg
+  labels:
+    app: br-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: br-service
+  template:
+    metadata:
+      labels:
+        app: br-service
+    spec:
+      containers:
+        - name: br-service-stg-container
+          image: me-jeddah-1.ocir.io/ax7dvcawpc84/pbm/stg/br-service:latest
+          env:
+          - name: TZ
+            value: Asia/Riyadh
+          - name: PBM_BUSINESS_RULES_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: db-secrets
+                key: PBM_BUSINESS_RULES_USERNAME
+          - name: PBM_BUSINESS_RULES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-secrets
+                key: PBM_BUSINESS_RULES_PASSWORD
+          ports:
+          - containerPort: 8080
+      imagePullSecrets:
+        - name: waseel-docker-registry-cred
