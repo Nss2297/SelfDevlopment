@@ -1,0 +1,62 @@
+<!-- <p>shop works!</p>
+<ul>
+    <li *ngFor="let product of productResponseListDTO.dataList">
+        {{product.title}}
+    </li>
+</ul>
+<li *ngFor="let product of products">
+    {{product.title}}
+</li> -->
+<div class="container">
+    <div class="row">
+        <section class="col-3">
+            <h5 class="text-warning ms-3">Sort</h5>
+            <select class="form-select mb-4">
+                <option>
+                    #sortName
+                </option>
+            </select>
+
+
+            <h5 class="text-warning ms-3">Brands</h5>
+            <ul class="list-group my-3">
+                <li class="list-group-item">
+                    <div *ngFor="let brand of brands">
+                        {{brand.brandName}}
+                    </div>
+                </li>
+            </ul>
+            <h5 class="text-warning ms-3">Categories</h5>
+            <ul class="list-group my-3">
+                <li class="list-group-item">
+                    <div *ngFor="let category of categories">
+                        {{category.categoryName}}
+                    </div>
+                </li>
+            </ul>
+
+        </section>
+        <section class="col-9">
+            <div class="d-flex justify-content-between align-items-center pb-2">
+                <header><span>Showing <strong>12</strong> of <strong>100</strong> items </span></header>
+
+                <div class="d-flex mt-2">
+                    <input type="text" placeholder="Search" class="form-control me-2">
+                    <button class="btn btn-outline-primary mx-2">Search</button>
+                    <button class="btn btn-outline-success">Reset</button>
+                </div>
+            </div>
+
+            <div class="row row-cols-3 g-3 mb-4">
+                <!-- <div class="col" *ngFor="let product of productResponseListDTO.dataList"> -->
+                <div class="col" *ngFor="let product of products">
+                    <app-product-item [product]="product"></app-product-item>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                pager goes gere
+            </div>
+        </section>
+    </div>
+</div>

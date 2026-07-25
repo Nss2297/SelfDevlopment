@@ -1,0 +1,27 @@
+#eureka:
+#  instance:
+#    hostname: localhost
+#  client:
+#    register-with-eureka: true 
+#    fetch-registry: true
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka
+#      
+server:
+  port: 8889
+#  
+#spring:
+#  application:
+#    name: shopping-service   
+
+spring:
+  application:
+    name: shopping-service
+  cloud:
+    gateway:
+      routes:
+        - id: payment-service
+          uri: lb://payment-service
+          predicates:
+            #- Path=/user/**
+            -Path=/payment-provider/**

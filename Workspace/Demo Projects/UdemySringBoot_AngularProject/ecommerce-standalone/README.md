@@ -1,0 +1,2 @@
+# ecommerce-standalone
+Angulare app
