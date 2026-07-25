@@ -1,0 +1,90 @@
+<app-base-page headerTitle="{{'SFDA-MANAGEMENT' | translate}}">
+    <div page-main-section
+         class="pb-24 pt-88 system-transition main-content">
+        <div class="bg-white shadow-1 rounded-[8px]">
+            <div class="overflow-x-auto relative rounded-[8px]">
+                <list-view [list]="sfdaData"
+                           [prototype]="listPrototype"
+                           [translateData]="[':4']"
+                           [isLoading]="listIsLoading"
+                           [showEditButton]="false"
+                           [showDeleteButton]="true"
+                           (onDelete)="deleteData($event.id)"
+                           (onNext)="dataControl.pageNumber = $event.pageNumber; fetchData()"
+                           (onPrevious)="dataControl.pageNumber = $event.pageNumber; fetchData()"
+                           [noContentTitle]="'NO-RECORDS-FOUND'|translate"
+                           (onItemClick)="navigateToSfdaDetails($event.id)"
+                           (onSizeChange)="dataControl.recordSize = $event.pageSize; dataControl.pageNumber=0; fetchData()">
+                </list-view>
+            </div>
+        </div>
+    </div>
+
+    <ng-container header-actions>
+        <waseel-button variant="tonal"
+                       icon="left"
+                       class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                       iconName="filter"
+                       (onClick)="isFilterDrawerOpen = true">{{'FILTER' |
+            translate}}</waseel-button>
+        <waseel-button class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                       icon="left"
+                       iconName="upload"
+                       (onClick)="uploadSfdaListDialogOpen = true">{{'UPLOAD-LIST' |
+            translate}}</waseel-button>
+    </ng-container>
+</app-base-page>
+
+<form [formGroup]="filterForm"
+      (submit)="applyFilter()">
+    <waseel-drawer title="FILTER"
+                   [(isOpen)]="isFilterDrawerOpen">
+        <ng-container body-block>
+            <waseel-alert *ngIf="errorCode.length > 0"
+                          class="mt-16 mb-16 block">
+                {{ errorCode | translate }}</waseel-alert>
+            <waseel-textbox [label]="'ID' | translate"
+                            name="drugListId"
+                            formControlName="drugListId"
+                            [placeholder]="'ENTER-ID' | translate"></waseel-textbox>
+            <waseel-textbox [label]="'FILE-NAME' | translate"
+                            name="fileName"
+                            formControlName="fileName"
+                            [placeholder]="'ENTER-FILE-NAME' | translate"></waseel-textbox>
+            <waseel-textbox type="date"
+                            name="effectiveDateFrom"
+                            formControlName="effectiveDateFrom"
+                            [label]="'EFFECTIVE-DATE-FROM' | translate"
+                            [placeholder]="'mm/dd/yyyy'"></waseel-textbox>
+            <waseel-textbox type="date"
+                            name="effectiveDateTo"
+                            formControlName="effectiveDateTo"
+                            [label]="'EFFECTIVE-DATE-TO' | translate"
+                            [placeholder]="'mm/dd/yyyy'"></waseel-textbox>
+            <waseel-textbox type="date"
+                            name="uploadDateFrom"
+                            formControlName="uploadDateFrom"
+                            [label]="'UPLOADED-DATE-FROM' | translate"
+                            [placeholder]="'mm/dd/yyyy'"></waseel-textbox>
+            <waseel-textbox type="date"
+                            name="uploadDateTo"
+                            formControlName="uploadDateTo"
+                            [label]="'UPLOADED-DATE-TO' | translate"
+                            [placeholder]="'mm/dd/yyyy'"></waseel-textbox>
+        </ng-container>
+        <div class="flex justify-end py-12 px-16 items-center border-t border-t-light-border dark:border-t-neutral-600 flex-shrink-0"
+             footer-block>
+            <waseel-button variant="tonal"
+                           type="button"
+                           class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                           (onClick)="resetFilter()">{{'RESET' | translate}}</waseel-button>
+            <waseel-button class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                           (onClick)="applyFilter()">{{'FILTER' | translate}}</waseel-button>
+        </div>
+    </waseel-drawer>
+</form>
+
+<waseel-dialog (onClose)="closeUploadSfdaListDialog($event)"
+               *ngIf="uploadSfdaListDialogOpen">
+    <upload-sfda-list-dialog [onClose]="closeUploadSfdaListDialog"></upload-sfda-list-dialog>
+</waseel-dialog>

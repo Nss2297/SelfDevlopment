@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pbm-admin-ui
+  namespace: pbm-prod
+  labels:
+    app: pbm-admin-ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pbm-admin-ui
+  template:
+    metadata:
+      labels:
+        app: pbm-admin-ui
+    spec:
+      containers:
+        - name: pbm-admin-ui
+          image: me-jeddah-1.ocir.io/ax7dvcawpc84/pbm-prod/pbm-admin-ui:latest
+          ports:
+          - containerPort: 8080
+      imagePullSecrets:
+        - name: ocir-login-credentials

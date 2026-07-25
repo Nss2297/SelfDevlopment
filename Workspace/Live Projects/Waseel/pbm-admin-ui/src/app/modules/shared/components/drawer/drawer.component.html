@@ -1,0 +1,20 @@
+<div class="fixed inset-0 z-[2000] system-transition" [ngClass]="isOpen? 'opacity-100 visible':'opacity-0 invisible'">
+    <div class="fixed inset-0 z-[1999] bg-[#000]/[.32] dark:bg-[#fff]/[.24] system-transition" (click)="toggleDrawer()"
+        [ngClass]="isOpen? 'opacity-100 visible':'opacity-0 invisible'"></div>
+    <div class="flex h-[100vh] items-center justify-center px-16 py-32 relative" [ngClass]="isOpen? '':''">
+        <div class="bg-white dark:bg-neutral-900 fixed top-0 bottom-0 flex flex-col shadow-5 w-[320px] system-transition z-[2000]"
+            [ngClass]="isOpen? 'rtl:left-0 ltr:right-0':'rtl:left-[-320px] ltr:right-[-320px]'">
+            <div class="flex py-[15px] ltr:pr-8 rtl:pl-8 ltr:pl-16 rtl:pr-16 items-center border-b border-b-light-border dark:border-b-neutral-600 flex-shrink-0">
+                <p class="subtitle-1 dark:text-neutral-25">{{title | translate}}</p>
+                <waseel-icon-button [tooltip]="'CLOSE-DRAWER'|translate" variant="transparent" color="default" icon="close"
+                    class="ltr:ml-auto rtl:mr-auto ltr:-mr-8 rtl:-ml-8 -my-10" (onClick)="toggleDrawer()"></waseel-icon-button>
+            </div>
+            <div class="flex-grow overflow-auto p-16 pb-0 flex-grow-1">
+                <ng-content select="[body-block]"></ng-content>
+            </div>
+            <div class="flex-shrink-0">
+                <ng-content select="[footer-block]"></ng-content>
+            </div>
+        </div>
+    </div>
+</div>

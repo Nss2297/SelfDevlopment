@@ -1,0 +1,6 @@
+--liquibase formatted sql
+
+--changeset PBMNotification:0004
+
+ALTER TABLE PBM_BUSINESS_RULES.EMAIL_SMS_AUDITLOG
+MODIFY EMAIL VARCHAR2(2000);

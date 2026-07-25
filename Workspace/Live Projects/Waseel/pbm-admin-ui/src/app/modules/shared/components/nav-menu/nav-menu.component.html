@@ -1,0 +1,144 @@
+<!-- <ul *ngIf="['dev'].includes(environmentName)">
+    <li>
+        <a href="#" class="px-12 py-10 flex items-center body-2 text-secondary rounded-[8px] system-transition hover:bg-neutral-50 focus:bg-neutral-50 active:bg-neutral-50 mb-6">
+            <waseel-icon icon="search" cssClass="block h-20 w-20 ltr:mr-8 rtl:ml-8 text-neutral-700"></waseel-icon>
+            <span>{{'main.search'|translate}}</span>
+        </a>
+    </li>
+    <li>
+        <a href="#" class="px-12 py-10 flex items-center body-2 text-secondary rounded-[8px] system-transition hover:bg-neutral-50 focus:bg-neutral-50 active:bg-neutral-50">
+            <waseel-icon icon="report" cssClass="block h-20 w-20 ltr:mr-8 rtl:ml-8 text-neutral-700"></waseel-icon>
+            <span>{{'main.reports'|translate}}</span>
+        </a>
+    </li>
+</ul> -->
+
+
+<hr class="my-16 border-b border-light-grey h-1 border-solid border-t-0 first:hidden"
+    *ifHasAnyAllowedAuthority="['101;PBM_ADMIN','CUSTOMIZATION_REQUEST','DRUG_TO_DIAGNOSIS_CUSTOMIZATION','101;EXCLUSION_MANAGEMENT','HIGH_COST_EXCLUSION','NETWORK_EXCLUSION','PROVIDER_EXCLUSION','SPECIALITY_EXCLUSION']">
+<ul
+    *ifHasAnyAllowedAuthority="['101;PBM_ADMIN','CUSTOMIZATION_REQUEST','DRUG_TO_DIAGNOSIS_CUSTOMIZATION','101;EXCLUSION_MANAGEMENT','HIGH_COST_EXCLUSION','NETWORK_EXCLUSION','PROVIDER_EXCLUSION','SPECIALITY_EXCLUSION']">
+    <li>
+        <span class="px-12 !py-4 caption text-tertiary mb-8 block">{{'main.customization'|translate}}</span>
+    </li>
+    <li *ifHasAnyAllowedAuthority="['101;PBM_ADMIN','CUSTOMIZATION_REQUEST','DRUG_TO_DIAGNOSIS_CUSTOMIZATION',]">
+        <a routerLink="/customization/drugs/diagnosis"
+           routerLinkActive="!bg-primary-50 !text-primary"
+           class="px-12 block py-10 body-2 text-secondary rounded-[8px] system-transition hover:bg-neutral-50 focus:bg-neutral-50 active:bg-neutral-50 mb-6">{{'customization.drugDiagnosisCustomization'|translate}}</a>
+    </li>
+    <li *ifHasAnyAllowedAuthority="['101;PBM_ADMIN','DRUG_TO_GENDER_CUSTOMIZATION',]">
+        <a routerLink="/customization/drugs/gender"
+           routerLinkActive="!bg-primary-50 !text-primary"
+           class="px-12 block py-10 body-2 text-secondary rounded-[8px] system-transition hover:bg-neutral-50 focus:bg-neutral-50 active:bg-neutral-50 mb-6">{{'DRUG-GENDER-CUSTOMIZATION'|translate}}</a>
+    </li>
+    <li *ifHasAnyAllowedAuthority="['101;PBM_ADMIN','DRUG_TO_AGE_CUSTOMIZATION']">
+        <a routerLink="/customization/drugs/age"
+           routerLinkActive="!bg-primary-50 !text-primary"
+           class="px-12 block py-10 body-2 text-secondary rounded-[8px] system-transition hover:bg-neutral-50 focus:bg-neutral-50 active:bg-neutral-50 mb-6">{{'DRUG-AGE-CUSTOMIZATION'|translate}}</a>
+    </li>
+    <li *ifHasAnyAllowedAuthority="['101;PBM_ADMIN','101;DRUG_TO_DRUG_CUSTOMIZATION']">
+        <a routerLink="/customization/drugs/drug"
+           routerLinkActive="!bg-primary-50 !text-primary"
+           class="px-12 block py-10 body-2 text-secondary rounded-[8px] system-transition hover:bg-neutral-50 focus:bg-neutral-50 active:bg-neutral-50 mb-6">{{'customization.drugDrugInteraction'|translate}}</a>
+    </li>
+    <li *ifHasAnyAllowedAuthority="['101;PBM_ADMIN','DUPLICATE_THERAPY_CUSTOMIZATION','DUPLICATE_THERAPY_CUSTOMIZATION_UPLOAD']">
+        <a routerLink="/customization/drugs/duplication"
+           routerLinkActive="!bg-primary-50 !text-primary"
+           class="px-12 block py-10 body-2 text-secondary rounded-[8px] system-transition hover:bg-neutral-50 focus:bg-neutral-50 active:bg-neutral-50 mb-6">{{'customization.duplicationTherapy'|translate}}</a>
+    </li>
+</ul>
+
+
+
+<hr class="my-16 border-b border-light-grey h-1 border-solid border-t-0 first:hidden"
+    *ifHasAnyAllowedAuthority="['101;PBM_ADMIN', '101;IDF_MANAGEMENT']">
+<ul *ifHasAnyAllowedAuthority="['101;PBM_ADMIN', '101;IDF_MANAGEMENT']">
+    <li>
+        <span class="px-12 !py-4 caption text-tertiary mb-8 block">{{'main.idf'|translate}}</span>
+    </li>
+    <li>
+        <a routerLink="/idf/idf-management"
+           routerLinkActive="!bg-primary-50 !text-primary"
+           class="px-12 block py-10 body-2 text-secondary rounded-[8px] system-transition hover:bg-neutral-50 focus:bg-neutral-50 active:bg-neutral-50 mb-6">{{'main.idfManagement'|translate}}</a>
+    </li>
+</ul>
+
+
+
+<hr class="my-16 border-b border-light-grey h-1 border-solid border-t-0 first:hidden"
+    *ifHasAnyAllowedAuthority="['101;PBM_ADMIN', '101;FDB_MANAGEMENT']">
+<ul *ifHasAnyAllowedAuthority="['101;PBM_ADMIN', '101;FDB_MANAGEMENT']">
+    <li>
+        <span class="px-12 !py-4 caption text-tertiary mb-8 block">{{'main.fdb'|translate}}</span>
+    </li>
+    <li>
+        <a routerLink="/fdb/add-medicine-gcnseqno"
+           routerLinkActive="!bg-primary-50 !text-primary"
+           class="px-12 block py-10 body-2 text-secondary rounded-[8px] system-transition hover:bg-neutral-50 focus:bg-neutral-50 active:bg-neutral-50 mb-6">{{'main.addMedicationGCNSEQNO'|translate}}</a>
+    </li>
+    <li>
+        <a routerLink="/fdb/fdb-configuration"
+           routerLinkActive="!bg-primary-50 !text-primary"
+           class="px-12 block py-10 body-2 text-secondary rounded-[8px] system-transition hover:bg-neutral-50 focus:bg-neutral-50 active:bg-neutral-50 mb-6">{{'main.fdbConfiguration'|translate}}</a>
+    </li>
+</ul>
+
+
+
+<hr class="my-16 border-b border-light-grey h-1 border-solid border-t-0 first:hidden"
+    *ifHasAnyAllowedAuthority="['BUSINESS_CUSTOMIZATION','OVERRIDE_MEDICATION', 'DETAIL_INQUIRY', 'EDIT_PRESCRIPTION_DECISION', 'FOLLOW_UP_PRESCRIPTION', 'MEDICAL_CUSTOMIZATION', 'NEW_PRESCRIPTION',  'PBM_PRESCRIPTION', 'PRESCRIPTION_CANCELLATION', 'PRESCRIPTION_DISPENSE', 'PRESCRIPTION_INQUIRY', 'PRESCRIPTION_SUBMISSION', 'OVERRIDE_MEDICATION','SUMMARY_INQUIRY', 'VIEW_PRESCRIPTION','BUSINESS_RULE_ADMINISTRATION','DRUG_FORMULARY_MANAGEMENT']">
+<ul
+    *ifHasAnyAllowedAuthority="['BUSINESS_CUSTOMIZATION',  'DETAIL_INQUIRY', 'EDIT_PRESCRIPTION_DECISION', 'FOLLOW_UP_PRESCRIPTION', 'MEDICAL_CUSTOMIZATION', 'NEW_PRESCRIPTION',  'PBM_PRESCRIPTION', 'PRESCRIPTION_CANCELLATION', 'PRESCRIPTION_DISPENSE', 'PRESCRIPTION_INQUIRY', 'PRESCRIPTION_SUBMISSION', 'SUMMARY_INQUIRY', 'VIEW_PRESCRIPTION','BUSINESS_RULE_ADMINISTRATION','DRUG_FORMULARY_MANAGEMENT']">
+    <li>
+        <span class="px-12 !py-4 caption text-tertiary mb-8 block">{{'main.prescription'|translate}}</span>
+    </li>
+    <li
+        *ifHasAnyAllowedAuthority="['PBM_PRESCRIPTION','OVERRIDE_MEDICATION', 'PRESCRIPTION_SUBMISSION', 'NEW_PRESCRIPTION','FOLLOW_UP_PRESCRIPTION', 'PRESCRIPTION_CANCELLATION','EDIT_PRESCRIPTION_DECISION','VIEW_PRESCRIPTION',]">
+        <a routerLink="/prescription/list"
+           routerLinkActive="!bg-primary-50 !text-primary"
+           class="px-12 block py-10 body-2 text-secondary rounded-[8px] system-transition hover:bg-neutral-50 focus:bg-neutral-50 active:bg-neutral-50 mb-6">{{'prescription.prescriptions'|translate}}</a>
+    </li>
+    <li
+        *ifHasAnyAllowedAuthority="['PRESCRIPTION_INQUIRY', 'DETAIL_INQUIRY','SUMMARY_INQUIRY', 'PRESCRIPTION_DISPENSE']">
+        <a routerLink="/prescription/inquire"
+           routerLinkActive="!bg-primary-50 !text-primary"
+           class="px-12 block py-10 body-2 text-secondary rounded-[8px] system-transition hover:bg-neutral-50 focus:bg-neutral-50 active:bg-neutral-50 mb-6">{{'prescription.inquire'|translate}}</a>
+    </li>
+    <li *ifHasAnyAllowedAuthority="['CUSTOMIZATION_REQUEST', '101;PBM_ADMIN']">
+        <a routerLink="/prescription/customization-requests"
+           routerLinkActive="!bg-primary-50 !text-primary"
+           class="px-12 block py-10 body-2 text-secondary rounded-[8px] system-transition hover:bg-neutral-50 focus:bg-neutral-50 active:bg-neutral-50 mb-6">{{'prescription.customizationRequests'|translate}}</a>
+    </li>
+    <li *ifHasAnyAllowedAuthority="['BUSINESS_RULE_ADMINISTRATION','DRUG_FORMULARY_MANAGEMENT']">
+        <a routerLink="/formulary/list"
+           routerLinkActive="!bg-primary-50 !text-primary"
+           class="px-12 block py-10 body-2 text-secondary rounded-[8px] system-transition hover:bg-neutral-50 focus:bg-neutral-50 active:bg-neutral-50 mb-6">{{'FORMULARY-MANAGEMENT'|translate}}</a>
+    </li>
+    <li
+        *ifHasAnyAllowedAuthority="['CUSTOMIZATION_REQUEST','101;EXCLUSION_MANAGEMENT','HIGH_COST_EXCLUSION','NETWORK_EXCLUSION','PROVIDER_EXCLUSION','SPECIALITY_EXCLUSION']">
+        <a routerLink="/drug-exclusion-management/list"
+           routerLinkActive="!bg-primary-50 !text-primary"
+           class="px-12 block py-10 body-2 text-secondary rounded-[8px] system-transition hover:bg-neutral-50 focus:bg-neutral-50 active:bg-neutral-50 mb-6">{{'DRUG-EXCLUSION-MANAGEMENT'|translate}}</a>
+    </li>
+    <li *ifHasAnyAllowedAuthority="['101;BUSINESS_RULE_ADMINISTRATION', '101;MEMBER_MANAGEMENT']">
+        <a routerLink="/member-management/list"
+           routerLinkActive="!bg-primary-50 !text-primary"
+           class="px-12 block py-10 body-2 text-secondary rounded-[8px] system-transition hover:bg-neutral-50 focus:bg-neutral-50 active:bg-neutral-50 mb-6">{{'prescription.memberManagement'
+            | translate}}</a>
+    </li>
+
+</ul>
+
+
+
+<hr class="my-16 border-b border-light-grey h-1 border-solid border-t-0 first:hidden">
+<ul>
+    <li>
+        <span class="px-12 !py-4 caption text-tertiary mb-8 block">{{'OTHER'|translate}}</span>
+    </li>
+    <li *ifHasAnyAllowedAuthority="['101;PBM_ADMIN',]">
+        <a routerLink="/sfda/list"
+           routerLinkActive="!bg-primary-50 !text-primary"
+           class="px-12 block py-10 body-2 text-secondary rounded-[8px] system-transition hover:bg-neutral-50 focus:bg-neutral-50 active:bg-neutral-50 mb-6">{{'SFDA-MANAGEMENT'|translate}}</a>
+    </li>
+</ul>

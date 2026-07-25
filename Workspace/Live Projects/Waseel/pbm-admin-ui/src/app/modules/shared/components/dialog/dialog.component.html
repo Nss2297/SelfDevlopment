@@ -1,0 +1,11 @@
+<div [class]="'fixed inset-0 z-[2000] flex items-center justify-center px-16 py-32'">
+    <div [class]="'fixed inset-0 z-[1999] bg-[#000]/[.32] dark:bg-[#fff]/[.24] system-transition animate__animated ' + (closing ? 'animate__fadeOut':'animate__fadeIn')">
+        <button class="bg-transparent border-0 h-full w-full inset-0 fixed cursor-default" (click)="!preventBackdropClick && closeDialog()"></button>
+    </div>
+    <div
+        [class]="'bg-white dark:bg-neutral-900 shadow-5 rounded-[8px] w-full max-h-full system-transition relative z-[2000] animate__animated' + (internalScroll ? ' h-full ':'') + (closing ? ' animate__zoomOut ':' animate__zoomIn ') + (clipContent ? ' overflow-auto ':' ') + width">
+        <div [class]="'block' + (internalScroll ? ' h-full ':'')">
+            <ng-content></ng-content>
+        </div>
+    </div>
+</div>

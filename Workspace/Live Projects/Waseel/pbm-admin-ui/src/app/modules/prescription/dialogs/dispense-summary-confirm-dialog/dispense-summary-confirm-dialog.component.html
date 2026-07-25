@@ -1,0 +1,72 @@
+<div class="p-16 flex items-center border-solid border-b-light-border dark:border-b-neutral-600 border-b-[1px]">
+    <h6 class="subtitle-1 text-text dark:text-neutral-25">{{'DISPENSE-SUMMARY'|translate}}</h6>
+    <waseel-icon-button class="-mt-12 -mb-12 ltr:ml-auto rtl:mr-auto ltr:-mr-12 rtl:-ml-12 system-transition opacity-[.64] hover:opacity-100 focus:opacity-100 active:opacity-100"
+                        icon="close"
+                        (onClick)="closeDialog()"
+                        color="default"
+                        variant="transparent"></waseel-icon-button>
+</div>
+<div class="row g-0 h-[400px] overflow-auto">
+    <div class="col-6 ltr:border-r ltr:border-r-light-border rtl:border-l rtl:border-l-light-border">
+        <table [cellPadding]="0"
+               [cellSpacing]="0"
+               class="w-full text-secondary body-2 ltr:text-left rtl:text-right">
+            <thead>
+                <tr>
+                    <th scope="col"
+                        class="py-14 px-12 border-b-2 border-b-light-border body-2-medium bg-neutral-25">
+                        {{"DRUGS-READY-TO-BE-DISPENSED"|translate}} ({{readyToDispense.length}})
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let readyToDispensedrug of readyToDispense">
+                    <td class="py-14 px-12 border-b border-b-light-border body-2">
+                        {{readyToDispensedrug}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-6">
+        <table [cellPadding]="0"
+               [cellSpacing]="0"
+               class="w-full text-secondary body-2 ltr:text-left rtl:text-right">
+            <thead>
+                <tr>
+                    <th scope="col"
+                        class="py-14 px-12 border-b-2 border-b-light-border body-2-medium bg-neutral-25">
+                        {{"DRUGS-NEEDS-APPROVAL-FROM-PAYER"|translate}} ({{drugNeedsApproval.length}})
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let needApproveDrugs of drugNeedsApproval">
+                    <td class="py-14 px-12 border-b border-b-light-border body-2">
+                        {{needApproveDrugs}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="border-t border-t-light-border p-16 flex items-start">
+    <waseel-icon icon="warning-300"
+                 cssClass="h-48 w-48 block text-warning flex-grow-0 flex-shrink-0 basis-[48px] max-w-[48px]"></waseel-icon>
+    <div class="flex-grow-0 flex-shrink-0 basis-[calc(100%-48px)] max-w-[calc(100%-48px)] ltr:pl-12 rtl:pr-12">
+        <h6 class="body-1-medium text-text !pb-2">We would like to inform you that you can only dispense
+            {{readyToDispense.length}} drug(s) which are shown above and {{drugNeedsApproval.length}} drug(s) will
+            require approval from
+            payer. So would you like to continue?
+        </h6>
+        <p class="text-secondary body-2">{{"DISPENSE-CONFIRM-HELP-SUBTITLE" | translate}}</p>
+    </div>
+</div>
+<div class="py-12 px-16 flex justify-end border-solid border-t-light-border dark:border-t-neutral-600 border-t-[1px]">
+    <waseel-button variant="tonal"
+                   class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                   (onClick)="closeDialog()"
+                   type="button">{{'CANCEL'|translate}}</waseel-button>
+    <waseel-button class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                   (onClick)="dispenseDrug()">{{'CONFIRM-DISPENSE'|translate}}</waseel-button>
+</div>

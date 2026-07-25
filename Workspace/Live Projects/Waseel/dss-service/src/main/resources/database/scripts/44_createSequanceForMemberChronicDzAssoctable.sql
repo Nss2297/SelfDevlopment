@@ -1,0 +1,13 @@
+--liquibase formatted sql
+
+--changeset DSS:44
+
+CREATE SEQUENCE MDSS.Member_Chronic_Dz_Seq
+START WITH 1
+INCREMENT BY 1
+MINVALUE 1
+NOCACHE 
+NOCYCLE 
+NOORDER 
+NOKEEP
+GLOBAL;

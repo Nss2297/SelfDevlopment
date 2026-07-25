@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pbm-authentication-server
+  namespace: pbm-qa
+  labels:
+    app: pbm-authentication-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pbm-authentication-server
+  template:
+    metadata:
+      labels:
+        app: pbm-authentication-server
+    spec:
+      containers:
+        - name: pbm-authentication-server
+          image: me-jeddah-1.ocir.io/ax7dvcawpc84/pbm-qa/pbm-authentication-server
+          env:
+          - name: TZ
+            value: Asia/Riyadh
+          - name: ORACLE_ADB_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: hira-db-secret
+                key: username
+          - name: ORACLE_ADB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: hira-db-secret
+                key: password
+          - name: jwtSecret
+            valueFrom:
+              secretKeyRef:
+                name: jwt-secret
+                key: secret
+          ports:
+          - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+              scheme: HTTP
+            timeoutSeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 20
+          volumeMounts:
+            - name: allowed-clients-for-auth
+              mountPath: /config/application.yml
+      imagePullSecrets:
+        - name: waseel-docker-registry-cred
+      volumes:
+          - name: allowed-clients-for-auth
+            configMap:
+              name: allowed-clients-for-auth

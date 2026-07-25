@@ -1,0 +1,32 @@
+<app-base-page headerTitle="{{'IDF-MANAGEMENT' | translate}}">
+    <div page-main-section class="pb-24 pt-88 system-transition main-content">
+        <div class="bg-white dark:bg-neutral-800 shadow-1 rounded-[8px]">
+            <!-- <list-view [list]="data" [extraClasses]="getExtraClassesForListView()" [translateData]="[':4']" (onNext)="dataControl.pageNumber = $event.pageNumber; fetchData()"
+                (onPrevious)="dataControl.pageNumber = $event.pageNumber; fetchData()" (onItemClick)="openViewDrugDiagnosisDialog()"
+                (onSizeChange)="dataControl.recordSize = $event.pageSize; dataControl.pageNumber=0; fetchData()" (onDelete)="deleteData($event.id)"></list-view> -->
+        </div>
+    </div>
+    <ng-container header-actions>
+        <waseel-button variant="tonal" icon="left" class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0" iconName="filter" (onClick)="isFilterDrawerOpen=true">{{'FILTER' |
+            translate}}</waseel-button>
+        <waseel-button icon="left" class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0" (onClick)="openAddIDFDrugDiagnosisDialog()" iconName="add">{{'ADD-NEW' |
+            translate}}</waseel-button>
+    </ng-container>
+</app-base-page>
+
+<waseel-drawer title="FILTER" [(isOpen)]="isFilterDrawerOpen">
+    <ng-container body-block>
+        <waseel-select-with-search name="serviceCode" formControlName="serviceCode" [label]="'customization.serviceCode' | translate" [options]="[{key: 'test', value: 'test'}]"
+            [placeholder]="'SELECT' | translate"></waseel-select-with-search>
+        <waseel-select-with-search name="icdCode" formControlName="icdCode" [label]="'customization.icdCode' | translate" [options]="[]"
+            [placeholder]="'SELECT' | translate"></waseel-select-with-search>
+    </ng-container>
+    <div class="flex justify-end py-12 px-16 items-center border-t border-t-light-border dark:border-t-neutral-600 flex-shrink-0" footer-block>
+        <waseel-button variant="tonal" type="button" class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0">{{'RESET' | translate}}</waseel-button>
+        <waseel-button class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0" type="submit">{{'FILTER' | translate}}</waseel-button>
+    </div>
+</waseel-drawer>
+
+<waseel-dialog (onClose)="closeAddIDFDrugDiagnosisDialog" *ngIf="addIDFDrugDiagnosisDialogOpen" size="sm">
+    <add-edit-idf-drug-diagnosis-dialog [onClose]="closeAddIDFDrugDiagnosisDialog"></add-edit-idf-drug-diagnosis-dialog>
+</waseel-dialog>

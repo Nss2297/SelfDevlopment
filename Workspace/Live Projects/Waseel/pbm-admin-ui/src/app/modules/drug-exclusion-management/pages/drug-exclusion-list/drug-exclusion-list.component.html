@@ -1,0 +1,45 @@
+<app-base-page headerTitle="{{'DRUG-EXCLUSION-MANAGEMENT' | translate}}">
+    <div page-main-section class="pb-24 pt-88 system-transition main-content">
+        <div class="bg-white dark:bg-neutral-800 shadow-1 rounded-[8px]">
+        <list-view [list]="data" [prototype]="listPrototype" [translateData]="[':4']" [isLoading]="listIsLoading"
+                [noContentTitle]="'NO-RECORDS-FOUND'|translate" [showEditButton]="false" [showDeleteButton]="true"
+                [showEmptyRows]="false" (onDelete)="ondrugExclusioDelete($event.id)" (onItemClick)=" openViewdrugExclusionDialog($event.id)"
+                (onNext)="dataControl.pageNumber = $event.pageNumber; fetchData()" (onPrevious)="dataControl.pageNumber = $event.pageNumber; fetchData()"
+                (onSizeChange)="dataControl.recordSize = $event.pageSize; dataControl.pageNumber=0; fetchData()" [showItemsPerPageSelection]="showItemPerPageDropdown(data.totalElements!)"></list-view>
+
+        </div>
+       </div>
+
+    <ng-container header-actions>
+        <waseel-button variant="tonal" icon="left" class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0" iconName="filter" (onClick)="isFilterDrawerOpen = true">{{'FILTER' |
+            translate}}</waseel-button>
+        <waseel-button class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0" icon="left" iconName="add" routerLink="/drug-exclusion-management/create">{{'CREATE-NEW' |
+            translate}}</waseel-button>
+    </ng-container>
+</app-base-page>
+
+<form [formGroup]="drugExciusionFilterForm" (submit)="applyFilter()">
+    <waseel-drawer title="FILTER" [(isOpen)]="isFilterDrawerOpen">
+        <ng-container body-block>
+            <waseel-alert *ngIf="errorCode.length > 0" class="mt-16 mb-16 block">
+                {{ errorCode | translate }}
+            </waseel-alert>
+            <waseel-textbox name="exclusionId" formControlName="exclusionId" [(ngModel)]="exclusionId" (keydown.space)="$event.preventDefault()" [label]="'prescription.exclusionId' | translate" [placeholder]="'exclusionId'"></waseel-textbox>
+            <waseel-textbox name="name" formControlName="name" [label]="'prescription.exclusionName' | translate"
+                [placeholder]="'exclusionName'"></waseel-textbox>
+            <waseel-textbox type="date" name="createdDateFrom" formControlName="createdDateFrom" [label]="'prescription.createdDateFrom' | translate"
+                [placeholder]="'mm/dd/yyyy'"></waseel-textbox>
+            <waseel-textbox type="date" name="createdDateTo" formControlName="createdDateTo" [label]="'prescription.createdDateTo' | translate"
+                [placeholder]="'mm/dd/yyyy'"></waseel-textbox>
+            <waseel-textbox type="date" name="updatedDateFrom" formControlName="updatedDateFrom" [label]="'prescription.updatedDateFrom' | translate"
+                [placeholder]="'mm/dd/yyyy'"></waseel-textbox>
+            <waseel-textbox type="date" name="updatedDateTo" formControlName="updatedDateTo" [label]="'prescription.updatedDateTo' | translate"
+                [placeholder]="'mm/dd/yyyy'"></waseel-textbox>
+        </ng-container>
+        <div class="flex justify-end py-12 px-16 items-center border-t border-t-light-border dark:border-t-neutral-600 flex-shrink-0" footer-block>
+            <waseel-button variant="tonal" type="button" class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0" (onClick)="resetFilter()">{{'RESET' |
+                translate}}</waseel-button>
+            <waseel-button class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0" (onClick)="applyFilter()">{{'FILTER' | translate}}</waseel-button>
+        </div>
+    </waseel-drawer>
+</form>

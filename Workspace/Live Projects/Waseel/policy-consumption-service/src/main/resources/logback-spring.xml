@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+	<include
+		resource="org/springframework/boot/logging/logback/defaults.xml" />
+	<include
+		resource="org/springframework/boot/logging/logback/console-appender.xml" />
+		
+	<springProfile name="local">
+		<root level="INFO">
+			<appender-ref ref="CONSOLE" />
+		</root>
+	</springProfile>
+	<springProfile name="test">
+		<root level="INFO">
+			<appender-ref ref="CONSOLE" />
+		</root>
+	</springProfile>
+	<springProfile name="qa">
+		<property name="logstash-host-port" value="10.100.5.191:5000" />
+		<appender name="LOGSTASH"
+			class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+			<destination>10.100.5.191:5000</destination>
+			<encoder class="net.logstash.logback.encoder.LogstashEncoder">
+				<includeCallerData>true</includeCallerData>
+				<customFields>{"appname":"policy-consumption-service-qa"}
+				</customFields>
+			</encoder>
+			<keepAliveDuration>5 minutes</keepAliveDuration>
+		</appender>
+		<root level="INFO">
+			<appender-ref ref="LOGSTASH" />
+			<appender-ref ref="CONSOLE" />
+		</root>
+	</springProfile>
+	<springProfile name="stg">
+		<property name="logstash-host-port" value="10.100.5.191:5000" />
+		<appender name="LOGSTASH"
+			class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+			<destination>10.100.5.191:5000</destination>
+			<encoder class="net.logstash.logback.encoder.LogstashEncoder">
+				<includeCallerData>true</includeCallerData>
+				<customFields>{"appname":"policy-consumption-service-stg"}
+				</customFields>
+			</encoder>
+			<keepAliveDuration>5 minutes</keepAliveDuration>
+		</appender>
+		<root level="INFO">
+			<appender-ref ref="LOGSTASH" />
+			<appender-ref ref="CONSOLE" />
+		</root>
+	</springProfile>
+	<springProfile name="prod">
+		<property name="logstash-host-port" value="10.100.2.116:5000" />
+		<appender name="LOGSTASH"
+			class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+			<destination>10.100.2.116:5000</destination>
+			<encoder class="net.logstash.logback.encoder.LogstashEncoder">
+				<includeCallerData>true</includeCallerData>
+				<customFields>{"appname":"policy-consumption-service"}
+				</customFields>
+			</encoder>
+			<keepAliveDuration>5 minutes</keepAliveDuration>
+		</appender>
+		<root level="INFO">
+			<appender-ref ref="LOGSTASH" />
+			<appender-ref ref="CONSOLE" />
+		</root>
+	</springProfile>
+</configuration>

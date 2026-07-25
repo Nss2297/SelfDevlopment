@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pbm-authentication-service-stg-service
+  namespace: pbm-stg
+  labels:
+    app: pbm-authentication-service-stg-service
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  type: ClusterIP
+  selector:
+    app: pbm-authentication-service-stg-deployment

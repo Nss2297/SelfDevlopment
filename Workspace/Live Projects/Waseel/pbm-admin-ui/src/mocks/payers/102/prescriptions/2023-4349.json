@@ -1,0 +1,24 @@
+{
+    "status": "APPROVED",
+    "statusDescription": "Provider not Active.",
+    "memberInfoModel": {
+        "memberName": "Hashim Ebrahim",
+        "age": "32 years",
+        "dob": "08/01/1991",
+        "gender": "male",
+        "idNumber": 2392019564
+    },
+    "physicianModel": {
+        "physicianName": "test1",
+        "physicianLicenseNumber": "123",
+        "physicianCategory": "SPECIALIST",
+        "physicianSpeciality": "Ambulatory Anesthesia"
+    },
+    "payerName": "Tawuniya",
+    "payerId": "102",
+    "totalNet": 0.00,
+    "totalPatientShare": 0.00,
+    "caseType": "OUTPATIENT",
+    "providerId": "99999",
+    "providerName": "NCCI TEST PROVIDER"
+}

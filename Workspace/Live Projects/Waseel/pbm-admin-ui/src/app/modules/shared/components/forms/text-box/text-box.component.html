@@ -1,0 +1,37 @@
+<div [class]="(type==='hidden'?'':' pb-16')">
+    <label *ngIf="label" [for]="id" class="body-2 block !pb-4">
+        {{label}} <span *ngIf="isRequired" class="text-error-500">*</span>
+    </label>
+    <div class="relative">
+        <ng-container *ngIf="!isDatepicker">
+            <ng-container *ngIf="!multiline">
+                <input [id]="id" [name]="name" #inputModel="ngModel" [type]="type" [autocomplete]="autocomplete" (blur)="onTouched()" [disabled]="disabled" [(ngModel)]="value"
+                    [class]="'h-[44px] enabled:border-solid disabled:border-dashed border border-border enabled:bg-white disabled:bg-light-grey disabled:cursor-not-allowed rounded-[8px] !py-4 focus:border-primary w-full text-text focus-shadow-primary body-1 system-transition' + (endAdornment || type==='password' || (type==='text' && showPassword)  ? ' ltr:pl-16 ltr:pr-[44px] rtl:pr-16 rtl:pl-[44px] ':' px-16 ')"
+                    [placeholder]="placeholder" #refEl [maxlength]="maxLength" [minlength]="minLength" (keyup)="onSearchInputFieldKeyUp()">
+                <waseel-icon [icon]="endAdornment" cssClass="h-24 w-24 block absolute top-10 ltr:right-10 rtl:left-10 text-tertiary" *ngIf="endAdornment"></waseel-icon>
+                <waseel-icon-button class="absolute top-0 ltr:right-0 rtl:left-0 text-tertiary" *ngIf="type==='text' && showPassword" [icon]="'eye-off'"
+                    (onClick)="togglePassword()" color="default" variant="transparent" [tooltip]="'HIDE-PASSWORD' | translate"></waseel-icon-button>
+                <waseel-icon-button class="absolute top-0 ltr:right-0 rtl:left-0 text-tertiary" *ngIf="type==='password' && !showPassword" [icon]="'eye'"
+                    (onClick)="togglePassword()" color="default" variant="transparent" [tooltip]="'SHOW-PASSWORD' | translate"></waseel-icon-button>
+            </ng-container>
+            <ng-container *ngIf="multiline">
+                <textarea [id]="id" [name]="name" #inputModel="ngModel" (blur)="onTouched()" [disabled]="disabled" [(ngModel)]="value" [rows]="rows"
+                    class="min-h-[44px] enabled:border-solid disabled:border-dashed border border-border enabled:bg-white disabled:bg-light-grey disabled:cursor-not-allowed rounded-[8px] py-[11px] focus:border-primary w-full text-text px-16 focus-shadow-primary body-1 system-transition resize-none"
+                    [placeholder]="placeholder" #refEl [maxlength]="maxLength" [minlength]="minLength" (keyup)="onSearchInputFieldKeyUp()"></textarea>
+            </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="isDatepicker">
+            <input [id]="id" [name]="name" #inputModel="ngModel" [type]="type" [autocomplete]="autocomplete" (blur)="onTouched()" [disabled]="disabled" [(ngModel)]="value"
+                [class]="'h-[44px] enabled:border-solid disabled:border-dashed border border-border enabled:bg-white disabled:bg-light-grey disabled:cursor-not-allowed rounded-[8px] !py-4 focus:border-primary w-full text-text focus-shadow-primary body-1 system-transition ltr:pl-16 ltr:pr-44 rtl:pr-16 rtl:pl-44'"
+                [placeholder]="placeholder" #refEl [maxlength]="maxLength" [minlength]="minLength" (keyup)="onSearchInputFieldKeyUp()" [matDatepicker]="picker"
+                (click)="!disabled && picker.open()" readonly>
+            <waseel-icon icon="calendar" cssClass="h-24 w-24 block absolute top-10 ltr:right-10 rtl:left-10 text-tertiary" (click)="picker.open()"></waseel-icon>
+            <mat-datepicker xPosition="end" #picker></mat-datepicker>
+        </ng-container>
+    </div>
+    <span class="caption text-error flex items-center !pt-4" *ngIf="error">
+        <waseel-icon icon="error" [cssClass]="'h-20 w-20 block ltr:mr-4 rtl:ml-4'"></waseel-icon>
+        <span>{{error}}</span>
+    </span>
+</div>

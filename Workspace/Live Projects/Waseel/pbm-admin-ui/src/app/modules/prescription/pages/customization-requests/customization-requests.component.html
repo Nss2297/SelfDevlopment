@@ -1,0 +1,148 @@
+<app-base-page headerTitle="{{'prescription.customizationRequests' | translate}}">
+    <div page-main-section
+         class="pb-24 pt-88 system-transition main-content">
+        <!-- <ng-container *ngIf="isMemberPhysicianInfoAvailable; else emptypayerMemberPhysicianInfoData"> -->
+        <div class="bg-white dark:bg-neutral-800 shadow-1 rounded-[8px]">
+            <list-view [list]="data"
+                       [prototype]="listPrototype"
+                       [extraClasses]="getExtraClassesForListView()"
+                       [translateData]="[':4']"
+                       [isLoading]="listIsLoading"
+                       [showEditButton]="showEditButton"
+                       [showDeleteButton]="showDeleteButton"
+                       [showCommentButton]="false"
+                       (onDelete)="onDrugDelete($event.id)"
+                       [noContentTitle]="'NO-CUSTOMIZATION-FOUND'|translate"
+                       [showAcceptButton]="showAcceptButton"
+                       [showRejectButton]="showRejectButton"
+                       (onAccept)="onDecisionMade($event.id, 'Accepted')"
+                       (onReject)="onDecisionMade($event.id, 'Rejected')"
+                       [showMoreActionsMenu]="showMoreActionsMenu"
+                       [moreActionsList]="moreActionsList"
+                       (onMoreActionMenu)="onMoreActionsMenuItemClick($event.action, $event.id);"
+                       [customCells]="{customizationDetails:detailsCustomView,  drugCode:drugNameCustomView,lastUpdatedDate:dateCustomView, status:statusCustomView }"
+                       (onNext)="dataControl.pageNumber = $event.pageNumber; fetchData()"
+                       (onPrevious)="dataControl.pageNumber = $event.pageNumber; fetchData()"
+                       (onSizeChange)="dataControl.recordSize = $event.pageSize; dataControl.pageNumber=0; fetchData()"></list-view>
+
+            <ng-template #detailsCustomView
+                         let-row="row">
+                <div class="flex flex-col">
+                    <p *ngFor="let lables of row.customizationDetails">
+                        <!-- {{lables.lable}} - {{lables.value}} -->
+
+                        <span class="text-left">{{lables.lable}}</span>
+                        <span>{{"-"}}</span>
+                        <span class="text-sm text-tertiary">{{lables.value}}</span>
+
+                    </p>
+                </div>
+            </ng-template>
+            <ng-template #drugNameCustomView
+                         let-row="row">
+                <!-- {{row.drugName}} {{row.drugCode}} -->
+                <div class="flex flex-col">
+                    <span>{{row.drugName}}</span>
+                    <span class="text-sm text-tertiary">{{row.drugCode}}</span>
+                </div>
+            </ng-template>
+            <ng-template #dateCustomView
+                         let-row="row">
+                <div>{{ row.lastUpdatedDate | date:'MM/dd/YYYY'}}</div>
+                <div>{{ row.lastUpdatedDate | date:'hh:mm a'}}</div>
+
+            </ng-template>
+            <ng-template #statusCustomView
+                         let-row="row">
+                <div>{{ row.status | translate}}</div>
+
+            </ng-template>
+
+        </div>
+        <!-- </ng-container> -->
+    </div>
+    <ng-container header-actions>
+        <waseel-button variant="tonal"
+                       icon="left"
+                       class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                       iconName="filter"
+                       (onClick)="isFilterDrawerOpen=true">{{'FILTER' |
+            translate}}</waseel-button>
+    </ng-container>
+</app-base-page>
+
+<form [formGroup]="filterForm"
+      (submit)="applyFilter()">
+    <waseel-drawer title="FILTER"
+                   [(isOpen)]="isFilterDrawerOpen">
+        <ng-container body-block>
+            <waseel-alert *ngIf="errorCode.length > 0"
+                          class="mt-16 mb-16 block">
+                {{ errorCode | translate }}
+            </waseel-alert>
+            <waseel-textbox type="date"
+                            name="fromDate"
+                            formControlName="fromDate"
+                            [label]="'customization.startdate' | translate"
+                            [placeholder]="'mm/dd/yyyy'"></waseel-textbox>
+            <waseel-textbox type="date"
+                            name="endDate"
+                            formControlName="endDate"
+                            [label]="'customization.enddate' | translate"
+                            [placeholder]="'mm/dd/yyyy'"></waseel-textbox>
+            <!-- <waseel-textbox name="drugCode" formControlName="drugCode" [(ngModel)]="memberN" [label]="'prescription.drugCode' | translate"
+                [placeholder]="'prescription.drugCode' | translate"></waseel-textbox> -->
+            <div class="col">
+                <div class="group">
+                    <waseel-textbox [placeholder]="'customization.selectDrug'|translate"
+                                    endAdornment="search"
+                                    [title]="selectedDrugName?selectedDrugName:''"
+                                    formControlName="drugCode"
+                                    [label]="'prescription.drug' | translate"
+                                    (onSearch)="getDrugs($event)"></waseel-textbox>
+                    <div class="relative none group-focus-within:block"
+                         *ngIf="((prescriptionLovService.drugsList$ | async)?.content?.length || 0) > 0">
+                        <div
+                             class="absolute hidden max-h-[300px] overflow-auto group-focus-within:block rounded-[8px] shadow-4 bg-white dark:bg-neutral-800 left-0 top-[calc(100%-16px)] right-0 z-[5]">
+                            <ul class="py-8">
+                                <li class="border-b border-b-border last:border-0"
+                                    *ngFor="let drug of ((prescriptionLovService.drugsList$ | async)?.content || []); let i = index">
+                                    <button type="button"
+                                            class="w-full text-start px-16 block py-10 body-2 text-text dark:text-neutral-25 system-transition hover:bg-neutral-50 dark:hover:bg-neutral-700 focus:bg-neutral-50 dark:focus:bg-neutral-700 active:bg-neutral-50 dark:active:bg-neutral-700"
+                                            (click)="selectDrug(drug)">
+                                        {{drug.sfdaCode}} {{drug.sfdaDescription}}
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <waseel-select name="moduleName"
+                           formControlName="moduleName"
+                           [label]="'customization.module' | translate"
+                           [options]="(customizationLovService.moduleList$ | async) || []"
+                           [placeholder]="'SELECT' | translate"></waseel-select>
+            <waseel-select name="status"
+                           [placeholder]="'SEARCH-PLACEHOLDER'|translate"
+                           formControlName="status"
+                           [label]="'prescription.status' | translate"
+                           [options]="status"
+                           [placeholder]="'SELECT' | translate"></waseel-select>
+
+            <!-- <waseel-select name="status" [placeholder]="'SEARCH-PLACEHOLDER'|translate" formControlName="status" [label]="'prescription.status' | translate"
+                [options]="(prescriptionLovService.statusList$ | async) || []" [placeholder]="'SELECT' | translate"></waseel-select>
+              -->
+        </ng-container>
+        <div class="flex justify-end py-12 px-16 items-center border-t border-t-light-border dark:border-t-neutral-600 flex-shrink-0"
+             footer-block>
+            <waseel-button variant="tonal"
+                           type="button"
+                           class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                           (onClick)="resetFilter()">{{'RESET' |
+                translate}}</waseel-button>
+            <waseel-button class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                           (onClick)="applyFilter()">{{'FILTER' | translate}}</waseel-button>
+        </div>
+    </waseel-drawer>
+</form>

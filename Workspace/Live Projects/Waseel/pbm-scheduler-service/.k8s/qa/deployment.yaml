@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pbm-scheduler-service
+  namespace: pbm-qa
+  labels:
+    app: pbm-scheduler-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pbm-scheduler-service
+  template:
+    metadata:
+      labels:
+        app: pbm-scheduler-service
+    spec:
+      containers:
+        - name: pbm-scheduler-service-qa-container
+          image: me-jeddah-1.ocir.io/ax7dvcawpc84/pbm/qa/pbm-scheduler-service:latest
+          env:
+          - name: TZ
+            value: Asia/Riyadh
+          ports:
+          - containerPort: 8080
+      imagePullSecrets:
+        - name: waseel-docker-registry-cred

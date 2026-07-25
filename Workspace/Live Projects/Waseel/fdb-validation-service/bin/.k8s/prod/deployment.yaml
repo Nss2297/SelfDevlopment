@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fdb-validation-service-prod-deployment
+  namespace: pbm-prod
+  labels:
+    app: fdb-validation-service-prod-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fdb-validation-service-prod-deployment
+  template:
+    metadata:
+      labels:
+        app: fdb-validation-service-prod-deployment
+    spec:
+      containers:
+        - name: fdb-validation-service-prod-container
+          image: me-jeddah-1.ocir.io/ax7dvcawpc84/pbm-prod/fdb-validation-service:latest
+          env:
+          - name: TZ
+            value: Asia/Riyadh
+          ports:
+          - containerPort: 8080
+      imagePullSecrets:
+        - name: waseel-docker-registry-cred

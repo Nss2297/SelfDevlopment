@@ -1,0 +1,6 @@
+--liquibase formatted sql
+
+--changeset PBM Scheduler Service:0002
+
+ALTER TABLE PBM_BUSINESS_RULES.TRANSACTION_LOG 
+ADD (TRANSACTION_URL VARCHAR2(250) NULL);

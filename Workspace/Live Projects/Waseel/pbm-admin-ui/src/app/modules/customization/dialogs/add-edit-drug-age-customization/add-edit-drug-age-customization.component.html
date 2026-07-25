@@ -1,0 +1,106 @@
+<div class="p-16 flex items-center border-solid border-b-light-border dark:border-b-neutral-600 border-b-[1px]">
+    <h6 class="subtitle-1"
+        *ngIf="dialogMode == 'add'">
+        {{'ADD-DRUG-AGE-CUSTOMIZATION'|translate}}</h6>
+    <h6 class="subtitle-1"
+        *ngIf="dialogMode == 'edit'">
+        {{'EDIT-DRUG-AGE-CUSTOMIZATION'|translate}}</h6>
+    <waseel-icon-button class="-mt-12 -mb-12 ltr:ml-auto rtl:mr-auto ltr:-mr-12 rtl:-ml-12 system-transition opacity-[.64] hover:opacity-100 focus:opacity-100 active:opacity-100"
+                        icon="close"
+                        (onClick)="closeDialog({status: 'cancel'})"
+                        color="default"
+                        variant="transparent"
+                        [tooltip]="'CLOSE' | translate"></waseel-icon-button>
+</div>
+<form [formGroup]="ageCustomizationForm"
+      (submit)="saveData()">
+    <div class="p-16 pb-0">
+        <waseel-select-with-search name="serviceCode"
+                                   formControlName="serviceCode"
+                                   title="{{selectedServiceCode}}"
+                                   [disabled]="dialogMode == 'edit'"
+                                   [label]="'customization.serviceCode' | translate"
+                                   [initialOption]="serviceCodeInitialOption"
+                                   [options]="(lovService.drugsList$ | async) || []"
+                                   [placeholder]="'SELECT' | translate"
+                                   (onSearch)="filterDrugs($event)"></waseel-select-with-search>
+        <div class="row small-gutter">
+            <div class="col-md-6">
+
+                <waseel-select name="ageGroup"
+                               formControlName="ageGroup"
+                               [label]="'AGE-GROUP' | translate"
+                               [options]="(dssLovService.ageList$ | async) || []"
+                               [placeholder]="'SELECT' | translate"></waseel-select>
+            </div>
+            <div class="col-md-3">
+                <waseel-textbox label="{{'FROM-DAYS'| translate}}"
+                                name="fromAgeInDays"
+                                formControlName="fromAgeInDays"
+                                placeholder="{{'ENTER-HERE' | translate}}"
+                                (onTouched)="selectAgeGroupBasedOnFromToDays()"
+                                (input)="allowOnlyNumbers($event, 'fromAgeInDays')"
+                                [maxLength]="20"></waseel-textbox>
+            </div>
+            <div class="col-md-3">
+                <waseel-textbox label="{{'TO-DAYS'| translate}}"
+                                name="toAgeInDays"
+                                formControlName="toAgeInDays"
+                                placeholder="{{'ENTER-HERE' | translate}}"
+                                (onTouched)="selectAgeGroupBasedOnFromToDays()"
+                                (input)="allowOnlyNumbers($event, 'toAgeInDays')"
+                                [maxLength]="20"></waseel-textbox>
+            </div>
+            <div class="col-md-6"
+                 *ifHasAnyAllowedAuthority="['101;PBM_ADMIN',]">
+                <waseel-select-with-search name="payerId"
+                                           [initialOption]="payerIdInitialOption"
+                                           title="{{selectedPayersId}}"
+                                           formControlName="payerId"
+                                           [label]="'customization.payer' | translate"
+                                           [options]="(lovService.payersList$ | async) || []"
+                                           [placeholder]="'SELECT' | translate"
+                                           (onSearch)="filterPayers($event)"></waseel-select-with-search>
+            </div>
+            <div class="col-md-6">
+                <waseel-select name="serviceStatus"
+                               #serviceStatus
+                               formControlName="serviceStatus"
+                               [label]="'customization.serviceStatus' | translate"
+                               [options]="(lovService.drugsStatuses$ | async) || []"
+                               [placeholder]="'SELECT' | translate"></waseel-select>
+            </div>
+            <div class="col-md-6">
+                <waseel-select name="moduleName"
+                               formControlName="moduleName"
+                               [label]="'customization.module' | translate"
+                               [options]="(lovService.modulesList$ | async) || []"
+                               [placeholder]="'SELECT' | translate"></waseel-select>
+            </div>
+            <div class="col-md-6">
+                <waseel-textbox label="{{'customization.rejectionReason'| translate}}"
+                                title="{{selectedRejectionReason}}"
+                                formControlName="additionalRejectionReason"
+                                placeholder="{{'TYPE-HERE' | translate}}"
+                                [hidden]="serviceStatus.value == 'APPROVED'"
+                                [maxLength]="500"
+                                [minLength]="0"></waseel-textbox>
+            </div>
+        </div>
+
+        <waseel-alert *ngIf="errorCode.length > 0"
+                      class="mt-16 mb-16 block">
+            {{ errorCode}}
+        </waseel-alert>
+    </div>
+    <div
+         class="py-12 px-16 flex justify-end border-solid border-t-light-border dark:border-t-neutral-600 border-t-[1px]">
+        <waseel-button variant="tonal"
+                       class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                       (onClick)="closeDialog({status: 'cancel'})"
+                       type="button">{{'CANCEL'|translate}}</waseel-button>
+        <waseel-button type="submit"
+                       class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                       [disabled]="ageCustomizationForm.invalid || (dialogMode == 'edit' && !dataHasChanged()) || (dialogMode == 'add' && !dataHasChanged())">{{'SAVE'|translate}}</waseel-button>
+    </div>
+</form>

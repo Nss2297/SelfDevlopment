@@ -1,0 +1,24 @@
+{
+    "status": "APPROVED",
+    "statusDescription": "Not able to call Policy-Consumption-Service",
+    "memberInfoModel": {
+        "memberName": "Hashim Ibrahim",
+        "age": "29 years",
+        "dob": "05/07/1994",
+        "gender": "male",
+        "idNumber": 2392019564
+    },
+    "physicianModel": {
+        "physicianName": "test",
+        "physicianLicenseNumber": "55",
+        "physicianCategory": "General Physician",
+        "physicianSpeciality": "Anesthesia Cardiology"
+    },
+    "payerName": "Tawuniya",
+    "payerId": "102",
+    "totalNet": 0.00,
+    "totalPatientShare": 0.00,
+    "caseType": "INPATIENT",
+    "providerId": "601",
+    "providerName": "Dallah Hospital"
+}

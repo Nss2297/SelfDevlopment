@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin-service-qa-deployment
+  namespace: pbm-qa
+  labels:
+    app: admin-service-qa-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: admin-service-qa-deployment
+  template:
+    metadata:
+      labels:
+        app: admin-service-qa-deployment
+    spec:
+      containers:
+        - name: admin-service-qa-container
+          image: me-jeddah-1.ocir.io/ax7dvcawpc84/pbm-qa/admin-service:latest
+          env:
+          - name: TZ
+            value: Asia/Riyadh
+          ports:
+          - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+              scheme: HTTP
+            timeoutSeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 20
+      imagePullSecrets:
+        - name: waseel-docker-registry-cred

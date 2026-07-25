@@ -1,0 +1,120 @@
+<div class="p-16 flex items-center border-solid border-b-light-border dark:border-b-neutral-600 border-b-[1px]">
+    <h6 class="subtitle-1 text-text dark:text-neutral-25" *ngIf="dialogMode == 'add'">
+        {{'ADD-DRUG'|translate}}</h6>
+    <h6 class="subtitle-1 text-text dark:text-neutral-25" *ngIf="dialogMode == 'edit'">
+        {{'EDIT-DRUG'|translate}}</h6>
+    <waseel-icon-button class="-mt-12 -mb-12 ltr:ml-auto rtl:mr-auto ltr:-mr-12 rtl:-ml-12 system-transition opacity-[.64] hover:opacity-100 focus:opacity-100 active:opacity-100"
+        icon="close" (onClick)="closeDialog()" color="default" variant="transparent"></waseel-icon-button>
+</div>
+
+
+<form [formGroup]="prescriptionForm">
+    <div class="p-16 pb-0">
+        <div class="group">
+            <waseel-textbox [label]="'prescription.drug'|translate" [placeholder]="'SEARCH-PLACEHOLDER'|translate" (onSearch)="getDrugs($event)" endAdornment="search"
+                ngModel="{{drugValue}}" ng-required="true" formControlName="drug" name="drug" [maxLength]="250" [error]="fieldErrorMessages('drug') == 0 || drugError
+                ? ('prescription.requiredFieldError' | translate) 
+                : (drugErrorMessages.length > 0 ? ('prescription.drugDropDownError' | translate)
+                : '')"></waseel-textbox>
+            <div class="relative hidden group-focus-within:block">
+                <div
+                    class="absolute hidden max-h-[300px] overflow-auto group-focus-within:block rounded-[8px] shadow-4 bg-white dark:bg-neutral-800 left-0 top-[calc(100%-16px)] right-0 z-[5]">
+                    <ul class="py-8" *ngFor="let drugInfo of drugsList">
+                        <li>
+                            <button
+                                class="w-full text-start px-16 block py-10 body-2 text-text dark:text-neutral-25 system-transition hover:bg-neutral-50 dark:hover:bg-neutral-700 focus:bg-neutral-50 dark:focus:bg-neutral-700 active:bg-neutral-50 dark:active:bg-neutral-700"
+                                (click)="getValueOfDrug(drugInfo)">
+                                {{drugInfo.value}}
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row small-gutter">
+            <div class="col-6">
+                <waseel-select [label]="'prescription.unitType' |translate" [options]="(prescriptionLovService.getUnitTypes$ | async) || []" (click)="getUnitTypes()"
+                    [placeholder]="'SELECT' | translate" formControlName="unitTypes" name="unitTypes"
+                    [error]="unitTypesError ? ('prescription.requiredFieldError' | translate): ''"></waseel-select>
+            </div>
+
+
+            <div class="col-6">
+                <waseel-textbox [label]="'prescription.quantity' |translate" formControlName="quantity" [maxLength]="250" (onSearch)="getQuantity($event)" name="quantity" [error]="fieldErrorMessages('quantity') == 0 || quantityError
+                    ? ('prescription.requiredFieldError' | translate) 
+                    : (fieldErrorMessages('quantity') == 1 || quantityZeroNumError
+                    ? ('prescription.quantityNumberError' | translate) :'')"></waseel-textbox>
+            </div>
+
+            <div class="col-6">
+                <waseel-textbox [label]="'SERVICE-DATE' |translate" type="date" formControlName="serviceDate" name="serviceDate" value="serviceDate | date:'DD/MM/yyyy'"
+                    [(ngModel)]="serviceDate">
+                </waseel-textbox>
+            </div>
+            <div class="col-6">
+                <waseel-textbox [label]="'prescription.use' |translate" formControlName="use" name="use" value="useData" [(ngModel)]="useData" (click)="getUseUnits()" [error]="fieldErrorMessages('use') == 0 || useUnitsError
+                    ? ('prescription.requiredFieldError' | translate) 
+                    : (fieldErrorMessages('use') == 1 
+                    ? ('prescription.useUnitsError' | translate) :'')"></waseel-textbox>
+            </div>
+
+            <div class="col-6">
+                <waseel-select [label]="'prescription.frequency' |translate" [(ngModel)]="frequencyData" [options]="(prescriptionLovService.getFrequencyTypes$ | async) || []"
+                    (click)="getFrequencyTypes()" [placeholder]="'SELECT' | translate" formControlName="frequencyTypes" name="frequencyTypes"
+                    [error]="frequencyTypesError ? ('prescription.requiredFieldError' | translate): ''">
+                </waseel-select>
+
+
+            </div>
+
+            <div class="col-6">
+                <waseel-textbox [label]="'prescription.duration' |translate" formControlName="duration" name="duration" value="durationData" [(ngModel)]="durationData"
+                    [maxLength]="10" (click)="getDuration()" [error]="fieldErrorMessages('duration') == 0 || durationError
+                        ? ('prescription.requiredFieldError' | translate) 
+                        : (fieldErrorMessages('duration') == 1 
+                        ? ('prescription.durationNumberError' | translate) :'')">
+                </waseel-textbox>
+            </div>
+
+
+            <div class="col-6" *ngIf="isFrequencyDescVisible">
+                <waseel-textbox [label]="'prescription.frequencyOtherDesc' |translate" value="frequencyOtherDesc" name="frequencyOtherDesc" formControlName="frequencyDes"
+                    (onSearch)="getFrequencyDesc($event)" [maxLength]="30" [error]="frequencyDescError 
+                    ? ('prescription.requiredFieldError' | translate) : ''">
+                </waseel-textbox>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="unitPrice && !isFormReset">
+            <div class="col-6">
+                <div class="pb-16">
+                    <label class="body-2 text-secondary !pb-2">{{'UNIT-PRICE' |translate}}</label>
+                    <p class="headline-6 text-text">{{unitPrice | number: '1.2-2'}} SAR</p>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="pb-16">
+                    <label class="body-2 text-secondary !pb-2">{{'TOTAL-PRICE' |translate}}</label>
+                    <p class="headline-6 text-text">{{totalPrice | number: '1.2-2'}} SAR</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="pb-16">
+            <label class="body-2 text-secondary !pb-2">{{'INSTRUCTIONS' |translate}}</label>
+            <p class="body-1 text-text">
+                {{"Use"}} {{ useData }}{{ " tablet(s)" }} {{isFrequencyDescVisible ? frequencyDes:frequencyData }} {{"for a duration of"}}
+                {{durationData}} {{ "day(s)."}}</p>
+        </div>
+
+    </div>
+
+    <div class="py-12 px-16 flex justify-end border-solid border-t-light-border dark:border-t-neutral-600 border-t-[1px]">
+        <waseel-button variant="tonal" class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0" (onClick)="closeDialog()" type="button">{{'CANCEL'|translate}}</waseel-button>
+        <waseel-button type="button" class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0" (onClick)="saveDrugButton()">{{'SAVE'|translate}}</waseel-button>
+        <waseel-button type="button" class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0" (onClick)="saveAddNewDrugButton()">{{'SAVE-ADD-NEW'|translate}}</waseel-button>
+    </div>
+
+</form>

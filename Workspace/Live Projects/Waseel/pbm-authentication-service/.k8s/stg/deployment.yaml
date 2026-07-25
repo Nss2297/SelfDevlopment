@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pbm-authentication-service-stg-deployment
+  namespace: pbm-stg
+  labels:
+    app: pbm-authentication-service-stg-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pbm-authentication-service-stg-deployment
+  template:
+    metadata:
+      labels:
+        app: pbm-authentication-service-stg-deployment
+    spec:
+      nodeSelector:
+        environment: pbm-stg
+      containers:
+        - name: pbm-authentication-service-stg-container
+          image: me-jeddah-1.ocir.io/ax7dvcawpc84/pbm-stg/pbm-authentication-service:latest
+          env:
+          - name: TZ
+            value: Asia/Riyadh
+          ports:
+          - containerPort: 8080
+      imagePullSecrets:
+        - name: waseel-docker-registry-cred

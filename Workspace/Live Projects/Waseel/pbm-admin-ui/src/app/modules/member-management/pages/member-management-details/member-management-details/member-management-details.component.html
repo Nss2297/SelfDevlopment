@@ -1,0 +1,127 @@
+<app-base-page headerTitle="{{memberInfoData.memberName}}"
+               [onBackClick]="onBackClick">
+    <div page-main-section
+         class="pb-24 pt-88 system-transition main-content">
+        <div class="bg-white shadow-1 rounded-[8px]">
+            <div class="overflow-x-auto whitespace-nowrap">
+                <ul class="border-b-2 border-solid border-light-grey flex items-center">
+                    <li>
+                        <button type="button"
+                                (click)="currentTab = 0"
+                                [class]="'flex items-center body-2-medium py-12 px-16 system-transition border-b-2 border-solid -mb-2 ' + (currentTab ===0?'text-primary border-primary focus:bg-primary-50 active:bg-primary-50':'text-secondary border-transparent hover:bg-light-grey focus:bg-light-grey active:bg-light-grey')">
+                            <span class="relative top-2">{{("MEMBER-DETAILS"|translate)}}</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button"
+                                (click)="currentTab = 1"
+                                [class]="'flex items-center body-2-medium py-12 px-16 system-transition border-b-2 border-solid -mb-2 ' + (currentTab ===1?'text-primary border-primary focus:bg-primary-50 active:bg-primary-50':'text-secondary border-transparent hover:bg-light-grey focus:bg-light-grey active:bg-light-grey')">
+                            <span class="relative top-2">{{("MEMBER-HISTORY"|translate)}}</span>
+                        </button>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="p-24"
+                 *ngIf="currentTab===0">
+                <div class="row">
+                    <div class="col-3">
+                        <div class="pb-16">
+                            <label class="body-2 text-secondary !pb-2">{{'MEMBER-NAME' |translate}}</label>
+                            <p class="body-1">{{memberInfoData.memberName}}</p>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="pb-16">
+                            <label class="body-2 text-secondary !pb-2">{{'NATIONALID-IQAMA' |translate}}</label>
+                            <p class="body-1">{{memberInfoData.idNumber}}</p>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="pb-16">
+                            <label class="body-2 text-secondary !pb-2">{{'GENDER' |translate}}</label>
+                            <p class="body-1">{{memberInfoData.gender}}</p>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="pb-16">
+                            <label class="body-2 text-secondary !pb-2">{{'DOB' |translate}}</label>
+                            <p class="body-1">{{memberInfoData.dateOfBirth}}</p>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="pb-16">
+                            <label class="body-2 text-secondary !pb-2">{{'MARITAL-STATUS' |translate}}</label>
+                            <p class="body-1">{{memberInfoData.maritalStatus}}</p>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="pb-16">
+                            <label class="body-2 text-secondary !pb-2">{{'NATIONALITY' |translate}}</label>
+                            <p class="body-1">{{memberInfoData.nationality}}</p>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="pb-16">
+                            <label class="body-2 text-secondary !pb-2">{{'MOBILE-NUMBER' |translate}}</label>
+                            <p class="body-1">{{memberInfoData.mobileNumber}}</p>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="pb-16">
+                            <label class="body-2 text-secondary !pb-2">{{'EMAIL' |translate}}</label>
+                            <p class="body-1">{{memberInfoData.email}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="chronicDiseaseData.length > 0">
+                    <p class="subtitle-1 pb-16">{{'CHRONIC-DISEASES'|translate}}</p>
+                    <div style="display: inline-flex; align-items: flex-start; gap: 8px;">
+                        <span *ngFor="let chronicData of chronicDiseaseData"
+                              style="display: flex; padding: 6px 12px; justify-content: center; align-items: center; gap: 10px; border-radius: 8px; border: 1px solid var(--Border, #C7C6CA);">
+                            {{chronicData.chronicDiseaseName}}
+                        </span>
+                    </div>
+
+                </div>
+                <div class="p-16 pb-0 mt-8 rounded-[8px] mb-24">
+                    <p class="subtitle-1 pb-16">{{'POLICY-DETAILS'|translate}}</p>
+                    <div class="pb-24">
+                        <list-view [list]="(policyDetailsData$ | async)??policyDetailsData"
+                                   [prototype]="policyDetailsListPrototype"
+                                   [translateData]="[':4']"
+                                   [showEditButton]="false"
+                                   [showDeleteButton]="false"
+                                   [isLoading]="listIsLoading"
+                                   [showEmptyRows]="false"
+                                   (onNext)="dataControl.pageNumber = $event.pageNumber; fetchData()"
+                                   (onPrevious)="dataControl.pageNumber = $event.pageNumber; fetchData()"
+                                   [showItemsPerPageSelection]="false"
+                                   [noContentTitle]="'NO-RECORDS-FOUND'|translate"
+                                   (onSizeChange)="dataControl.recordSize = $event.pageSize; dataControl.pageNumber=0; fetchData()"></list-view>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="currentTab === 1 as isMemberHistoryTab">
+                <ng-container *ngIf="isMemberHistoryTab">
+                    <list-view [list]="memberHistorydata"
+                               [extraClasses]="getExtraClassesForListView()"
+                               [prototype]="memberHistoryListPrototype"
+                               [translateData]="[':4']"
+                               [showEditButton]="false"
+                               [showDeleteButton]="false"
+                               [hideScrollbar]="true"
+                               [isLoading]="listIsLoading"
+                               [showEmptyRows]="false"
+                               (onNext)="memberHistorydataControl.pageNumber = $event.pageNumber; fetchData()"
+                               [showItemsPerPageSelection]="showItemPerPageDropdown(memberHistorydata.totalElements!)"
+                               (onPrevious)="memberHistorydataControl.pageNumber = $event.pageNumber; fetchData()"
+                               (onSizeChange)="memberHistorydataControl.recordSize = $event.pageSize; memberHistorydataControl.pageNumber=0; fetchData()">
+                    </list-view>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</app-base-page>

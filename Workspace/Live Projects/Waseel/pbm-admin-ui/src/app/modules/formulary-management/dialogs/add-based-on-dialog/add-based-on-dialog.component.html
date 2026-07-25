@@ -1,0 +1,75 @@
+<div class="p-16 flex items-center border-solid border-b-light-border dark:border-b-neutral-600 border-b-[1px]">
+    <h6 class="subtitle-1 text-text dark:text-neutral-25">{{'ADD-FORMULARY-BASED-ON'|translate}}</h6>
+    <waseel-icon-button class="-mt-12 -mb-12 ltr:ml-auto rtl:mr-auto ltr:-mr-12 rtl:-ml-12 system-transition opacity-[.64] hover:opacity-100 focus:opacity-100 active:opacity-100"
+        icon="close" (onClick)="closeDialog()" color="default" variant="transparent"></waseel-icon-button>
+</div>
+<div class="p-16 pb-0">
+    <div class="pb-16">
+        <label class="body-2 block pb-8">{{'BASED-ON'|translate}}</label>
+        <div class="flex items-center flex-wrap -mb-8">
+            <label class="relative radio ltr:pr-16 rtl:pl-16 pb-8">
+                <input type="radio" name="based-on" [(ngModel)]="basedOn" value="policy-based" class="absolute top-0 left-0 opacity-0">
+                <span class="body-2 flex items-start ">
+                    <waseel-icon *ngIf="basedOn!='policy-based'" icon="radio-unchecked" cssClass="h-24 w-24 block text-tertiary"></waseel-icon>
+                    <waseel-icon *ngIf="basedOn=='policy-based'" icon="radio-checked" cssClass="h-24 w-24 block text-primary"></waseel-icon>
+                    <span class="inline-block ltr:pl-6 rtl:pr-6 align-top !pt-2">{{'POLICY-BASED' | translate}}</span>
+                </span>
+            </label>
+            <label class="relative radio ltr:pr-16 rtl:pl-16 pb-8">
+                <input type="radio" name="based-on" [(ngModel)]="basedOn" value="class-based" class="absolute top-0 left-0 opacity-0">
+                <span class="body-2 flex items-start">
+                    <waseel-icon *ngIf="basedOn!='class-based'" icon="radio-unchecked" cssClass="h-24 w-24 block text-tertiary"></waseel-icon>
+                    <waseel-icon *ngIf="basedOn=='class-based'" icon="radio-checked" cssClass="h-24 w-24 block text-primary"></waseel-icon>
+                    <span class="inline-block ltr:pl-6 rtl:pr-6 align-top !pt-2">{{'CLASS-BASED' |translate}}</span>
+                </span>
+            </label>
+            <label class="relative radio pb-8">
+                <input type="radio" name="based-on" [(ngModel)]="basedOn" value="member-id-based" class="absolute top-0 left-0 opacity-0">
+                <span class="body-2 flex items-start">
+                    <waseel-icon *ngIf="basedOn!='member-id-based'" icon="radio-unchecked" cssClass="h-24 w-24 block text-tertiary"></waseel-icon>
+                    <waseel-icon *ngIf="basedOn=='member-id-based'" icon="radio-checked" cssClass="h-24 w-24 block text-primary"></waseel-icon>
+                    <span class="inline-block ltr:pl-6 rtl:pr-6 align-top !pt-2">{{'MEMBER-ID-BASED' | translate}}</span>
+                </span>
+            </label>
+        </div>
+    </div>
+    <div class="row small-gutter align-items-end" *ngIf="basedOn=='policy-based'">
+        <div class="col">
+            <waseel-textbox #policyBasedPolicyNo [label]="'POLICY-NUM' | translate" (keydown.space)="$event.preventDefault()" [placeholder]="'ENTER-POLICY-NO' | translate" [error]="policyNoValidationMsg"></waseel-textbox>
+        </div>
+        <div class="col-auto">
+            <div class="pb-16">
+                <waseel-button (click)="validateAndAddPolicy(policyBasedPolicyNo.value)">{{"VALIDATE-AND-ADD"|translate}}</waseel-button>
+            </div>
+        </div>
+    </div>
+
+    <ng-container *ngIf="basedOn=='class-based'">
+        <div class="row small-gutter align-items-end">
+            <div class="col">
+                <waseel-textbox #classBasedPolicyNo (keydown.space)="$event.preventDefault()" (keyup)="clearePolicyClassName($event)" [label]="'POLICY-NUM' | translate" [placeholder]="'ENTER-POLICY-NO' | translate" [error]="policyNoValidationErrorMsg"></waseel-textbox>
+            </div>
+            <div class="col-auto">
+                <div class="pb-16">
+                    <waseel-button (click)="validatePolicyNumber(classBasedPolicyNo.value)">{{"VALIDATE"|translate}}</waseel-button>
+                </div>
+            </div>
+        </div>
+        <waseel-select #classBasedClassName  [disabled]="disablePolicyClassName" [label]="'POLICY-CLASS' | translate" [options]="[]"  (change)="setPolicyClassName($event)" [error]="classNameValidation" [placeholder]="'SELECT' | translate"></waseel-select>
+    </ng-container>
+
+    <div class="row small-gutter align-items-end" *ngIf="basedOn=='member-id-based'">
+        <div class="col">
+            <waseel-textbox #memberIdBasedPolicyDetails [maxLength]="10" [error]="memberIdValidationMsg" (keydown.space)="$event.preventDefault()" [label]="'MEMBER-ID' | translate" [placeholder]="'ENTER-MEMBER-ID' | translate"></waseel-textbox>
+        </div>
+        <div class="col-auto">
+            <div class="pb-16">
+                <waseel-button [disabled]="!memberIdBasedPolicyDetails || memberIdBasedPolicyDetails.value.length < 10" (click)="validateAndAddMemberId(memberIdBasedPolicyDetails.value)">{{"VALIDATE-AND-ADD"|translate}}</waseel-button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="py-12 px-16 flex justify-end border-solid border-t-light-border dark:border-t-neutral-600 border-t-[1px]" *ngIf="basedOn=='class-based'">
+    <waseel-button (click)="saveValidatedPolicy()">{{'SAVE'|translate}}</waseel-button>
+</div>

@@ -1,0 +1,5 @@
+--liquibase formatted sql
+
+--changeset PBMNotification:0003
+
+ALTER TABLE EMAIL_SMS_AUDITLOG MODIFY (UNIFONIC_TIME_CREATED VARCHAR2(50 BYTE));

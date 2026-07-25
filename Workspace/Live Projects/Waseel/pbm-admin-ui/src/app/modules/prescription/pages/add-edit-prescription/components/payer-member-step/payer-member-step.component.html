@@ -1,0 +1,123 @@
+<form class="bg-white p-24 rounded-[8px] shadow-1 mb-32" [formGroup]="payerMemberFormGroup">
+    <div class="row">
+        <div class="col-6">
+            <div class="group">
+                <waseel-select-with-search [label]="'customization.payer'|translate" formControlName="payerId" endAdornment="search" [placeholder]="'SEARCH-PLACEHOLDER'|translate"
+                    [options]="storeService.payers" [disabled]="storeService.payers.length == 1 || (storeService.state$ | async)?.mode ==  'followUp'"></waseel-select-with-search>
+            </div>
+
+        </div>
+
+        <div class="col-6">
+            <div class="row small-gutter">
+                <div class="col">
+                    <div class="group">
+                        <waseel-textbox [label]="'MEMBER-BENEFICIARY'|translate" formControlName="member" (onSearch)="checkNumberType($event)"
+                            (keydown.space)="$event.preventDefault();"
+                            [error]="payerMemberFormGroup.get('member')?.dirty && (payerMemberFormGroup.get('member')?.invalid)? ('prescription.memberRequired' | translate) :''"
+                            [placeholder]="'SEARCH-PLACEHOLDER'|translate" endAdornment="search" [disabled]="(storeService.state$ | async)?.mode ==  'followUp'" [minLength]="10"
+                            [maxLength]="10" (ngModelChange)="cleareMemberInfo($event)"></waseel-textbox>
+
+                        <!-- <div class="relative none group-focus-within:block" *ngIf="((prescriptionLOVs.memberList$ |async)?.length || 0) > 0">
+                            <div
+                                class="absolute hidden max-h-[300px] overflow-auto group-focus-within:block rounded-[8px] shadow-4 bg-white dark:bg-neutral-800 left-0 top-[calc(100%-16px)] right-0 z-[5]">
+                                <ul class="!py-4">
+                                    <li *ngFor="let memberInfo of (prescriptionLOVs.memberList$ |async)" class="border-b border-b-border last:border-0">
+                                        <button
+                                            class="w-full text-start px-16 block py-10 body-2 text-text dark:text-neutral-25 system-transition hover:bg-neutral-50 dark:hover:bg-neutral-700 focus:bg-neutral-50 dark:focus:bg-neutral-700 active:bg-neutral-50 dark:active:bg-neutral-700"
+                                            (click)="selectMember(memberInfo)">
+                                            <span class="body-2-medium block" *ngIf="memberInfo.memberName">{{memberInfo.memberName}}</span>
+                                            <span class="body-2 text-secondary" *ngIf="memberInfo.idNumber">{{memberInfo.idNumber}}</span>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="group">
+                        <label class="body-2 block !pb-4">
+                            &nbsp;
+                        </label>
+                        <waseel-button
+                            [disabled]="memberField!.invalid || memberField!.value.length < 10 || memberField!.value.length > 10 || (storeService.state$ | async)?.mode ==  'followUp'"
+                            (click)="getMemberInfo($event)">{{'main.search'|translate}}</waseel-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="group">
+                <waseel-textbox [label]="'CLINICIAN'|translate" endAdornment="search" [placeholder]="'SEARCH-PLACEHOLDER'|translate"
+                    [error]="payerMemberFormGroup.get('clinician')?.dirty && (payerMemberFormGroup.get('clinician')?.invalid)? ('prescription.clinicianRequried' | translate): ''"
+                    (onSearch)="getPhysicians($event)" formControlName="clinician" autocomplete="off"
+                    [disabled]="(storeService.state$ | async)?.mode ==  'followUp'"></waseel-textbox>
+                <div class="relative none group-focus-within:block" *ngIf="((prescriptionLOVs.physiciansList$ |async)?.length || 0) > 0">
+                    <div
+                        class="absolute hidden max-h-[300px] overflow-auto group-focus-within:block rounded-[8px] shadow-4 bg-white dark:bg-neutral-800 left-0 top-[calc(100%-16px)] right-0 z-[5]">
+                        <ul class="!py-4">
+                            <li *ngFor="let physicianInfo of (prescriptionLOVs.physiciansList$ | async)" class="border-b border-b-border last:border-0">
+                                <button
+                                    class="w-full text-start px-16 block py-10 body-2 text-text dark:text-neutral-25 system-transition hover:bg-neutral-50 dark:hover:bg-neutral-700 focus:bg-neutral-50 dark:focus:bg-neutral-700 active:bg-neutral-50 dark:active:bg-neutral-700"
+                                    (click)="selectPhysician(physicianInfo)">
+                                    <span class="flex">
+                                        <span>
+                                            <span class="body-2-medium block" *ngIf="physicianInfo.name">{{physicianInfo.name}}</span>
+                                            <span class="body-2 text-secondary" *ngIf="physicianInfo.registrationNumber">{{physicianInfo.registrationNumber}}</span>
+                                        </span>
+                                        <span class="ltr:ml-auto rtl:mr-auto body-2 text-secondary ltr:text-right rtl:text-left">
+                                            <ng-container *ngIf="physicianInfo.category">{{physicianInfo.category}}<br /></ng-container><ng-container
+                                                *ngIf="physicianInfo.physicianSpeciality">{{physicianInfo.physicianSpeciality}}</ng-container>
+                                        </span>
+                                    </span>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="group">
+                <waseel-select [label]="'CASE-TYPE'|translate" [placeholder]="'SELECT'|translate"
+                    [error]="payerMemberFormGroup.get('caseType')?.dirty && (payerMemberFormGroup.get('caseType')?.invalid)? ('prescription.caseTypeRequried' | translate): ''"
+                    formControlName="caseType" [disabled]=" ( storeService.state$ | async)?.mode ==  'followUp'" name="caseType" [options]="storeService.caseType"
+                    (ngModelChange)="selectCaseType($event)"></waseel-select>
+            </div>
+
+        </div>
+    </div>
+    <div class="bg-light-grey p-16 pb-0 mt-8 rounded-[8px]" *ngIf="storeService.selectedMemberInfo">
+        <p class="subtitle-1 pb-16">{{'MEMBER-INFO'|translate}}</p>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="pb-16">
+                    <label class="body-2 text-secondary !pb-2">{{'NAME' |translate}}</label>
+                    <p class="body-1">{{storeService.selectedMemberInfo.memberName}}</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="pb-16">
+                    <label class="body-2 text-secondary !pb-2">{{'GENDER' |translate}}</label>
+                    <p class="body-1">{{storeService.selectedMemberInfo.gender}}</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="pb-16">
+                    <label class="body-2 text-secondary !pb-2">{{'DOB' |translate}}</label>
+                    <p class="body-1">{{storeService.selectedMemberInfo.dob }}</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="pb-16">
+                    <label class="body-2 text-secondary !pb-2">{{'AGE' |translate}}</label>
+                    <p class="body-1">{{storeService.selectedMemberInfo.age}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
