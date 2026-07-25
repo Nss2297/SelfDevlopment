@@ -1,6 +1,0 @@
---liquibase formatted sql
-
---changeset PBM Scheduler Service:0004
-
-ALTER TABLE PBM_BUSINESS_RULES.CLASS_BENEFITS
-MODIFY BENEFIT_CODE VARCHAR2(50);

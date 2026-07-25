@@ -1,6 +1,0 @@
---liquibase formatted sql
-
---changeset PBM Scheduler Service:0006
-
-ALTER TABLE PBM_BUSINESS_RULES.BENEFIT_SUBCOVERAGE
-MODIFY SUBCOVERAGE_CODE VARCHAR2(50);

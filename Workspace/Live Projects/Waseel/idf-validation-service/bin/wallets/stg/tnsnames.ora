@@ -1,9 +1,0 @@
-adbstage_high = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.me-jeddah-1.oraclecloud.com))(connect_data=(service_name=lxewltowknuqg5w_adbstage_high.adb.oraclecloud.com))(security=(ssl_server_cert_dn="CN=adb.me-jeddah-1.oraclecloud.com, OU=Oracle ADB JEDDAH, O=Oracle Corporation, L=Redwood City, ST=California, C=US")))
-
-adbstage_low = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.me-jeddah-1.oraclecloud.com))(connect_data=(service_name=lxewltowknuqg5w_adbstage_low.adb.oraclecloud.com))(security=(ssl_server_cert_dn="CN=adb.me-jeddah-1.oraclecloud.com, OU=Oracle ADB JEDDAH, O=Oracle Corporation, L=Redwood City, ST=California, C=US")))
-
-adbstage_medium = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.me-jeddah-1.oraclecloud.com))(connect_data=(service_name=lxewltowknuqg5w_adbstage_medium.adb.oraclecloud.com))(security=(ssl_server_cert_dn="CN=adb.me-jeddah-1.oraclecloud.com, OU=Oracle ADB JEDDAH, O=Oracle Corporation, L=Redwood City, ST=California, C=US")))
-
-adbstage_tp = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.me-jeddah-1.oraclecloud.com))(connect_data=(service_name=lxewltowknuqg5w_adbstage_tp.adb.oraclecloud.com))(security=(ssl_server_cert_dn="CN=adb.me-jeddah-1.oraclecloud.com, OU=Oracle ADB JEDDAH, O=Oracle Corporation, L=Redwood City, ST=California, C=US")))
-
-adbstage_tpurgent = (description= (retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.me-jeddah-1.oraclecloud.com))(connect_data=(service_name=lxewltowknuqg5w_adbstage_tpurgent.adb.oraclecloud.com))(security=(ssl_server_cert_dn="CN=adb.me-jeddah-1.oraclecloud.com, OU=Oracle ADB JEDDAH, O=Oracle Corporation, L=Redwood City, ST=California, C=US")))

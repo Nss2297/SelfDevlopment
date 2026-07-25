@@ -1,6 +1,0 @@
---liquibase formatted sql
-
---changeset PBM Scheduler Service:0003
-
-ALTER TABLE PBM_BUSINESS_RULES.POLICY_INFORMATION 
- MODIFY TPA_ID VARCHAR2(20) NULL;

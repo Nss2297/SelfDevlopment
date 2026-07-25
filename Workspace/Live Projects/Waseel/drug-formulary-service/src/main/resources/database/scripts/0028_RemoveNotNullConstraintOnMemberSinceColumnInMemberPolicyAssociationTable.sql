@@ -1,5 +1,0 @@
---liquibase formatted sql
-
---changeset Drug Formulary Service:0028
-
-ALTER TABLE PBM_BUSINESS_RULES.MEMBER_POLICY_ASSOCIATION MODIFY (MEMBER_SINCE NULL);

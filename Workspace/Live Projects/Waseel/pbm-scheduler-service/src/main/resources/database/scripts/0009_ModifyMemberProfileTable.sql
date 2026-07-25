@@ -1,6 +1,0 @@
---liquibase formatted sql
-
---changeset PBM Scheduler Service:0009
-
-ALTER TABLE PBM_BUSINESS_RULES.MEMBER_PROFILE
-ADD (MARITAL_STATUS VARCHAR2(30) NULL);
