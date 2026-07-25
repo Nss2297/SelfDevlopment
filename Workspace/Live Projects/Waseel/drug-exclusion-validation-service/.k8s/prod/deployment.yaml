@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: drug-exclusion-validation-service
+  namespace: pbm-prod
+  labels:
+    app: drug-exclusion-validation-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: drug-exclusion-validation-service
+  template:
+    metadata:
+      labels:
+        app: drug-exclusion-validation-service
+    spec:
+      containers:
+        - name: drug-exclusion-validation-service-prod-container
+          image: me-jeddah-1.ocir.io/ax7dvcawpc84/pbm/prod/drug-exclusion-validation-service:latest
+          env:
+          - name: TZ
+            value: Asia/Riyadh
+          - name: PBM_BUSINESS_RULES_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: db-secrets
+                key: PBM_BUSINESS_RULES_USERNAME
+          - name: PBM_BUSINESS_RULES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: db-secrets
+                key: PBM_BUSINESS_RULES_PASSWORD
+          ports:
+          - containerPort: 8080
+      imagePullSecrets:
+        - name: waseel-docker-registry-cred
