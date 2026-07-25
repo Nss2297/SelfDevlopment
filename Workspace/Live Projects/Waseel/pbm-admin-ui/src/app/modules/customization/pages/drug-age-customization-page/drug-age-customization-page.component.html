@@ -1,0 +1,103 @@
+<app-base-page headerTitle="{{'DRUG-AGE-CUSTOMIZATION' | translate}}">
+    <div page-main-section
+         class="pb-24 pt-88 system-transition main-content">
+        <div class="bg-white dark:bg-neutral-800 shadow-1 rounded-[8px]">
+            <list-view [list]="data"
+                       [extraClasses]="getExtraClassesForListView()"
+                       [prototype]="listPrototype"
+                       [translateData]="[':4']"
+                       [isLoading]="listIsLoading"
+                       (onNext)="drugagedataControl.pageNumber = $event.pageNumber; fetchData()"
+                       (onPrevious)="drugagedataControl.pageNumber = $event.pageNumber; fetchData()"
+                       [noContentTitle]="'NO-RECORDS-FOUND'|translate"
+                       (onDelete)="deleteData($event.id)"
+                       [customCells]="{fromAgeInDays:ageView}"
+                       (onSizeChange)="drugagedataControl.recordSize = $event.pageSize; drugagedataControl.pageNumber=0; fetchData()"
+                       (onItemClick)="openViewDrugAgeDialog($event.id)"
+                       (onEdit)="openEditDrugAgeDialog($event.id)"></list-view>
+            <ng-template #ageView
+                         let-row="row">
+                {{row.fromAgeInDays}}-{{row.toAgeInDays}}
+            </ng-template>
+        </div>
+    </div>
+    <ng-container header-actions>
+        <waseel-button variant="tonal"
+                       icon="left"
+                       class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                       iconName="filter"
+                       (onClick)="isFilterDrawerOpen=true">{{'FILTER' |
+            translate}}</waseel-button>
+        <waseel-button icon="left"
+                       iconName="add"
+                       class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                       (onClick)=" openAddDrugAgeDialog()">{{'ADD' |translate}}</waseel-button>
+        
+        <waseel-button icon="left"
+                       iconName="upload"
+                       class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                       (click)="uploadDrugAgeDialogOpen=true">{{'UPLOAD' |
+            translate}}</waseel-button>
+    </ng-container>
+</app-base-page>
+
+<form [formGroup]="filterForm"
+      (submit)="applyFilter()">
+    <waseel-drawer title="FILTER"
+                   [(isOpen)]="isFilterDrawerOpen">
+        <ng-container body-block>
+            <waseel-select-with-search name="serviceCode"
+                                       formControlName="serviceCode"
+                                       [label]="'customization.serviceCode' | translate"
+                                       [options]="(lovService.drugsList$ | async) || []"
+                                       [placeholder]="'SELECT' | translate"
+                                       (onSearch)="filterDrugs($event)"></waseel-select-with-search>
+
+            <waseel-select *ifHasAnyAllowedAuthority="['101;PBM_ADMIN',]"
+                           name="payerId"
+                           formControlName="payerId"
+                           [label]="'customization.payer' | translate"
+                           [options]="(lovService.payersList$ | async) || []"
+                           [placeholder]="'SELECT' | translate"></waseel-select>
+            <waseel-select name="serviceStatus"
+                           formControlName="serviceStatus"
+                           [label]="'customization.serviceStatus' | translate"
+                           [options]="(lovService.drugsStatuses$ | async) || []"
+                           [placeholder]="'SELECT' | translate"></waseel-select>
+            <waseel-select name="moduleName"
+                           formControlName="moduleName"
+                           [label]="'customization.module' | translate"
+                           [options]="(lovService.modulesList$ | async) || []"
+                           [placeholder]="'SELECT' | translate"></waseel-select>
+
+        </ng-container>
+        <div class="flex justify-end py-12 px-16 items-center border-t border-t-light-border dark:border-t-neutral-600 flex-shrink-0"
+             footer-block>
+            <waseel-button variant="tonal"
+                           type="button"
+                           class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                           (onClick)="resetFilter()">{{'RESET' | translate}}</waseel-button>
+            <waseel-button class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                           type="submit"
+                           (onClick)="applyFilter()">{{'FILTER' | translate}}</waseel-button>
+        </div>
+    </waseel-drawer>
+</form>
+<waseel-dialog (onClose)="closeAddDrugAgeDialog($event)"
+               *ngIf="addEditDrugAgeDialogOpen">
+    <app-add-edit-drug-age-customization [data]="drugAgeDialogsData"
+                                         [dialogMode]="addEditDrugAgeDialogMode"
+                                         (onClose)="closeAddDrugAgeDialog($event)"></app-add-edit-drug-age-customization>
+</waseel-dialog>
+
+<waseel-dialog (onClose)="closeUploadDrugAgeDialog($event)"
+               *ngIf="uploadDrugAgeDialogOpen">
+    <app-upload-drug-age-customization-dialog
+                                              [onClose]="closeUploadDrugAgeDialog"></app-upload-drug-age-customization-dialog>
+</waseel-dialog>
+
+<waseel-dialog (onClose)="closeViewDrugAgeDialog($event)"
+               *ngIf="viewDrugAgeDialogOpen">
+    <app-view-drug-age-customization-dialog [data]="drugAgeDialogsData "
+                                            [onClose]="closeViewDrugAgeDialog"></app-view-drug-age-customization-dialog>
+</waseel-dialog>

@@ -1,0 +1,532 @@
+{
+	"info": {
+		"_postman_id": "25e3b874-de87-488e-8530-f941bb04b566",
+		"name": "Tawuniya Apis",
+		"description": "version=1.2 - Mocking collection for payer-side",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8786061",
+		"_collection_link": "https://universal-water-232614.postman.co/workspace/PBM~7b532ad4-485c-41e6-98df-f9156e933085/collection/8786061-25e3b874-de87-488e-8530-f941bb04b566?action=share&source=collection_link&creator=8786061"
+	},
+	"item": [
+		{
+			"name": "Member details",
+			"item": [
+				{
+					"name": "Member-demographic-data",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Sender-Code",
+								"value": "101",
+								"type": "default"
+							},
+							{
+								"key": "Receiver-Code",
+								"value": "{{payer-id-in-waseel-system}}",
+								"type": "default"
+							},
+							{
+								"key": "Time-Stamp",
+								"value": "YYYY-MM-DDThh:mm<TZDSuffix>",
+								"type": "default"
+							},
+							{
+								"key": "Direction",
+								"value": "REQUEST",
+								"type": "default"
+							},
+							{
+								"key": "Transaction-Id",
+								"value": "{{transaction id in waseel system }}",
+								"type": "default"
+							},
+							{
+								"key": "API-Key",
+								"value": "{{Key Provided By Insurance Company }}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "https://pbm.waseel.com/member/demographic?idNumber={{idNumber}}",
+							"protocol": "https",
+							"host": [
+								"pbm",
+								"waseel",
+								"com"
+							],
+							"path": [
+								"member",
+								"demographic"
+							],
+							"query": [
+								{
+									"key": "idNumber",
+									"value": "{{idNumber}}"
+								},
+								{
+									"key": "memberId",
+									"value": "{{memberId}}",
+									"disabled": true
+								},
+								{
+									"key": "policyNumber",
+									"value": "{{policyNumber}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Member-demographic-data",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "https://pbm.waseel.com/member/demographic?idNumber={{idNumber}}",
+									"protocol": "https",
+									"host": [
+										"pbm",
+										"waseel",
+										"com"
+									],
+									"path": [
+										"member",
+										"demographic"
+									],
+									"query": [
+										{
+											"key": "idNumber",
+											"value": "{{idNumber}}"
+										},
+										{
+											"key": "memberId",
+											"value": "{{memberId}}",
+											"disabled": true
+										},
+										{
+											"key": "policyNumber",
+											"value": "{{policyNumber}}",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"memberName\": \"Hashim Ibrahim\",\n  \"idNumber\": 2392019564,\n  \"gender\": \"male\",\n  \"dateOfBirth\": \"05-07-1994\",\n  \"maritalStatus\": \"\",\n  \"nationality\": \"saudi\",\n  \"mobileNumber\": \"00966504831270\",\n  \"email\": \"ebrahimha@waseel.com\",\n  \"policyInformation\": [\n    {\n      \"policyNumber\": \"24735173\",\n      \"policyHolderName\": \"Marissa Wagner\",\n      \"memberId\": \"001014523658001\",\n      \"classCode\": \"1-VVIP-Network Gold\",\n      \"className\": \"1-VVIP-Network Gold\",\n      \"isChiPolicy\": true\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Member-member-details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "https://pbm.waseel.com/member/details?idNumber={{idNumber}}",
+							"protocol": "https",
+							"host": [
+								"pbm",
+								"waseel",
+								"com"
+							],
+							"path": [
+								"member",
+								"details"
+							],
+							"query": [
+								{
+									"key": "idNumber",
+									"value": "{{idNumber}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Member-member-details - 200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "https://pbm.waseel.com/member/details?idNumber={{idNumber}}",
+									"protocol": "https",
+									"host": [
+										"pbm",
+										"waseel",
+										"com"
+									],
+									"path": [
+										"member",
+										"details"
+									],
+									"query": [
+										{
+											"key": "idNumber",
+											"value": "{{idNumber}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"memberName\": \"Hashim Ibrahim\",\n    \"idNumber\": 2392019564,\n    \"gender\": \"male\",\n    \"dateOfBirth\": \"05-071-1994\",\n    \"maritalStatus\": \"\",\n    \"nationality\": \"saudi\",\n    \"mobileNumber\": \"00966504831270\",\n    \"email\": \"ebrahimha@waseel.com\",\n    \"policyInformation\": [\n        {\n            \"policyNumber\": \"24735173\",\n            \"policyHolderName\": \"Marissa Wagner\",\n            \"memberId\": \"001014523658001\",\n            \"memberType\": \"PRINCIPAL\",\n            \"policyClass\": \"GL/BS\",\n            \"planType\": \"Gold B\",\n            \"memberSince\": \"23-08-2022\",\n            \"expiryDate\": \"22-08-2023\",\n            \"remainingLimitValue\": 15000,\n            \"remainingLimitCurrency\": \"SAR\",\n            \"isChiPolicy\": true,\n            \"classBenefits\": [\n                {\n                    \"benefitCode\": \"Pregnancy/Delivery and Miscarriage Benefit\",\n                    \"benefitDescription\": \"Pregnancy/Delivery and Miscarriage Benefit\",\n                    \"benefitLimitCurrency\": \"SAR\",\n                    \"maxPatientShareCurrency\": \"SAR\",\n                    \"maxConsultationFeeCurrency\": \"SAR\",\n                    \"approvalThresholdCurrency\": \"SAR\",\n                    \"benefitLimitValue\": 500000,\n                    \"maxPatientShareValue\": 100,\n                    \"maxConsultationFeeValue\": 500,\n                    \"approvalThresholdValue\": 10000,\n                    \"patientShareValue\": \"20\",\n                    \"patientShareCurrency\": \"SAR\",\n                    \"remainingLimitValue\": 988920,\n                    \"remainingLimitCurrency\": \"SAR\",\n                    \"benefitCases\": [\n                        {\n                            \"caseCode\": \"INPATIENT\",\n                            \"patientShareValue\": \"0\",\n                            \"patientShareCurrency\": \"SAR\",\n                            \"maxPatientShareValue\": 0,\n                            \"maxPatientShareCurrency\": \"SAR\",\n                            \"maxConsultationFeeValue\": 0,\n                            \"maxConsultationFeeCurrency\": \"SAR\",\n                            \"approvalThresholdValue\": 10000,\n                            \"approvalThresholdCurrency\": \"SAR\"\n                        },\n                        {\n                            \"caseCode\": \"OUTPATIENT\",\n                            \"patientShareValue\": \"20\",\n                            \"patientShareCurrency\": \"SAR\",\n                            \"maxPatientShareValue\": 100,\n                            \"maxPatientShareCurrency\": \"SAR\",\n                            \"maxConsultationFeeValue\": 500,\n                            \"maxConsultationFeeCurrency\": \"SAR\",\n                            \"approvalThresholdValue\": 10000,\n                            \"approvalThresholdCurrency\": \"SAR\"\n                        },\n                        {\n                            \"caseCode\": \"Generics and Irreplacable Brands\",\n                            \"patientShareValue\": \"20\",\n                            \"patientShareCurrency\": \"SAR\",\n                            \"maxPatientShareValue\": 200,\n                            \"maxPatientShareCurrency\": \"SAR\",\n                            \"maxConsultationFeeValue\": 0,\n                            \"maxConsultationFeeCurrency\": \"SAR\",\n                            \"approvalThresholdValue\": 0,\n                            \"approvalThresholdCurrency\": \"SAR\"\n                        },\n                        {\n                            \"caseCode\": \"Replaceable Brand\",\n                            \"patientShareValue\": \"20\",\n                            \"patientShareCurrency\": \"SAR\",\n                            \"maxPatientShareValue\": 200,\n                            \"maxPatientShareCurrency\": \"SAR\",\n                            \"maxConsultationFeeValue\": 0,\n                            \"maxConsultationFeeCurrency\": \"SAR\",\n                            \"approvalThresholdValue\": 0,\n                            \"approvalThresholdCurrency\": \"SAR\"\n                        }\n                    ]\n                },\n                {\n                    \"benefitCode\": \"Dental Benefit\",\n                    \"benefitDescription\": \"Dental Benefit\",\n                    \"benefitLimitCurrency\": \"SAR\",\n                    \"maxPatientShareCurrency\": \"SAR\",\n                    \"maxConsultationFeeCurrency\": \"SAR\",\n                    \"approvalThresholdCurrency\": \"SAR\",\n                    \"benefitLimitValue\": 3000,\n                    \"maxPatientShareValue\": 100,\n                    \"maxConsultationFeeValue\": 500,\n                    \"approvalThresholdValue\": 1,\n                    \"patientShareValue\": \"20\",\n                    \"patientShareCurrency\": \"SAR\",\n                    \"remainingLimitValue\": 988920,\n                    \"remainingLimitCurrency\": \"SAR\",\n                    \"benefitCases\": [\n                        {\n                            \"caseCode\": \"INPATIENT\",\n                            \"patientShareValue\": \"0\",\n                            \"patientShareCurrency\": \"SAR\",\n                            \"maxPatientShareValue\": 0,\n                            \"maxPatientShareCurrency\": \"SAR\",\n                            \"maxConsultationFeeValue\": 0,\n                            \"maxConsultationFeeCurrency\": \"SAR\",\n                            \"approvalThresholdValue\": 10000,\n                            \"approvalThresholdCurrency\": \"SAR\"\n                        },\n                        {\n                            \"caseCode\": \"OUTPATIENT\",\n                            \"patientShareValue\": \"20\",\n                            \"patientShareCurrency\": \"SAR\",\n                            \"maxPatientShareValue\": 100,\n                            \"maxPatientShareCurrency\": \"SAR\",\n                            \"maxConsultationFeeValue\": 500,\n                            \"maxConsultationFeeCurrency\": \"SAR\",\n                            \"approvalThresholdValue\": 1,\n                            \"approvalThresholdCurrency\": \"SAR\"\n                        },\n                        {\n                            \"caseCode\": \"Generics and Irreplacable Brands\",\n                            \"patientShareValue\": \"20\",\n                            \"patientShareCurrency\": \"SAR\",\n                            \"maxPatientShareValue\": 200,\n                            \"maxPatientShareCurrency\": \"SAR\",\n                            \"maxConsultationFeeValue\": 0,\n                            \"maxConsultationFeeCurrency\": \"SAR\",\n                            \"approvalThresholdValue\": 0,\n                            \"approvalThresholdCurrency\": \"SAR\"\n                        },\n                        {\n                            \"caseCode\": \"Replaceable Brand\",\n                            \"patientShareValue\": \"30\",\n                            \"patientShareCurrency\": \"SAR\",\n                            \"maxPatientShareValue\": 2000,\n                            \"maxPatientShareCurrency\": \"SAR\",\n                            \"maxConsultationFeeValue\": 0,\n                            \"maxConsultationFeeCurrency\": \"SAR\",\n                            \"approvalThresholdValue\": 0,\n                            \"approvalThresholdCurrency\": \"SAR\"\n                        }\n                    ]\n                },\n                {\n                    \"benefitCode\": \"Visual Aid Benefit (w/ Frames)\",\n                    \"benefitDescription\": \"Visual Aid Benefit (w/ Frames)\",\n                    \"benefitLimitCurrency\": \"SAR\",\n                    \"maxPatientShareCurrency\": \"SAR\",\n                    \"maxConsultationFeeCurrency\": \"SAR\",\n                    \"approvalThresholdCurrency\": \"SAR\",\n                    \"benefitLimitValue\": 1500,\n                    \"maxPatientShareValue\": 100,\n                    \"maxConsultationFeeValue\": 500,\n                    \"approvalThresholdValue\": 1,\n                    \"patientShareValue\": \"20\",\n                    \"patientShareCurrency\": \"SAR\",\n                    \"remainingLimitValue\": 988920,\n                    \"remainingLimitCurrency\": \"SAR\",\n                    \"benefitCases\": [\n                        {\n                            \"caseCode\": \"INPATIENT\",\n                            \"patientShareValue\": \"0\",\n                            \"patientShareCurrency\": \"SAR\",\n                            \"maxPatientShareValue\": 0,\n                            \"maxPatientShareCurrency\": \"SAR\",\n                            \"maxConsultationFeeValue\": 0,\n                            \"maxConsultationFeeCurrency\": \"SAR\",\n                            \"approvalThresholdValue\": 10000,\n                            \"approvalThresholdCurrency\": \"SAR\"\n                        },\n                        {\n                            \"caseCode\": \"OUTPATIENT\",\n                            \"patientShareValue\": \"20\",\n                            \"patientShareCurrency\": \"SAR\",\n                            \"maxPatientShareValue\": 100,\n                            \"maxPatientShareCurrency\": \"SAR\",\n                            \"maxConsultationFeeValue\": 500,\n                            \"maxConsultationFeeCurrency\": \"SAR\",\n                            \"approvalThresholdValue\": 1,\n                            \"approvalThresholdCurrency\": \"SAR\"\n                        },\n                        {\n                            \"caseCode\": \"Generics and Irreplacable Brands\",\n                            \"patientShareValue\": \"15\",\n                            \"patientShareCurrency\": \"SAR\",\n                            \"maxPatientShareValue\": 150,\n                            \"maxPatientShareCurrency\": \"SAR\",\n                            \"maxConsultationFeeValue\": 0,\n                            \"maxConsultationFeeCurrency\": \"SAR\",\n                            \"approvalThresholdValue\": 0,\n                            \"approvalThresholdCurrency\": \"SAR\"\n                        },\n                        {\n                            \"caseCode\": \"Replaceable Brand\",\n                            \"patientShareValue\": \"30\",\n                            \"patientShareCurrency\": \"SAR\",\n                            \"maxPatientShareValue\": 2000,\n                            \"maxPatientShareCurrency\": \"SAR\",\n                            \"maxConsultationFeeValue\": 0,\n                            \"maxConsultationFeeCurrency\": \"SAR\",\n                            \"approvalThresholdValue\": 0,\n                            \"approvalThresholdCurrency\": \"SAR\"\n                        }\n                    ]\n                },\n                {\n                    \"benefitCode\": \"Basic Medical Benefit\",\n                    \"benefitDescription\": \"Basic Medical Benefit\",\n                    \"benefitLimitCurrency\": \"SAR\",\n                    \"maxPatientShareCurrency\": \"SAR\",\n                    \"maxConsultationFeeCurrency\": \"SAR\",\n                    \"approvalThresholdCurrency\": \"SAR\",\n                    \"benefitLimitValue\": 1000000,\n                    \"maxPatientShareValue\": 100,\n                    \"maxConsultationFeeValue\": 500,\n                    \"approvalThresholdValue\": 10000,\n                    \"patientShareValue\": \"20\",\n                    \"patientShareCurrency\": \"SAR\",\n                    \"remainingLimitValue\": 988920,\n                    \"remainingLimitCurrency\": \"SAR\",\n                    \"benefitCases\": [\n                       {\n                            \"caseCode\": \"INPATIENT\",\n                            \"patientShareValue\": \"0\",\n                            \"patientShareCurrency\": \"SAR\",\n                            \"maxPatientShareValue\": 0,\n                            \"maxPatientShareCurrency\": \"SAR\",\n                            \"maxConsultationFeeValue\": 0,\n                            \"maxConsultationFeeCurrency\": \"SAR\",\n                            \"approvalThresholdValue\": 10000,\n                            \"approvalThresholdCurrency\": \"SAR\"\n                        },\n                        {\n                            \"caseCode\": \"OUTPATIENT\",\n                            \"patientShareValue\": \"20\",\n                            \"patientShareCurrency\": \"SAR\",\n                            \"maxPatientShareValue\": 100,\n                            \"maxPatientShareCurrency\": \"SAR\",\n                            \"maxConsultationFeeValue\": 500,\n                            \"maxConsultationFeeCurrency\": \"SAR\",\n                            \"approvalThresholdValue\": 10000,\n                            \"approvalThresholdCurrency\": \"SAR\"\n                        },\n                        {\n                            \"caseCode\": \"Generics and Irreplacable Brands\",\n                            \"patientShareValue\": \"15\",\n                            \"patientShareCurrency\": \"SAR\",\n                            \"maxPatientShareValue\": 150,\n                            \"maxPatientShareCurrency\": \"SAR\",\n                            \"maxConsultationFeeValue\": 0,\n                            \"maxConsultationFeeCurrency\": \"SAR\",\n                            \"approvalThresholdValue\": 0,\n                            \"approvalThresholdCurrency\": \"SAR\"\n                        },\n                       {\n                            \"caseCode\": \"Replaceable Brand\",\n                            \"patientShareValue\": \"30\",\n                            \"patientShareCurrency\": \"SAR\",\n                            \"maxPatientShareValue\": 2000,\n                            \"maxPatientShareCurrency\": \"SAR\",\n                            \"maxConsultationFeeValue\": 0,\n                            \"maxConsultationFeeCurrency\": \"SAR\",\n                            \"approvalThresholdValue\": 0,\n                            \"approvalThresholdCurrency\": \"SAR\"\n                        }\n                    ]\n                }\n            ]\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Policy details",
+			"item": [
+				{
+					"name": "policy-details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default"
+							},
+							{
+								"key": "Sender-Code",
+								"value": "101",
+								"type": "default"
+							},
+							{
+								"key": "Receiver-Code",
+								"value": "{{payer-id-in-waseel-system}}",
+								"type": "default"
+							},
+							{
+								"key": "Time-Stamp",
+								"value": "YYYY-MM-DDThh:mm<TZDSuffix>",
+								"type": "default"
+							},
+							{
+								"key": "Direction",
+								"value": "REQUEST",
+								"type": "default"
+							},
+							{
+								"key": "Transaction-Id",
+								"value": "{{transaction id in waseel system }}",
+								"type": "default"
+							},
+							{
+								"key": "API-Key",
+								"value": "{{Key Provided By Insurance Company }}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "https://pbm.waseel.com/policies/:policyNumber",
+							"protocol": "https",
+							"host": [
+								"pbm",
+								"waseel",
+								"com"
+							],
+							"path": [
+								"policies",
+								":policyNumber"
+							],
+							"variable": [
+								{
+									"key": "policyNumber",
+									"value": "24735173"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "policy-details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "default"
+									}
+								],
+								"url": {
+									"raw": "https://pbm.waseel.com/policies/:policyNumber",
+									"protocol": "https",
+									"host": [
+										"pbm",
+										"waseel",
+										"com"
+									],
+									"path": [
+										"policies",
+										":policyNumber"
+									],
+									"variable": [
+										{
+											"key": "policyNumber",
+											"value": "24735173"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"policyMetadata\": {\n    \"policyNumber\": \"24735173\",\n    \"policyHolderName\": \"Marissa Wagner\",\n    \"policyType\": \"CORPORATE\",\n    \"issueDate\": \"03-05-23\",\n    \"startDate\": \"01-06-23\",\n    \"endDate\": \"01-06-24\",\n    \"isChiPolicy\": true,\n    \"policyClasses\": [\n      {\n        \"classCode\": \"1-VVIP-Network Gold\",\n        \"className\": \"1-VVIP-Network Gold\"\n      }\n    ]\n  }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "ePrescription",
+			"item": [
+				{
+					"name": "ePrescription",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Sender-Code",
+								"value": "101",
+								"type": "default"
+							},
+							{
+								"key": "Receiver-Code",
+								"value": "{{payer-id-in-waseel-system}}",
+								"type": "default"
+							},
+							{
+								"key": "Transaction-Id",
+								"value": "{{transaction id in waseel system }}",
+								"type": "default"
+							},
+							{
+								"key": "Direction",
+								"value": "REQUEST",
+								"type": "default"
+							},
+							{
+								"key": "API-Key",
+								"value": "{{Key Provided By Insurance Company }}",
+								"type": "text"
+							},
+							{
+								"key": "Time-Stamp",
+								"value": "YYYY-MM-DDThh:mm<TZDSuffix>",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"requestType\": \"NEW\",\r\n    \"caseType\": \"INPATIENT\",\r\n    \"ePrescriptionReferenceNumber\": \"2023-3300\",\r\n    \"ePrescriptionStatus\": \"PENDING\",\r\n    \"ePrescriptionStatusDescription\": \"\",\r\n    \"payerId\": \"102\",\r\n    \"providerId\": \"601\",\r\n    \"memberName\": \"test 123\",\r\n    \"idNumber\": 2392019564,\r\n    \"dateOfBirth\": \"05/01/2023\",\r\n    \"policyNumber\": \"@GH12123\",\r\n    \"memberGender\": \"FEMALE\",\r\n    \"memberWeight\": 501.51,\r\n    \"memberHeight\": 999.10,\r\n    \"physicianLicenseNumber\": \"33\",\r\n    \"physicianSpeciality\": \"Anesthesia Cardiology\",\r\n    \"physicianName\": \"Dr. abc\",\r\n    \"physicianCategory\": \"GP\",\r\n    \"diagnosisCodes\": [\r\n        {\r\n            \"diagnosisCode\": \"F31.6\",\r\n            \"diagnosisType\": \"PRIMARY\"\r\n        },\r\n        {\r\n            \"diagnosisCode\": \"R25.2\",\r\n            \"diagnosisType\": \"SECONDARY\"\r\n        }\r\n    ],\r\n    \"drugList\": [\r\n        {\r\n            \"drugCode\": \"23-883-19\",\r\n            \"drugDescription\": \"CLEXANE 40MG or 0.4ML PREFILLED SYRINGE\",\r\n            \"scientificName\": \"ENOXAPARIN SODIUM\",\r\n            \"unitType\": \"package\",\r\n            \"quantity\": 4,\r\n            \"unitPrice\": 10,\r\n            \"orderingClinician\": \"33\",\r\n            \"duration\": 1,\r\n            \"frequency\": \"at-bed-time\",\r\n            \"serviceStartDate\": \"16/04/2029\",\r\n            \"serviceEndDate\": \"01/10/2025\",\r\n            \"useUnitValue\": 99,\r\n            \"pbmValidationResult\": {\r\n                \"requestedAmount\": 40.0,\r\n                \"approvedAmount\": 0,\r\n                \"status\": \"REJECTED\",\r\n                \"errors\": [\r\n                    {\r\n                        \" denialCode\": \"BR_DFDNF01\",\r\n                        \"rejectionReason\": \"31-277-98 is not part of the Drug formulary\"\r\n                    }\r\n                ]\r\n            }\r\n        },\r\n        {\r\n            \"drugCode\": \"31-277-98\",\r\n            \"drugDescription\": \"FLAZOL 500MG TAB\",\r\n            \"scientificName\": \"METRONIDAZOLE\",\r\n            \"unitType\": \"unit\",\r\n            \"quantity\": 3,\r\n            \"unitPrice\": 10,\r\n            \"orderingClinician\": \"33\",\r\n            \"duration\": 5,\r\n            \"frequency\": \"others\",\r\n            \"frequencyOthersDescription\": \"other descriptions\",\r\n            \"serviceStartDate\": \"03/06/2028\",\r\n            \"serviceEndDate\": \"01/10/2025\",\r\n            \"useUnitValue\": 45,\r\n            \"pbmValidationResult\": {\r\n                \"requestedAmount\": 30.0,\r\n                \"approvedAmount\": 0,\r\n                \"status\": \"APPROVED\",\r\n                \"errors\": []\r\n            }\r\n        }\r\n    ],\r\n    \"canCancel\": true,\r\n    \"canFollowUp\": true,\r\n    \"totalPrescriptionPrice\": 70,\r\n    \"totalPatientShareValue\": 12,\r\n    \"totalPatientShareCurrency\": \"SAR\",\r\n    \"totalPayerShareValue\": \"59\",\r\n    \"totalPayerShareCurrency\": \"SAR\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://pbm.waseel.com/eprescription",
+							"protocol": "https",
+							"host": [
+								"pbm",
+								"waseel",
+								"com"
+							],
+							"path": [
+								"eprescription"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "ePrescription - 200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Sender-Code",
+										"value": "101",
+										"type": "default"
+									},
+									{
+										"key": "Receiver-Code",
+										"value": "{{payer-id-in-waseel-system}}",
+										"type": "default"
+									},
+									{
+										"key": "Transaction-Id",
+										"value": "{{transaction id in waseel system }}",
+										"type": "default"
+									},
+									{
+										"key": "Direction",
+										"value": "REQUEST",
+										"type": "default"
+									},
+									{
+										"key": "API-Key",
+										"value": "",
+										"type": "default"
+									},
+									{
+										"key": "Time-Stamp",
+										"value": "",
+										"type": "default"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"requestType\": \"NEW\",\r\n    \"caseType\": \"INPATIENT\",\r\n    \"ePrescriptionReferenceNumber\": \"2023-3300\",\r\n    \"ePrescriptionStatus\": \"PENDING\",\r\n    \"ePrescriptionStatusDescription\": \"\",\r\n    \"payerId\": \"102\",\r\n    \"providerId\": \"601\",\r\n    \"memberName\": \"test 123\",\r\n    \"idNumber\": 2392019564,\r\n    \"dateOfBirth\": \"05/01/2023\",\r\n    \"policyNumber\": \"@GH12123\",\r\n    \"memberGender\": \"FEMALE\",\r\n    \"memberWeight\": 501.51,\r\n    \"memberHeight\": 999.10,\r\n    \"physicianLicenseNumber\": \"33\",\r\n    \"physicianSpeciality\": \"Anesthesia Cardiology\",\r\n    \"physicianName\": \"Dr. abc\",\r\n    \"physicianCategory\": \"GP\",\r\n    \"diagnosisCodes\": [\r\n        {\r\n            \"diagnosisCode\": \"F31.6\",\r\n            \"diagnosisType\": \"PRIMARY\"\r\n        },\r\n        {\r\n            \"diagnosisCode\": \"R25.2\",\r\n            \"diagnosisType\": \"SECONDARY\"\r\n        }\r\n    ],\r\n    \"drugList\": [\r\n        {\r\n            \"drugCode\": \"23-883-19\",\r\n            \"drugDescription\": \"CLEXANE 40MG or 0.4ML PREFILLED SYRINGE\",\r\n            \"scientificName\": \"ENOXAPARIN SODIUM\",\r\n            \"unitType\": \"package\",\r\n            \"quantity\": 4,\r\n            \"unitPrice\": 10,\r\n            \"orderingClinician\": \"33\",\r\n            \"duration\": 1,\r\n            \"frequency\": \"at-bed-time\",\r\n            \"serviceStartDate\": \"16/04/2029\",\r\n            \"serviceEndDate\": \"01/10/2025\",\r\n            \"useUnitValue\": 99,\r\n            \"pbmValidationResult\": {\r\n                \"requestedAmount\": 40.0,\r\n                \"approvedAmount\": 0,\r\n                \"status\": \"REJECTED\",\r\n                \"errors\": [\r\n                    {\r\n                        \" denialCode\": \"BR_DFDNF01\",\r\n                        \"rejectionReason\": \"31-277-98 is not part of the Drug formulary\"\r\n                    }\r\n                ]\r\n            }\r\n        },\r\n        {\r\n            \"drugCode\": \"31-277-98\",\r\n            \"drugDescription\": \"FLAZOL 500MG TAB\",\r\n            \"scientificName\": \"METRONIDAZOLE\",\r\n            \"unitType\": \"unit\",\r\n            \"quantity\": 3,\r\n            \"unitPrice\": 10,\r\n            \"orderingClinician\": \"33\",\r\n            \"duration\": 5,\r\n            \"frequency\": \"others\",\r\n            \"frequencyOthersDescription\": \"other descriptions\",\r\n            \"serviceStartDate\": \"03/06/2028\",\r\n            \"serviceEndDate\": \"01/10/2025\",\r\n            \"useUnitValue\": 45,\r\n            \"pbmValidationResult\": {\r\n                \"requestedAmount\": 30.0,\r\n                \"approvedAmount\": 0,\r\n                \"status\": \"APPROVED\",\r\n                \"errors\": []\r\n            }\r\n        }\r\n    ],\r\n    \"canCancel\": true,\r\n    \"canFollowUp\": true,\r\n    \"totalPrescriptionPrice\": 70,\r\n    \"totalPatientShareValue\": 12,\r\n    \"totalPatientShareCurrency\": \"SAR\",\r\n    \"totalPayerShareValue\": \"59\",\r\n    \"totalPayerShareCurrency\": \"SAR\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://pbm.waseel.com/eprescription",
+									"protocol": "https",
+									"host": [
+										"pbm",
+										"waseel",
+										"com"
+									],
+									"path": [
+										"eprescription"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n    \"ePrescriptionReferenceNumber\": \"2023-3300\",\n    \"approvalReferenceNumber\": \"101222222\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "ePrescriptionInquiry",
+			"item": [
+				{
+					"name": "EPrescription Inquiry",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://pbm.waseel.com/eprescription/inquiry?ePrescriptionReferenceNumber={{ePrescriptionReferenceNumber}}",
+							"protocol": "https",
+							"host": [
+								"pbm",
+								"waseel",
+								"com"
+							],
+							"path": [
+								"eprescription",
+								"inquiry"
+							],
+							"query": [
+								{
+									"key": "ePrescriptionReferenceNumber",
+									"value": "{{ePrescriptionReferenceNumber}}"
+								},
+								{
+									"key": "approvalReferenceNumber",
+									"value": "{{approvalReferenceNumber}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "EPrescription Inquiry -  200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://pbm.waseel.com/eprescription/inquiry?ePrescriptionReferenceNumber={{ePrescriptionReferenceNumber}}",
+									"protocol": "https",
+									"host": [
+										"pbm",
+										"waseel",
+										"com"
+									],
+									"path": [
+										"eprescription",
+										"inquiry"
+									],
+									"query": [
+										{
+											"key": "approvalReferenceNumber",
+											"value": "{{approvalReferenceNumber}}",
+											"disabled": true
+										},
+										{
+											"key": "ePrescriptionReferenceNumber",
+											"value": "{{ePrescriptionReferenceNumber}}"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [],
+							"cookie": [],
+							"body": "{\n  \"requestType\": \"NEW\",\n  \"caseType\": \"INPATIENT\",\n  \"ePrescriptionReferenceNumber\": \"2023-4643\",\n  \"ePrescriptionStatus\": \"PARTIAL_APPROVED\",\n  \"ePrescriptionStatusDescription\": \"123-277-02 cannot be prescribed by this provider - this request should be manually reviewed by payer., Medication 123-277-02 is not indicated with diagnosis code R25.2\",\n  \"payerId\": \"102\",\n  \"providerId\": \"601\",\n  \"memberName\": \"test 123\",\n  \"idNumber\": 2392019564,\n  \"dateOfBirth\": \"05/01/2023\",\n  \"policyNumber\": \"@GH12123\",\n  \"memberGender\": \"FEMALE\",\n  \"memberWeight\": 501.51,\n  \"memberHeight\": 999.1,\n  \"physicianLicenseNumber\": \"33\",\n  \"physicianSpeciality\": \"Anesthesia Cardiology\",\n  \"physicianName\": \"Dr. abc\",\n  \"physicianCategory\": \"GP\",\n  \"diagnosisCodes\": [\n    {\n      \"diagnosisCode\": \"F31.6\",\n      \"diagnosisType\": \"PRIMARY\"\n    },\n    {\n      \"diagnosisCode\": \"R25.2\",\n      \"diagnosisType\": \"SECONDARY\"\n    }\n  ],\n  \"drugList\": [\n    {\n      \"drugCode\": \"21-119-89\",\n      \"drugDescription\": \"REVANIN 250MG SUPP FOR CHILDREN\",\n      \"scientificName\": \"PARACETAMOL\",\n      \"unitType\": \"package\",\n      \"quantity\": 2,\n      \"unitPrice\": 30,\n      \"orderingClinician\": \"33\",\n      \"duration\": 1,\n      \"frequency\": \"at-bed-time\",\n      \"serviceStartDate\": \"16/04/2029\",\n      \"serviceEndDate\": \"01/10/2025\",\n      \"useUnitValue\": 99,\n      \"patientShareValue\": 10,\n      \"patientShareCurrency\": \"SAR\",\n      \"payerShareValue\": \"10\",\n      \"payerShareCurrency\": \"SAR\",\n      \"pbmValidationResult\": {\n        \"requestedAmount\": 40,\n        \"approvedAmount\": 0,\n        \"status\": \"REJECTED\",\n        \"errors\": [\n          {\n            \"drugCode\": \"21-119-89\",\n            \"denialCode\": \"FDB_CPINDI001\",\n            \"rejectionReason\": \"Medication 21-119-89 is not indicated with diagnosis code F31.6\"\n          },\n          {\n            \"drugCode\": \"21-119-89\",\n            \"denialCode\": \"IDF_CPINDI001\",\n            \"rejectionReason\": \"Medication 21-119-89 is not indicated with diagnosis code F31.6\"\n          },\n          {\n            \"drugCode\": \"21-119-89\",\n            \"denialCode\": \"FDB_CPINDI001\",\n            \"rejectionReason\": \"Medication 21-119-89 is not indicated with diagnosis code R25.2\"\n          },\n          {\n            \"drugCode\": \"21-119-89\",\n            \"denialCode\": \"IDF_CPINDI001\",\n            \"rejectionReason\": \"Medication 21-119-89 is not indicated with diagnosis code R25.2\"\n          },\n          {\n            \"drugCode\": \"21-119-89\",\n            \"denialCode\": \"BR_EXLPHYSPECDF01\",\n            \"rejectionReason\": \"21-119-89 cannot be prescribed for the selected speciality - this request should be manually reviewed by payer.\"\n          }\n        ]\n      },\n      \"insuranceCompanyDecision\": {\n        \"requestedAmount\": 40,\n        \"approvedAmount\": 40,\n        \"status\": \"APPROVED\"\n      }\n    },\n    {\n      \"drugCode\": \"40-334-00\",\n      \"drugDescription\": \"SOLVEX 4MG-5ML SYRUP\",\n      \"scientificName\": \"BROMHEXINE\",\n      \"unitType\": \"package\",\n      \"quantity\": 2,\n      \"unitPrice\": 20,\n      \"orderingClinician\": \"33\",\n      \"duration\": 1,\n      \"frequency\": \"at-bed-time\",\n      \"serviceStartDate\": \"16/04/2029\",\n      \"serviceEndDate\": \"01/10/2025\",\n      \"useUnitValue\": 99,\n      \"patientShareValue\": 10,\n      \"patientShareCurrency\": \"SAR\",\n      \"payerShareValue\": \"10\",\n      \"payerShareCurrency\": \"SAR\",\n      \"pbmValidationResult\": {\n        \"requestedAmount\": 40,\n        \"approvedAmount\": 0,\n        \"status\": \"REJECTED\",\n        \"errors\": [\n          {\n            \"drugCode\": \"40-334-00\",\n            \"denialCode\": \"FDB_CPAGE902\",\n            \"rejectionReason\": \"Drug 40-334-00 is inconsistent with the patient's age\"\n          },\n          {\n            \"drugCode\": \"40-334-00\",\n            \"denialCode\": \"FDB_CPINDI001\",\n            \"rejectionReason\": \"Medication 40-334-00 is not indicated with diagnosis code F31.6\"\n          },\n          {\n            \"drugCode\": \"40-334-00\",\n            \"denialCode\": \"IDF_CPINDI001\",\n            \"rejectionReason\": \"Medication 40-334-00 is not indicated with diagnosis code F31.6\"\n          },\n          {\n            \"drugCode\": \"40-334-00\",\n            \"denialCode\": \"FDB_CPINDI001\",\n            \"rejectionReason\": \"Medication 40-334-00 is not indicated with diagnosis code R25.2\"\n          },\n          {\n            \"drugCode\": \"40-334-00\",\n            \"denialCode\": \"IDF_CPINDI001\",\n            \"rejectionReason\": \"Medication 40-334-00 is not indicated with diagnosis code R25.2\"\n          },\n          {\n            \"drugCode\": \"40-334-00\",\n            \"denialCode\": \"BR_EXLHCDF03\",\n            \"rejectionReason\": \"40-334-00 is an expensive drug - this request requires a manual review from the payer.\"\n          }\n        ]\n      },\n      \"insuranceCompanyDecision\": {\n        \"requestedAmount\": 40,\n        \"approvedAmount\": 40,\n        \"status\": \"APPROVED\"\n      }\n    },\n    {\n      \"drugCode\": \"1-229-96\",\n      \"drugDescription\": \"TELEBRIX 12 SODIUM 120MG-ML INFUSION\",\n      \"scientificName\": \"SODIUM IOXITALAMATE\",\n      \"unitType\": \"package\",\n      \"quantity\": 2,\n      \"unitPrice\": 40,\n      \"orderingClinician\": \"33\",\n      \"duration\": 1,\n      \"frequency\": \"at-bed-time\",\n      \"serviceStartDate\": \"16/04/2029\",\n      \"serviceEndDate\": \"01/10/2025\",\n      \"useUnitValue\": 99,\n      \"patientShareValue\": 10,\n      \"patientShareCurrency\": \"SAR\",\n      \"payerShareValue\": \"10\",\n      \"payerShareCurrency\": \"SAR\",\n      \"pbmValidationResult\": {\n        \"requestedAmount\": 40,\n        \"approvedAmount\": 0,\n        \"status\": \"REJECTED\",\n        \"errors\": [\n          {\n            \"drugCode\": \"1-229-96\",\n            \"denialCode\": \"FDB_CPINDI001\",\n            \"rejectionReason\": \"Medication 1-229-96 is not indicated with diagnosis code F31.6\"\n          },\n          {\n            \"drugCode\": \"1-229-96\",\n            \"denialCode\": \"IDF_CPINDI001\",\n            \"rejectionReason\": \"Medication 1-229-96 is not indicated with diagnosis code F31.6\"\n          },\n          {\n            \"drugCode\": \"1-229-96\",\n            \"denialCode\": \"FDB_CPINDI001\",\n            \"rejectionReason\": \"Medication 1-229-96 is not indicated with diagnosis code R25.2\"\n          },\n          {\n            \"drugCode\": \"1-229-96\",\n            \"denialCode\": \"IDF_CPINDI001\",\n            \"rejectionReason\": \"Medication 1-229-96 is not indicated with diagnosis code R25.2\"\n          },\n          {\n            \"drugCode\": \"1-229-96\",\n            \"denialCode\": \"BR_EXLPRODF02\",\n            \"rejectionReason\": \"1-229-96 cannot be prescribed by this provider - this request should be manually reviewed by payer.\"\n          }\n        ]\n      },\n      \"insuranceCompanyDecision\": {\n        \"requestedAmount\": 40,\n        \"approvedAmount\": 40,\n        \"status\": \"APPROVED\"\n      }\n    },\n    {\n      \"drugCode\": \"129-334-10\",\n      \"drugDescription\": \"PREDO 5MG TABLETS\",\n      \"scientificName\": \"PREDNISOLONE\",\n      \"unitType\": \"package\",\n      \"quantity\": 2,\n      \"unitPrice\": 40,\n      \"orderingClinician\": \"33\",\n      \"duration\": 1,\n      \"frequency\": \"at-bed-time\",\n      \"serviceStartDate\": \"16/04/2029\",\n      \"serviceEndDate\": \"01/10/2025\",\n      \"useUnitValue\": 99,\n      \"patientShareValue\": 10,\n      \"patientShareCurrency\": \"SAR\",\n      \"payerShareValue\": \"10\",\n      \"payerShareCurrency\": \"SAR\",\n      \"pbmValidationResult\": {\n        \"requestedAmount\": 40,\n        \"approvedAmount\": 0,\n        \"status\": \"REJECTED\",\n        \"errors\": [\n          {\n            \"drugCode\": \"129-334-10\",\n            \"denialCode\": \"FDB_CPINDI001\",\n            \"rejectionReason\": \"Medication 129-334-10 is not indicated with diagnosis code F31.6\"\n          },\n          {\n            \"drugCode\": \"129-334-10\",\n            \"denialCode\": \"IDF_CPINDI001\",\n            \"rejectionReason\": \"Medication 129-334-10 is not indicated with diagnosis code F31.6\"\n          },\n          {\n            \"drugCode\": \"129-334-10\",\n            \"denialCode\": \"FDB_CPINDI001\",\n            \"rejectionReason\": \"Medication 129-334-10 is not indicated with diagnosis code R25.2\"\n          },\n          {\n            \"drugCode\": \"129-334-10\",\n            \"denialCode\": \"IDF_CPINDI001\",\n            \"rejectionReason\": \"Medication 129-334-10 is not indicated with diagnosis code R25.2\"\n          },\n          {\n            \"drugCode\": \"129-334-10\",\n            \"denialCode\": \"BR_EXLPRODF02\",\n            \"rejectionReason\": \"129-334-10 cannot be prescribed by this provider - this request should be manually reviewed by payer.\"\n          }\n        ]\n      },\n      \"insuranceCompanyDecision\": {\n        \"requestedAmount\": 40,\n        \"approvedAmount\": 40,\n        \"status\": \"APPROVED\"\n      }\n    },\n    {\n      \"drugCode\": \"123-277-02\",\n      \"drugDescription\": \"TABICLOR 375 MG- 5ML ORAL SUSPNSION\",\n      \"scientificName\": \"CEFACLOR\",\n      \"unitType\": \"package\",\n      \"quantity\": 2,\n      \"unitPrice\": 50,\n      \"orderingClinician\": \"33\",\n      \"duration\": 1,\n      \"frequency\": \"at-bed-time\",\n      \"serviceStartDate\": \"16/04/2029\",\n      \"serviceEndDate\": \"01/10/2025\",\n      \"useUnitValue\": 99,\n      \"patientShareValue\": 10,\n      \"patientShareCurrency\": \"SAR\",\n      \"payerShareValue\": \"10\",\n      \"payerShareCurrency\": \"SAR\",\n      \"pbmValidationResult\": {\n        \"requestedAmount\": 40,\n        \"approvedAmount\": 0,\n        \"status\": \"APPROVED\"\n      },\n      \"insuranceCompanyDecision\": {\n        \"requestedAmount\": 40,\n        \"approvedAmount\": 40,\n        \"status\": \"REJECTED\",\n        \"errors\": [\n          {\n            \"drugCode\": \"123-277-02\",\n            \"denialCode\": \"FDB_CPAGE902\",\n            \"rejectionReason\": \"Drug 123-277-02 is inconsistent with the patient's age\"\n          },\n          {\n            \"drugCode\": \"123-277-02\",\n            \"denialCode\": \"FDB_CPINDI001\",\n            \"rejectionReason\": \"Medication 123-277-02 is not indicated with diagnosis code F31.6\"\n          },\n          {\n            \"drugCode\": \"123-277-02\",\n            \"denialCode\": \"FDB_CPINDI001\",\n            \"rejectionReason\": \"Medication 123-277-02 is not indicated with diagnosis code R25.2\"\n          },\n          {\n            \"drugCode\": \"123-277-02\",\n            \"denialCode\": \"BR_EXLNETDF04\",\n            \"rejectionReason\": \"123-277-02 cannot be prescribed for any provider in your network - this request should be manually reviewed by payer.\"\n          }\n        ]\n      }\n    }\n  ],\n  \"canCancel\": true,\n  \"canFollowUp\": true,\n  \"totalPrescriptionPrice\": 70,\n  \"totalPatientShareValue\": 10,\n  \"totalPatientShareCurrency\": \"SAR\",\n  \"totalPayerShareValue\": \"10\",\n  \"totalPayerShareCurrency\": \"SAR\"\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}

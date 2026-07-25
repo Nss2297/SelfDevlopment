@@ -1,0 +1,29 @@
+<waseel-dialog (onClose)="cancel()" [size]="'sm'">
+    <div class="py-40 px-16 text-center">
+        <waseel-icon *ngIf="config?.mode==='delete'" icon="delete-300"
+            [cssClass]="'h-64 w-64 system-transition text-tertiary dark:text-neutral-400 mb-24 block mx-auto'"></waseel-icon>
+        <waseel-icon *ngIf="config?.mode==='success'" icon="check-circle-300"
+            [cssClass]="'h-64 w-64 system-transition text-success dark:text-success-300 mb-24 block mx-auto'"></waseel-icon>
+        <waseel-icon *ngIf="config?.mode==='warning'" icon="warning-300"
+            [cssClass]="'h-64 w-64 system-transition text-warning dark:text-warning-300 mb-24 block mx-auto'"></waseel-icon>
+        <waseel-icon *ngIf="config?.mode==='info'" icon="info-300" [cssClass]="'h-64 w-64 system-transition text-primary dark:text-primary-300 mb-24 block mx-auto'"></waseel-icon>
+        <waseel-icon *ngIf="config?.mode==='confirm'" icon="help-300"
+            [cssClass]="'h-64 w-64 system-transition text-tertiary dark:text-neutral-400 mb-24 block mx-auto'"></waseel-icon>
+        <waseel-icon *ngIf="config?.mode==='error'" icon="error-300" [cssClass]="'h-64 w-64 system-transition text-error dark:text-error-300 mb-24 block mx-auto'"></waseel-icon>
+        <div class="pb-32 max-w-[360px] mx-auto">
+            <h6 *ngIf="config?.titleMsg" class="headline-6 dark:text-neutral-25 pb-8" [innerHtml]="config?.titleMsg">
+            </h6>
+            <p *ngIf="config?.subtitleMsg" class="body-2 text-secondary dark:text-neutral-100" [innerHtml]="config?.subtitleMsg">
+            </p>
+        </div>
+        <waseel-button *ngIf="!config?.hideNoButton" size="large" (onClick)="cancel()" cssClass="ltr:mr-12 rtl:ml-12 min-w-[120px] sm:min-w-[160px]" variant="filled"
+            color="default">{{config?.noActionText ?
+            config?.noActionText
+            :'NO' |
+            translate}}</waseel-button>
+        <waseel-button size="large" (onClick)="confirm()" cssClass="min-w-[120px] sm:min-w-[160px]" [color]="config?.mode === 'delete' ? 'danger':'primary'">{{config?.yesActionText
+            ?
+            config?.yesActionText :'YES' |
+            translate}}</waseel-button>
+    </div>
+</waseel-dialog>

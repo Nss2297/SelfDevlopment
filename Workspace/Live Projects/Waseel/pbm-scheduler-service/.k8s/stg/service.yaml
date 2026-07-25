@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pbm-scheduler-service
+  namespace: pbm-stg
+  labels:
+    app: pbm-scheduler-service
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  type: ClusterIP
+  selector:
+    app: pbm-scheduler-service

@@ -1,0 +1,6 @@
+--liquibase formatted sql
+
+--changeset Prescription:0047
+
+ALTER TABLE "PRESCRIPTION_SERVICE"."PrescriptionRequest" ADD (PATIENT_SHARE_CURRENCY VARCHAR2(10) DEFAULT ('SAR'));
+ALTER TABLE "PRESCRIPTION_SERVICE"."PrescriptionRequest" ADD (PAYER_SHARE_CURRENCY VARCHAR2(10) DEFAULT ('SAR'));

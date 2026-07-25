@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+	<include
+		resource="org/springframework/boot/logging/logback/defaults.xml" />
+	<include
+		resource="org/springframework/boot/logging/logback/console-appender.xml" />
+	<include
+		resource="org/springframework/boot/logging/logback/file-appender.xml" />
+	<springProfile name="dev">
+		<root level="INFO">
+			<appender-ref ref="CONSOLE" />
+		</root>
+	</springProfile>
+	<springProfile name="ociqaadb">
+		<property name="logstash-host-port"
+			value="dev0-logstash:5000" />
+		<appender name="LOGSTASH"
+			class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+			<destination>${logstash-host-port}</destination>
+			<encoder class="net.logstash.logback.encoder.LogstashEncoder">
+				<includeCallerData>true</includeCallerData>
+				<customFields>{"appname":"EligibilityService"}</customFields>
+			</encoder>
+			<keepAliveDuration>5 minutes</keepAliveDuration>
+		</appender>
+		<root level="INFO">
+			<appender-ref ref="LOGSTASH" />
+			<appender-ref ref="CONSOLE" />
+		</root>
+	</springProfile>
+	<springProfile name="ocistgadb">
+		<property name="logstash-host-port" value="stg-logstash:5000" />
+		<appender name="LOGSTASH"
+			class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+			<destination>${logstash-host-port}</destination>
+			<encoder class="net.logstash.logback.encoder.LogstashEncoder">
+				<includeCallerData>true</includeCallerData>
+				<customFields>{"appname":"EligibilityService"}</customFields>
+			</encoder>
+			<keepAliveDuration>5 minutes</keepAliveDuration>
+		</appender>
+		<root level="INFO">
+			<appender-ref ref="LOGSTASH" />
+			<appender-ref ref="CONSOLE" />
+		</root>
+	</springProfile>
+	<springProfile name="ociproductionadb">
+		<property name="logstash-host-port"
+			value="prod-logstash:5000" />
+		<appender name="LOGSTASH"
+			class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+			<destination>${logstash-host-port}</destination>
+			<encoder class="net.logstash.logback.encoder.LogstashEncoder">
+				<includeCallerData>true</includeCallerData>
+				<customFields>{"appname":"EligibilityService"}</customFields>
+			</encoder>
+			<keepAliveDuration>5 minutes</keepAliveDuration>
+		</appender>
+		<root level="INFO">
+			<appender-ref ref="LOGSTASH" />
+			<appender-ref ref="CONSOLE" />
+		</root>
+	</springProfile>
+</configuration>

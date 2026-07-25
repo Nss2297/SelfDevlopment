@@ -1,0 +1,222 @@
+<app-base-page headerTitle="{{'FORMULARY-DETAILS' | translate}}"
+               [onBackClick]="onBackClick">
+    <div page-main-section
+         class="pb-24 pt-88 system-transition main-content">
+        <div class="bg-white shadow-1 rounded-[8px] p-24">
+            <div class="row pb-16">
+                <div class="col-md-6">
+                    <div class="row small-gutter align-items-center">
+                        <div class="col-auto">
+                            <label class="body-2 text-secondary !pb-2">{{'FORMULARY-NAME' |translate}}</label>
+                            <p class="body-1">{{formularyDetails!.formularyName}}</p>
+                        </div>
+                        <div class="col-auto">
+                            <waseel-icon-button icon="edit"
+                                                size="small"
+                                                (onClick)="editFormularyNameDialogOpen =true"
+                                                variant="tonal"
+                                                [tooltip]="'EDIT' | translate"></waseel-icon-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row align-items-center pb-16">
+                <div class="col">
+                    <p class="subtitle-1">{{'BASED-ON'|translate}}</p>
+                </div>
+                <div class="col-auto">
+                    <waseel-button variant="tonal"
+                                   icon="left"
+                                   size="small"
+                                   class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                                   iconName="filter"
+                                   (onClick)="isBasedOnFilterDrawerOpen=true">
+                        {{'FILTER' | translate}}
+                    </waseel-button>
+                    <waseel-button size="small"
+                                   icon="left"
+                                   iconName="add"
+                                   class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                                   (onClick)="addBasedOnDialogOpen =true">
+                        {{"ADD"|translate}}
+                    </waseel-button>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto relative mb-24">
+                <list-view [list]="formularyPolicyList"
+                           [prototype]="formularyPolicyListPrototype"
+                           [translateData]="[':4']"
+                           [noContentTitle]="'NO-RECORDS-FOUND'|translate"
+                           [showEditButton]="false"
+                           [showDeleteButton]="true"
+                           [showEmptyRows]="false"
+                           (onNext)="policyDataControl.pageNumber = $event.pageNumber; fetchData('POLICIES')"
+                           (onPrevious)="policyDataControl.pageNumber = $event.pageNumber; fetchData('POLICIES')"
+                           [showItemsPerPageSelection]="showItemPerPageDropdown(formularyPolicyList.totalElements!)"
+                           (onDelete)="deleteData($event.id)"
+                           (onSizeChange)="policyDataControl.recordSize = $event.pageSize; policyDataControl.pageNumber=0; fetchData('POLICIES')">
+                </list-view>
+            </div>
+
+            <div class="row align-items-center pb-16">
+                <div class="col">
+                    <p class="subtitle-1">{{'DRUGS'|translate}}</p>
+                </div>
+                <div class="col-auto">
+                    <waseel-button variant="tonal"
+                                   icon="left"
+                                   size="small"
+                                   class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                                   iconName="filter"
+                                   (onClick)="isDrugFilterDrawerOpen=true">
+                        {{'FILTER' | translate}}
+                    </waseel-button>
+                    <waseel-button size="small"
+                                   icon="left"
+                                   iconName="add"
+                                   class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                                   (click)="addFormularyDrugOpen = true">
+                        {{"ADD"|translate}}
+                    </waseel-button>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto relative">
+                <list-view [list]="formularyDrugList"
+                           [prototype]="formularyDrugListPrototype"
+                           [translateData]="[':4']"
+                           [noContentTitle]="'NO-RECORDS-FOUND'|translate"
+                           [showEditButton]="false"
+                           [showDeleteButton]="true"
+                           (onDelete)="onDrugDelete($event.id)"
+                           [showEmptyRows]="false"
+                           (onNext)="drugDataControl.pageNumber = $event.pageNumber; fetchData('DRUGS')"
+                           (onPrevious)="drugDataControl.pageNumber = $event.pageNumber; fetchData('DRUGS')"
+                           [customCells]="{drugName:drugNameCell, patientShare:paitentShareValue}"
+                           [showItemsPerPageSelection]="showItemPerPageDropdown(formularyDrugList.totalElements!)"
+                           (onSizeChange)="drugDataControl.recordSize = $event.pageSize; drugDataControl.pageNumber=0; fetchData('DRUGS')">
+                </list-view>
+                <ng-template #drugNameCell
+                             let-row="row">
+                    <div class="flex flex-col">
+                        <span>{{row.drugName}}</span>
+                        <span class="text-sm text-tertiary">{{row.drugCode}}</span>
+                    </div>
+                </ng-template>
+                <ng-template #paitentShareValue
+                             let-row="row">
+                    <div class="flex flex-col">
+                        <span *ngIf="row.patientShare != '-'">{{row.patientShare}}%</span>
+                        <ng-template #emptyPatientShare>
+                            {{row.patientShare}}
+                        </ng-template>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+    <ng-container header-actions>
+        <waseel-button icon="left"
+                       iconName="delete"
+                       (click)="deleteDrugFormulary()">{{'DELETE' | translate}}</waseel-button>
+    </ng-container>
+</app-base-page>
+
+<waseel-dialog (onClose)="closeAddBasedOnDialog($event)"
+               *ngIf="addBasedOnDialogOpen">
+    <add-based-on-dialog [onClose]="closeAddBasedOnDialog"
+                         [fromPage]="'details'"></add-based-on-dialog>
+</waseel-dialog>
+
+<waseel-dialog [clipContent]="false"
+               (onClose)="closeAddFormularyDrugDialog($event)"
+               *ngIf="addFormularyDrugOpen">
+    <add-formulary-drug-dialog [onClose]="closeAddFormularyDrugDialog"
+                               [fromPage]="'details'"
+                               [formularyId]=formularyId></add-formulary-drug-dialog>
+</waseel-dialog>
+
+<waseel-dialog (onClose)="closeEditFormularyNameDialog($event)"
+               *ngIf="editFormularyNameDialogOpen"
+               size="sm">
+    <edit-formulary-name-dialog [formularyDetail]="formularyDetail"
+                                [onClose]="closeEditFormularyNameDialog"></edit-formulary-name-dialog>
+</waseel-dialog>
+
+<form [formGroup]="policyFilterForm"
+      (submit)="applyFilterForPolicy()">
+    <waseel-drawer title="FILTER"
+                   [(isOpen)]="isBasedOnFilterDrawerOpen">
+        <ng-container body-block>
+            <waseel-textbox name="policy"
+                            formControlName="policyName"
+                            [(ngModel)]="trimmedPolicyName"
+                            [label]="'POLICY' | translate"
+                            [placeholder]="'ENTER-POLICY-NAME' | translate"></waseel-textbox>
+            <waseel-textbox name="policyNumber"
+                            formControlName="policyNumber"
+                            [error]="policyNumberErrorMsg"
+                            [minLength]="3"
+                            [maxLength]="10"
+                            (keydown.space)="$event.preventDefault()"
+                            [label]="'POLICY-NO' | translate"
+                            [placeholder]="'ENTER-POLICY-NO' | translate"></waseel-textbox>
+            <waseel-textbox name="policyClass"
+                            formControlName="policyClassName"
+                            [(ngModel)]="trimmedPolicyClassName"
+                            [label]="'POLICY-CLASS' | translate"
+                            [placeholder]="'ENTER-POLICY-CLASS' | translate"></waseel-textbox>
+            <waseel-textbox name="policyMemberId"
+                            formControlName="policyMemberId"
+                            [error]="policyMemberIdErrorMsg"
+                            [minLength]="3"
+                            [maxLength]="10"
+                            (keydown.space)="$event.preventDefault()"
+                            [label]="'POLICY-MEMBER-ID' | translate"
+                            [placeholder]="'ENTER-MEMBER-ID' | translate"></waseel-textbox>
+        </ng-container>
+        <div class="flex justify-end py-12 px-16 items-center border-t border-t-light-border dark:border-t-neutral-600 flex-shrink-0"
+             footer-block>
+            <waseel-button variant="tonal"
+                           type="button"
+                           class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                           (click)="resetFilterForPolicy()">{{'RESET' | translate}}</waseel-button>
+            <waseel-button class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                           type="submit">{{'FILTER' | translate}}</waseel-button>
+        </div>
+    </waseel-drawer>
+</form>
+
+<form [formGroup]="drugFilterForm"
+      (submit)="applyFilterForDrug()">
+    <waseel-drawer title="FILTER"
+                   [(isOpen)]="isDrugFilterDrawerOpen">
+        <ng-container body-block>
+            <waseel-textbox name="drugName"
+                            formControlName="drugName"
+                            [label]="'DRUG-NAME' | translate"
+                            [placeholder]="'ENTER-DRUG-NAME' | translate"></waseel-textbox>
+            <waseel-textbox name="drugCode"
+                            formControlName="drugCode"
+                            [(ngModel)]="filterDrugCode"
+                            (keydown.space)="$event.preventDefault()"
+                            [label]="'DRUG-CODE' | translate"
+                            [placeholder]="'ENTER-DRUG-CODE' | translate"></waseel-textbox>
+            <waseel-textbox name="genericName"
+                            formControlName="genericName"
+                            [label]="'GENERIC-NAME' | translate"
+                            [placeholder]="'ENTER-GENERIC-NAME' | translate"></waseel-textbox>
+        </ng-container>
+        <div class="flex justify-end py-12 px-16 items-center border-t border-t-light-border dark:border-t-neutral-600 flex-shrink-0"
+             footer-block>
+            <waseel-button variant="tonal"
+                           type="button"
+                           class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                           (click)="resetFilterForDrug()">{{'RESET' | translate}}</waseel-button>
+            <waseel-button class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                           type="submit">{{'FILTER' | translate}}</waseel-button>
+        </div>
+    </waseel-drawer>
+</form>

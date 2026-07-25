@@ -1,0 +1,125 @@
+{
+    "memberPolicyConsumption": {
+        "REPLACEABLE_BRAND": {
+            "maxPatientShare": 500.00,
+            "patientShare": 50
+        },
+        "IRREPLACEABLE_BRAND": {
+            "maxPatientShare": 200.00,
+            "patientShare": 10
+        }
+    },
+    "prescriptionDrugs": [
+        {
+            "isBrand": true,
+            "scientificName": "INTERFERON BETA-1A",
+            "scientificCode": "7000000687-6000000-200000016496",
+            "quantity": 2,
+            "suggestedDrugs": [
+                {
+                    "unitPrice": 600,
+                    "totalPrice": 1200,
+                    "benefitCase": "REPLACEABLE_BRAND",
+                    "sfdaCode": "1501233101",
+                    "sfdaDescription": "REBIF 22 MCG PRE-FILLED SYRINGE",
+                    "dosageForm": "Solution for injection in pre-filled syringe",
+                    "strengthUnit": "IU",
+                    "strength": "6000000",
+                    "roaSuggested": "Subcutaneous use"
+                }
+            ]
+        },
+        {
+            "scientificName": "ERENUMAB",
+            "scientificCode": "7000001633-70-100000074039",
+            "quantity": 2,
+            "suggestedDrugs": [
+                {
+                    "unitPrice": 500,
+                    "totalPrice": 1000,
+                    "benefitCase": "REPLACEABLE_BRAND",
+                    "sfdaCode": "2406210832",
+                    "sfdaDescription": "Aimovig",
+                    "dosageForm": "Solution for injection in pre-filled pen",
+                    "strengthUnit": "mg",
+                    "strength": "70",
+                    "roaSuggested": "Subcutaneous use",
+                    "inExclusionList": false,
+                    "drugFormulary": false
+                }
+            ]
+        },
+        {
+            "scientificName": "CASPOFUNGIN",
+            "scientificCode": "7000000224-70-100000074029",
+            "quantity": 5,
+            "suggestedDrugs": [
+                {
+                    "unitPrice": 100,
+                    "totalPrice": 500,
+                    "benefitCase": "IRREPLACEABLE_BRAND",
+                    "sfdaCode": "2-5173-18",
+                    "sfdaDescription": "AFUNDAS-L 70 MG ",
+                    "dosageForm": "Powder for concentrate for solution for infusion",
+                    "strengthUnit": "mg",
+                    "strength": "70",
+                    "roaSuggested": "Intravenous use",
+                    "inExclusionList": false,
+                    "drugFormulary": true
+                },
+                {
+                    "unitPrice": 600,
+                    "totalPrice": 3000,
+                    "benefitCase": "IRREPLACEABLE_BRAND",
+                    "sfdaCode": "15-698-16",
+                    "sfdaDescription": "CANCIDAS 70 MG VIAL",
+                    "dosageForm": "Powder for concentrate for solution for infusion",
+                    "strengthUnit": "mg",
+                    "strength": "70",
+                    "roaSuggested": "Parenteral use",
+                    "inExclusionList": false,
+                    "drugFormulary": true
+                },
+                {
+                    "unitPrice": 120,
+                    "totalPrice": 600,
+                    "benefitCase": "REPLACEABLE_BRAND",
+                    "sfdaCode": "0311222868",
+                    "sfdaDescription": "CANCIDAS 70 MG VIAL",
+                    "dosageForm": "Powder for concentrate for solution for infusion",
+                    "strengthUnit": "mg",
+                    "strength": "70",
+                    "roaSuggested": "Parenteral use",
+                    "inExclusionList": false,
+                    "drugFormulary": true
+                },
+                {
+                    "unitPrice": 20,
+                    "totalPrice": 100,
+                    "benefitCase": "IRREPLACEABLE_BRAND",
+                    "sfdaCode": "19-468-19",
+                    "sfdaDescription": "CASPOFUNGIN 70MG VIAL",
+                    "dosageForm": "Powder for concentrate for solution for infusion",
+                    "strengthUnit": "mg",
+                    "strength": "70",
+                    "roaSuggested": "Intravenous use",
+                    "inExclusionList": false,
+                    "drugFormulary": false
+                },
+                {
+                    "unitPrice": 20,
+                    "totalPrice": 100,
+                    "benefitCase": "IRREPLACEABLE_BRAND",
+                    "sfdaCode": "423-212-19",
+                    "sfdaDescription": "FUNGISKA 70 mg Vial",
+                    "dosageForm": "Powder for concentrate for solution for infusion",
+                    "strengthUnit": "mg",
+                    "strength": "70",
+                    "roaSuggested": "Intravenous use",
+                    "inExclusionList": true,
+                    "drugFormulary": false
+                }
+            ]
+        }
+    ]
+}

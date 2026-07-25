@@ -1,0 +1,80 @@
+# This workflow will build a Java project with Maven
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
+
+name: PROD PBM Authentication Server
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - master
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+    - name: Add default settings.xml with github server in it.
+      uses: s4u/maven-settings-action@v2.3.0
+    - name: Cache local Maven repository
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+
+
+    - name: make wallet dir
+      run: |
+            mkdir -p wallet
+      shell: bash
+
+    - name: bring wallet from secrets
+      uses: timheuer/base64-to-file@v1.1
+      with:
+        fileName: wallet.zip
+        fileDir: wallet
+        encodedString: ${{ secrets.WALLET_PROD }}
+    - name: unzip wallet
+      run: |
+            unzip -u wallet/wallet.zip -d wallet
+            rm wallet/wallet.zip
+      shell: bash
+
+    - name: Build with Maven
+      run: mvn package --file pom.xml install -Dpackaging=jar -Dmaven.javadoc.skip=true -Dmaven.site.skip=true -Dmaven.source.skip=true -Djacoco.skip=true -Dcheckstyle.skip=true -Dfindbugs.skip=true -Dpmd.skip=true -Dfabric8.skip=true -Dspring.cloud.kubernetes.secrets.paths=/etc/secrets,/etc/secrets/clients-secrets -e -B -Pprod
+
+    
+    - name: Docker Login
+      env:
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      run: docker login me-jeddah-1.ocir.io -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+    - name: Docker Build
+      run: docker build . -t me-jeddah-1.ocir.io/ax7dvcawpc84/pbm-prod/pbm-authentication-server:latest -t me-jeddah-1.ocir.io/ax7dvcawpc84/pbm-prod/pbm-authentication-server:${{ github.sha }}
+
+    - name: Docker Push
+      run: docker push --all-tags me-jeddah-1.ocir.io/ax7dvcawpc84/pbm-prod/pbm-authentication-server
+    
+    - name: Deploy to K8S
+      uses: waseel-asp/kubectl@v1.17.9
+      env:
+        KUBE_CONFIG: ${{ secrets.PORTAL_KUBE_CONFIG_PROD }}
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+      with:
+        args: set -n pbm-prod image --record deployment/pbm-authentication-server pbm-authentication-server=me-jeddah-1.ocir.io/ax7dvcawpc84/pbm-prod/pbm-authentication-server:${{ github.sha }}
+
+    - name: Verify Deployment
+      uses: waseel-asp/kubectl@v1.17.9
+      env:
+        KUBE_CONFIG: ${{ secrets.PORTAL_KUBE_CONFIG_PROD }}
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+      with:
+        args: '"rollout status deployment/pbm-authentication-server -n pbm-prod"'

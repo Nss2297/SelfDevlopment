@@ -1,0 +1,59 @@
+<div class="p-16 flex items-center border-solid border-b-light-border dark:border-b-neutral-600 border-b-[1px]">
+    <h6 class="subtitle-1 text-text dark:text-neutral-25">{{'ADD-EXCLUSION-BASED-ON'|translate}}</h6>
+    <waseel-icon-button class="-mt-12 -mb-12 ltr:ml-auto rtl:mr-auto ltr:-mr-12 rtl:-ml-12 system-transition opacity-[.64] hover:opacity-100 focus:opacity-100 active:opacity-100"
+        icon="close" (onClick)="closeDialog()" color="default" variant="transparent"></waseel-icon-button>
+</div>
+
+<form [formGroup]="basedOnExclusionForm">
+<div class="p-16 pb-0">
+    <div class="pb-16">
+        <label class="body-2 block pb-8">{{'BASED-ON'|translate}}</label>
+        <div class="flex items-center flex-wrap -mb-8">
+            <label class="relative radio ltr:pr-16 rtl:pl-16 pb-8 ltr:last:pr-0 rtl:last:pl-0">
+                <input type="radio" name="based-on" (change)="changeBasedOnValue()" [(ngModel)]="basedOn" [ngModelOptions]="{standalone: true}" value="high-cost" class="absolute top-0 left-0 opacity-0">
+                <span class="body-2 flex items-start ">
+                    <waseel-icon *ngIf="basedOn!='high-cost'" icon="radio-unchecked" cssClass="h-24 w-24 block text-tertiary"></waseel-icon>
+                    <waseel-icon *ngIf="basedOn=='high-cost'" icon="radio-checked" cssClass="h-24 w-24 block text-primary"></waseel-icon>
+                    <span class="inline-block ltr:pl-6 rtl:pr-6 align-top !pt-2">{{'HIGH-COST' | translate}}</span>
+                </span>
+            </label>
+            <label class="relative radio ltr:pr-16 rtl:pl-16 pb-8 ltr:last:pr-0 rtl:last:pl-0">
+                <input type="radio" name="based-on" (change)="changeBasedOnValue()" [(ngModel)]="basedOn" [ngModelOptions]="{standalone: true}" value="network-exclusion" class="absolute top-0 left-0 opacity-0">
+                <span class="body-2 flex items-start ">
+                    <waseel-icon *ngIf="basedOn!='network-exclusion'" icon="radio-unchecked" cssClass="h-24 w-24 block text-tertiary"></waseel-icon>
+                    <waseel-icon *ngIf="basedOn=='network-exclusion'" icon="radio-checked" cssClass="h-24 w-24 block text-primary"></waseel-icon>
+                    <span class="inline-block ltr:pl-6 rtl:pr-6 align-top !pt-2">{{'NETWORK-EXCLUSION' | translate}}</span>
+                </span>
+            </label>
+            <label class="relative radio ltr:pr-16 rtl:pl-16 pb-8 ltr:last:pr-0 rtl:last:pl-0">
+                <input type="radio" name="based-on" (change)="changeBasedOnValue()" [(ngModel)]="basedOn" [ngModelOptions]="{standalone: true}" value="provider-exclusion" class="absolute top-0 left-0 opacity-0">
+                <span class="body-2 flex items-start ">
+                    <waseel-icon *ngIf="basedOn!='provider-exclusion'" icon="radio-unchecked" cssClass="h-24 w-24 block text-tertiary"></waseel-icon>
+                    <waseel-icon *ngIf="basedOn=='provider-exclusion'" icon="radio-checked" cssClass="h-24 w-24 block text-primary"></waseel-icon>
+                    <span class="inline-block ltr:pl-6 rtl:pr-6 align-top !pt-2">{{'PROVIDER-EXCLUSION' | translate}}</span>
+                </span>
+            </label>
+            <label class="relative radio ltr:pr-16 rtl:pl-16 pb-8 ltr:last:pr-0 rtl:last:pl-0">
+                <input type="radio" name="based-on" (change)="changeBasedOnValue()" [(ngModel)]="basedOn" [ngModelOptions]="{standalone: true}" value="speciality-exclusion" class="absolute top-0 left-0 opacity-0">
+                <span class="body-2 flex items-start ">
+                    <waseel-icon *ngIf="basedOn!='speciality-exclusion'" icon="radio-unchecked" cssClass="h-24 w-24 block text-tertiary"></waseel-icon>
+                    <waseel-icon *ngIf="basedOn=='speciality-exclusion'" icon="radio-checked" cssClass="h-24 w-24 block text-primary"></waseel-icon>
+                    <span class="inline-block ltr:pl-6 rtl:pr-6 align-top !pt-2">{{'SPECIALITY-EXCLUSION' | translate}}</span>
+                </span>
+            </label>
+        </div>
+    </div>
+    <waseel-select-with-search *ngIf="basedOn == 'network-exclusion'" [error]="networkExclusionErrorMsg" [label]="'NETWORK' | translate" name="networkExclusion" formControlName="networkExclusion"
+     [options]="(networkExclusionSvc.networkExclusionList$ | async) || []" [placeholder]="'SELECT' | translate"
+    (onSearch)="fetchNetworkExclusion($event)"></waseel-select-with-search>
+
+    <waseel-select-with-search *ngIf="basedOn == 'provider-exclusion'" [error]="providerExclusionErrorMsg" name="providerExclusion" formControlName="providerExclusion" [label]="'PROVIDER' | translate"  [options]="(networkExclusionSvc.providerExclusionList$ | async) || []"  [placeholder]="'SELECT' | translate" (onSearch)="fetchProviderExclusion($event)"></waseel-select-with-search>
+
+    <waseel-select-with-search *ngIf="basedOn == 'speciality-exclusion'" [error]="specialityExclusionErrorMsg" name="specialityExclusion" formControlName="specialityExclusion"  [label]="'SPECIALITY' | translate"  [placeholder]="'SELECT' | translate" [options]="(networkExclusionSvc.specialityExclusionList$ | async) || []" (onSearch)="fetchSpecialityExclusion($event)" ></waseel-select-with-search>
+</div>
+
+<div class="py-12 px-16 flex justify-end border-solid border-t-light-border dark:border-t-neutral-600 border-t-[1px]">
+    <waseel-button variant="tonal" class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0" type="button" (click)="closeDialog()">{{'CANCEL'|translate}}</waseel-button>
+    <waseel-button class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0" (onClick)="saveExclusionBasedOnList()">{{'SAVE'|translate}}</waseel-button>
+</div>
+</form>

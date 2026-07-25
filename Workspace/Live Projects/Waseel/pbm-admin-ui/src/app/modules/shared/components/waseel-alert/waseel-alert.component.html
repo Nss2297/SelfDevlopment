@@ -1,0 +1,21 @@
+<div class="flex py-10 px-12 rounded-[8px] bg-error-50 text-error dark:bg-error-900/[.32] dark:text-error-400" *ngIf="variant=='danger'">
+    <waseel-icon icon="error" [cssClass]="'block h-24 w-24 ltr:mr-8 rtl:ml-8'"></waseel-icon>
+    <p class="body-2"><ng-container *ngTemplateOutlet="contentTemplate"></ng-container></p>
+</div>
+
+<div class="flex py-10 px-12 rounded-[8px] bg-success-25 text-success-600" *ngIf="variant=='success'">
+    <waseel-icon icon="check-circle" [cssClass]="'block h-24 w-24 ltr:mr-8 rtl:ml-8'"></waseel-icon>
+    <p class="body-2"><ng-container *ngTemplateOutlet="contentTemplate"></ng-container></p>
+</div>
+
+<div class="flex py-10 px-12 rounded-[8px] bg-primary-50 text-primary-700" *ngIf="variant=='info'">
+    <waseel-icon icon="info" [cssClass]="'block h-24 w-24 ltr:mr-8 rtl:ml-8'"></waseel-icon>
+    <p class="body-2"><ng-container *ngTemplateOutlet="contentTemplate"></ng-container></p>
+</div>
+
+<div class="flex py-10 px-12 rounded-[8px] bg-warning-50 text-warning-600" *ngIf="variant=='warning'">
+    <waseel-icon icon="warning" [cssClass]="'block h-24 w-24 ltr:mr-8 rtl:ml-8'"></waseel-icon>
+    <p class="body-2"><ng-container *ngTemplateOutlet="contentTemplate"></ng-container></p>
+</div>
+
+<ng-template #contentTemplate><ng-content></ng-content></ng-template>

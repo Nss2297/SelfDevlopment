@@ -1,0 +1,257 @@
+<app-base-page headerTitle="{{'DISPENSE-PRESCRIPTION' | translate}}{{ePrescriptionReferenceNumber}}"
+               [onBackClick]="onBackClick">
+    <div page-main-section
+         class="pb-24 pt-88 system-transition main-content">
+        <div class="bg-white shadow-1 rounded-[8px]">
+            <div class="p-24 pb-0 border-b border-light-border">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="pb-24">
+                            <label class="body-2 text-secondary !pb-2">{{'GRAND-TOTAL'| translate}}</label>
+                            <h6 class="headline-6">{{totals.grandTotal | number: '1.2-2'}} SAR</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="pb-24">
+                            <label class="body-2 text-secondary !pb-2">{{'SELECTED'| translate}}</label>
+                            <h6 class="headline-6">{{totals.noOfDrugs}} {{"DRUGS"|translate}}</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="pb-24">
+                            <label class="body-2 text-secondary !pb-2">{{'TOTAL-QTY'| translate}}</label>
+                            <h6 class="headline-6">{{totals.quantity}} {{"ITEMS"|translate}}</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="pb-24">
+                            <label class="body-2 text-secondary !pb-2">{{'prescription.patientShare'|
+                                translate}}</label>
+                            <h6 class="headline-6">{{totals.patientShare | number: '1.2-2'}} SAR</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="pb-24">
+                            <label class="body-2 text-secondary !pb-2">{{'prescription.patientSharevatvalue&currency'|
+                                translate}}</label>
+                            <h6 class="headline-6">
+                                {{totals.patientShareVatAmount}}<br>{{totals.patientShareVatCurrency}}</h6>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="pb-24">
+                            <label class="body-2 text-secondary !pb-2">{{'prescription.net'|
+                                translate}}</label>
+                            <h6 class="headline-6">{{totals.net | number: '1.2-2'}} SAR</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-24">
+                <p class="subtitle-1 pb-16">{{'DRUGS'|translate}}</p>
+                <div class="relative">
+                    <table [cellPadding]="0"
+                           [cellSpacing]="0"
+                           class="w-full text-secondary body-2 ltr:text-left rtl:text-right">
+                        <thead>
+                            <tr>
+                                <th scope="col"
+                                    class="py-14 px-12 border-b-2 border-b-light-border body-2-medium bg-neutral-25"
+                                    width="10">
+                                    <label class="relative checkbox">
+                                        <span class="body-2 flex items-start"
+                                              (click)="selectAllDrugs()">
+                                            <waseel-icon [icon]="selectedDrugs.length == dispenseDetails.prescriptionDrugs?.length ?'checkbox-checked':'checkbox-unchecked'"
+                                                         [cssClass]="'h-24 w-24 block ' + (selectedDrugs.length == dispenseDetails.prescriptionDrugs?.length? 'text-primary':'text-tertiary')"></waseel-icon>
+                                        </span>
+                                    </label>
+                                </th>
+                                <th scope="col"
+                                    class="py-14 px-12 border-b-2 border-b-light-border body-2-medium bg-neutral-25">
+                                    {{"SCIENTIFIC-NAME-CODE"|translate}}
+                                </th>
+                                <th scope="col"
+                                    class="py-14 px-12 border-b-2 border-b-light-border body-2-medium bg-neutral-25">
+                                    {{"SUGGESTED-DRUG"|translate}}
+                                </th>
+                                <th scope="col"
+                                    class="py-14 px-12 border-b-2 border-b-light-border body-2-medium bg-neutral-25">
+                                    {{"prescription.unitPrice"|translate}}
+                                </th>
+                                <th scope="col"
+                                    class="py-14 px-12 border-b-2 border-b-light-border body-2-medium bg-neutral-25">
+                                    {{"QTY"|translate}}
+                                </th>
+                                <th scope="col"
+                                    class="py-14 px-12 border-b-2 border-b-light-border body-2-medium bg-neutral-25">
+                                    {{"prescription.total"|translate}}
+                                </th>
+                                <th scope="col"
+                                    class="py-14 px-12 border-b-2 border-b-light-border body-2-medium bg-neutral-25">
+                                    {{"prescription.patientShare"|translate}}
+                                </th>
+                                <th scope="col"
+                                    class="py-14 px-12 border-b-2 border-b-light-border body-2-medium bg-neutral-25">
+                                    {{"prescription.patientSharevatvalue&currency"|translate}}
+                                </th>
+                                <th scope="col"
+                                    class="py-14 px-12 border-b-2 border-b-light-border body-2-medium bg-neutral-25">
+                                    {{"prescription.net"|translate}}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let drug of dispenseDetails?.prescriptionDrugs">
+                                <td class="py-14 px-12 border-b border-b-light-border body-2"
+                                    width="10">
+                                    <label class="relative checkbox">
+                                        <span class="body-2 flex items-start"
+                                              (click)="selectDrug(drug)">
+                                            <waseel-icon [icon]="selectedDrugs.includes(drug)?'checkbox-checked':'checkbox-unchecked'"
+                                                         [cssClass]="'h-24 w-24 block ' + (selectedDrugs.includes(drug)? 'text-primary':'text-tertiary')"></waseel-icon>
+                                        </span>
+                                    </label>
+
+                                </td>
+                                <td class="py-14 px-12 border-b border-b-light-border body-2">
+                                    {{drug.scientificName}}
+                                    <span class="text-tertiary block">{{drug.scientificCode}}</span>
+                                </td>
+                                <td class="py-14 px-12 border-b border-b-light-border body-2">
+                                    <div *ngIf="!drug.isBrand; else brandView;"
+                                         class="flex items-center">
+                                        <div class="group max-w-[270px]">
+                                            <button
+                                                    class="h-[44px] border-solid border border-border bg-white rounded-[8px] ltr:pl-16 rtl:pr-16 !py-4 focus:border-primary w-full text-secondary focus-shadow-primary body-2 system-transition select ltr:pr-40 rtl:pl-40 ltr:text-left rtl:text-left max-w-full whitespace-nowrap text-ellipsis overflow-hidden">
+                                                {{drug.sfdaDescription}} {{drug.strength}} {{drug.strengthUnit}}
+                                            </button>
+                                            <div class="relative none group-focus-within:block">
+                                                <div
+                                                     class="absolute hidden max-h-[300px] overflow-auto group-focus-within:block rounded-[8px] shadow-4 bg-white left-0 top-full right-0 z-[5]">
+                                                    <ul class="!py-4">
+                                                        <li class="border-b border-b-border last:border-0"
+                                                            *ngFor="let suggestedDrug of drug.suggestedDrugs">
+                                                            <button #selectBrandButton
+                                                                    (click)="selectBrand(drug, suggestedDrug); selectBrandButton.blur()"
+                                                                    class="w-full text-start px-16 block py-10 body-2 system-transition text-text hover:bg-neutral-50 focus:bg-neutral-50 active:bg-neutral-50">
+                                                                {{suggestedDrug.sfdaDescription}}
+                                                                {{suggestedDrug.strength}}
+                                                                {{suggestedDrug.strengthUnit}}
+                                                                {{suggestedDrug.benefitCase}}
+                                                                <span
+                                                                      class="text-tertiary block">{{suggestedDrug.sfdaCode}}</span>
+                                                                <span *ngIf="suggestedDrug.drugFormulary && !suggestedDrug.isApproved"
+                                                                      class="block text-success-600">{{"INCLUDED-IN-FORMULARY"|translate}}</span>
+                                                                <span *ngIf="suggestedDrug.inExclusionList"
+                                                                      class="block text-error-600">{{"IN-EXCLUSION-LIST"|translate}}</span>
+                                                                <span *ngIf="(suggestedDrug.isApproved) || (suggestedDrug.drugFormulary  && suggestedDrug.isApproved)"
+                                                                      class="block text-success-600">{{"APPROVED-BY-PAYER"|translate}}</span>
+
+                                                            </button>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="group relative">
+                                            <waseel-icon-button variant="transparent"
+                                                                class="block"
+                                                                [cssClass]="'!text-error'"
+                                                                color="default"
+                                                                icon="error"
+                                                                *ngIf="drug.isApprovalRequired"></waseel-icon-button>
+                                            <div class="hidden group-hover:block">
+                                                <div
+                                                     class="absolute hidden w-[260px] overflow-auto group-hover:block rounded-[8px] shadow-2 bg-white left-0 top-0 z-[5] p-16 body-1">
+                                                    {{"DRUG-DISPENSE-ERROR"|translate}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <ng-template #brandView>
+                                        <div class="flex">
+                                            <div class="group relative">
+                                                <waseel-icon icon="info"
+                                                             cssClass="h-20 w-20 block text-primary-500"></waseel-icon>
+                                                <div class="hidden group-hover:block">
+                                                    <div
+                                                         class="absolute hidden w-[260px] overflow-auto group-hover:block rounded-[8px] shadow-2 bg-white left-0 top-0 z-[5] p-16 body-1">
+                                                        {{"DRUG-DISPENSE-TRADE-NAME-MSG"|translate}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <span class="relative top-2 ltr:pl-6 rtl:pr-6">{{drug.sfdaDescription}}
+                                                {{drug.strength}} {{drug.strengthUnit}}
+                                                <span class="text-tertiary block">{{drug.sfdaCode}}</span>
+                                            </span>
+                                        </div>
+                                    </ng-template>
+                                </td>
+                                <td class="py-14 px-12 border-b border-b-light-border body-2">
+                                    {{drug.unitPrice | number: '1.2-2'}} SAR
+                                </td>
+                                <td class="py-14 px-12 border-b border-b-light-border body-2">
+                                    {{drug.quantity}}
+                                </td>
+                                <td class="py-14 px-12 border-b border-b-light-border body-2">
+                                    {{drug.totalPrice | number: '1.2-2'}} SAR
+                                </td>
+                                <td class="py-14 px-12 border-b border-b-light-border body-2">
+
+                                    <ng-container
+                                                  *ngIf="drug.benefitCase == 'REPLACEABLE_BRAND' || drug.benefitCase =='IRREPLACEABLE_BRAND'; else noBenifitCase">
+                                        <waseel-textbox [(ngModel)]="drug.patientShare"
+                                                        name="patientShare"
+                                                        (ngModelChange)="calculateTotals()">
+                                        </waseel-textbox>
+                                    </ng-container>
+                                    <ng-template #noBenifitCase>
+                                        <span *ngIf="drug.patientShare">
+                                            {{ (selectedDrugs.includes(drug) ? drug.patientShare : 0) | number: '1.2-2'
+                                            }} SAR
+                                        </span>
+                                    </ng-template>
+
+                                </td>
+                                <td class="py-14 px-12 border-b border-b-light-border body-2">
+                                    {{(selectedDrugs.includes(drug)?
+                                    drug.suggestedDrugs[0].patientShareVatAmount: 0)}}<br>
+                                    {{drug.suggestedDrugs[0].patientShareVatCurrency}}
+                                </td>
+                                <td class="py-14 px-12 border-b border-b-light-border body-2">
+                                    {{(selectedDrugs.includes(drug)?drug.net:0) | number: '1.2-2'}} SAR
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-container header-actions>
+        <waseel-button *ifHasAnyAllowedAuthority="['PRESCRIPTION_DISPENSE']"
+                       variant="tonal"
+                       class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                       (onClick)="onBackClick()">{{'CANCEL' |
+            translate}}</waseel-button>
+        <waseel-button *ifHasAnyAllowedAuthority="['PRESCRIPTION_DISPENSE']"
+                       icon="right"
+                       [iconRtlInvert]="true"
+                       iconName="arrow-right"
+                       (onClick)="openDispenseSummaryDialogbox()">{{'DISPENSE' | translate}}</waseel-button>
+    </ng-container>
+</app-base-page>
+
+
+<waseel-dialog (onClose)="closeDispenseSummaryDialog($event)"
+               *ngIf="dispenseSummaryDialogOpen"
+               [size]="'lg'">
+    <dispense-summary-confirm-dialog [onClose]="closeDispenseSummaryDialog"
+                                     [totals]="totals"
+                                     [referenceNo]="ePrescriptionReferenceNumber"
+                                     [selectedDrugs]="selectedDrugsForDispense"></dispense-summary-confirm-dialog>
+</waseel-dialog>

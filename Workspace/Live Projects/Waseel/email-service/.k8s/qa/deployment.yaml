@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: email-service
+  namespace: pbm-qa
+  labels:
+    app: email-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: email-service
+  template:
+    metadata:
+      labels:
+        app: email-service
+    spec:
+      containers:
+        - name: email-service-qa-container
+          image: me-jeddah-1.ocir.io/ax7dvcawpc84/pbm/qa/email-service:latest
+          env:
+          - name: TZ
+            value: Asia/Riyadh
+          - name: MAIL_SENDER
+            valueFrom:
+              secretKeyRef:
+                name: email-service-secret
+                key: MAIL_SENDER
+          - name: MAIL_HOST
+            valueFrom:
+              secretKeyRef:
+                name: email-service-secret
+                key: MAIL_HOST
+          - name: MAIL_PORT
+            valueFrom:
+              secretKeyRef:
+                name: email-service-secret
+                key: MAIL_PORT
+          - name: MAIL_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: email-service-secret
+                key: MAIL_USERNAME
+          - name: MAIL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: email-service-secret
+                key: MAIL_PASSWORD
+          ports:
+          - containerPort: 8080
+      imagePullSecrets:
+        - name: waseel-docker-registry-cred

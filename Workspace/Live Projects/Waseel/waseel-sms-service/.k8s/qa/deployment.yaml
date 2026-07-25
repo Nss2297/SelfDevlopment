@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: waseel-sms-service
+  namespace: pbm-qa
+  labels:
+    app: waseel-sms-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: waseel-sms-service
+  template:
+    metadata:
+      labels:
+        app: waseel-sms-service
+    spec:
+      containers:
+        - name: waseel-sms-service-qa-container
+          image: me-jeddah-1.ocir.io/ax7dvcawpc84/pbm/qa/waseel-sms-service:latest
+          env:
+          - name: TZ
+            value: Asia/Riyadh
+          ports:
+          - containerPort: 8080
+      imagePullSecrets:
+        - name: waseel-docker-registry-cred

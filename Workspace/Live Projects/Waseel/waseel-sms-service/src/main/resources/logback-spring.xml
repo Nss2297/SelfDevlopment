@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+	<include
+		resource="org/springframework/boot/logging/logback/defaults.xml" />
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+			<layout class="com.waseel.smsservice.configuration.MaskingPatternLayout">
+				<maskPattern>"?appSid"?\s*:\s*(.*?)$</maskPattern> <!-- appSid field key pattren -->
+				<pattern>${CONSOLE_LOG_PATTERN}</pattern>
+			</layout>
+		</encoder>
+	</appender>
+	<include
+		resource="org/springframework/boot/logging/logback/file-appender.xml" />
+	<springProfile name="local">
+		<root level="INFO">
+			<appender-ref ref="CONSOLE" />
+		</root>
+	</springProfile>
+	<springProfile name="test">
+		<root level="INFO">
+			<appender-ref ref="CONSOLE" />
+		</root>
+	</springProfile>
+	<springProfile name="qa">
+		<property name="logstash-host-port" value="10.100.5.191:5000" />
+		<appender name="LOGSTASH"
+			class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+			<destination>${logstash-host-port}</destination>
+			<encoder class="net.logstash.logback.encoder.LogstashEncoder">
+				<includeCallerData>true</includeCallerData>
+				<customFields>{"appname":"@appName@", "env":"@elasticEnvironment@"}</customFields>
+				<jsonGeneratorDecorator class="net.logstash.logback.mask.MaskingJsonGeneratorDecorator">
+					<valueMask>
+						<value>("?appSid"?\s*:\s*)(.*?)$</value>
+						<mask>$1******</mask>
+					</valueMask>
+				</jsonGeneratorDecorator>
+			</encoder>
+			<keepAliveDuration>5 minutes</keepAliveDuration>
+		</appender>
+		<root level="INFO">
+			<appender-ref ref="LOGSTASH" />
+			<appender-ref ref="CONSOLE" />
+		</root>
+	</springProfile>
+	<springProfile name="stg">
+		<property name="logstash-host-port" value="10.100.5.191:5000" />
+		<appender name="LOGSTASH"
+			class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+			<destination>${logstash-host-port}</destination>
+			<encoder class="net.logstash.logback.encoder.LogstashEncoder">
+				<includeCallerData>true</includeCallerData>
+				<customFields>{"appname":"@appName@", "env":"@elasticEnvironment@"}</customFields>
+				<jsonGeneratorDecorator class="net.logstash.logback.mask.MaskingJsonGeneratorDecorator">
+					<valueMask>
+						<value>("?appSid"?\s*:\s*)(.*?)$</value>
+						<mask>$1******</mask>
+					</valueMask>
+				</jsonGeneratorDecorator>
+			</encoder>
+			<keepAliveDuration>5 minutes</keepAliveDuration>
+		</appender>
+		<root level="INFO">
+			<appender-ref ref="LOGSTASH" />
+			<appender-ref ref="CONSOLE" />
+		</root>
+	</springProfile>
+	<springProfile name="prod">
+		<property name="logstash-host-port" value="10.100.5.191:5000" />
+		<appender name="LOGSTASH"
+			class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+			<destination>${logstash-host-port}</destination>
+			<encoder class="net.logstash.logback.encoder.LogstashEncoder">
+				<includeCallerData>true</includeCallerData>
+				<customFields>{"appname":"@appName@", "env":"@elasticEnvironment@"}</customFields>
+				<jsonGeneratorDecorator class="net.logstash.logback.mask.MaskingJsonGeneratorDecorator">
+					<valueMask>
+						<value>("?appSid"?\s*:\s*)(.*?)$</value>
+						<mask>$1******</mask>
+					</valueMask>
+				</jsonGeneratorDecorator>
+			</encoder>
+			<keepAliveDuration>5 minutes</keepAliveDuration>
+		</appender>
+		<root level="INFO">
+			<appender-ref ref="LOGSTASH" />
+			<appender-ref ref="CONSOLE" />
+		</root>
+	</springProfile>
+</configuration>

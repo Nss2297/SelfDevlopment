@@ -1,0 +1,59 @@
+ # Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+variables:
+  DCUSER: '$(DOCKER_USER)'
+  DCPASS: '$(DOCKER_PASSWORD)'
+  tag: '$(Build.BuildId)'
+  imageRepo: 'me-jeddah-1.ocir.io/ax7dvcawpc84/qa/oauth'
+  MAVEN_CACHE_FOLDER: $(Pipeline.Workspace)/.m2/repository
+  MAVEN_OPTS: '-Dmaven.repo.local=$(MAVEN_CACHE_FOLDER) -Dfile=projectLibs/ojdbc7-12.1.0.jar -DgroupId=com.oracle -DartifactId=ojdbc7 -Dversion=12.1.0  -Dpackaging=jar -DskipTests=true -Dmaven.javadoc.skip=true -Dmaven.site.skip=true -Dmaven.source.skip=true -Djacoco.skip=true -Dcheckstyle.skip=true -Dfindbugs.skip=true -Dpmd.skip=true -Dfabric8.skip=true'
+
+trigger:
+- master
+stages:
+- stage: Test
+  displayName: Test Authentication Service
+  jobs:
+  - job: Build_oauth
+    displayName: Test
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+      - task: JavaToolInstaller@0
+        inputs:
+          versionSpec: '11'
+          jdkArchitectureOption: 'x64'
+          jdkSourceOption: 'PreInstalled'
+
+      - task: Cache@2
+        inputs:
+          key: 'maven | "$(Agent.OS)" | **/pom.xml'
+          restoreKeys: |
+            maven | "$(Agent.OS)"
+            maven
+          path: $(MAVEN_CACHE_FOLDER)
+        displayName: Cache Maven local repo
+
+
+      - script: mvn validate -B -e
+      - task: Maven@3
+        inputs:
+          mavenPomFile: 'pom.xml'
+          mavenOptions: '-Xmx3072m $(MAVEN_OPTS)'
+          jdkUserInputPath: $(JAVA_HOME)
+          javaHomeOption: 'Path'
+          #jdkVersionOption: '11'
+          jdkArchitectureOption: 'x64'
+          publishJUnitResults: false
+          testResultsFiles: '**/surefire-reports/TEST-*.xml'
+          goals: 'package'
+          
+
+      - script: |
+           docker login me-jeddah-1.ocir.io -u $(DCUSER) -p $(DCPASS)
+           docker build . -t me-jeddah-1.ocir.io/ax7dvcawpc84/qa/oauth:latest -t me-jeddah-1.ocir.io/ax7dvcawpc84/qa/oauth:$(tag) 
+           docker push --all-tags me-jeddah-1.ocir.io/ax7dvcawpc84/qa/oauth
+           docker logs

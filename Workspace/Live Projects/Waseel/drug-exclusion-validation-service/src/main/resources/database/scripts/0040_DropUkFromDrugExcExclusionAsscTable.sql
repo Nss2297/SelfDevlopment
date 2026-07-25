@@ -1,0 +1,6 @@
+--liquibase formatted sql
+
+--changeset Drug Exclusion Validation Service:0040
+
+ALTER TABLE PBM_BUSINESS_RULES.DRUG_EXCLUSION_METADATA
+DROP CONSTRAINT UK_DEM_EXCLUSION_NAME;

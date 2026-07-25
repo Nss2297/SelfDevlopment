@@ -1,0 +1,6 @@
+<div [dir]="dir">
+    <app-language-switcher *ngIf="showLanguageSwitcher" class="absolute m-5"
+        [ngClass]="dir == 'rtl'? 'left-0':'right-0'"></app-language-switcher>
+    <ng-content select="[side-section]"></ng-content>
+    <ng-content select="[main-section]"></ng-content>
+</div>

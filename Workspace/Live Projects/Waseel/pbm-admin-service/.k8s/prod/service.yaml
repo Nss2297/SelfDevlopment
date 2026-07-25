@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: admin-service-prod-service
+  namespace: pbm-prod
+  labels:
+    app: admin-service-prod-service
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  type: ClusterIP
+  selector:
+    app: admin-service-prod-deployment

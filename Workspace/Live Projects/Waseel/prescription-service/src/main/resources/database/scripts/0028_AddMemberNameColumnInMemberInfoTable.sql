@@ -1,0 +1,6 @@
+--liquibase formatted sql
+
+--changeset Prescription:0028
+
+ALTER TABLE "PRESCRIPTION_SERVICE"."MemberInfo" ADD ("MemberName" VARCHAR2(200) NULL);
+ALTER TABLE "PRESCRIPTION_SERVICE"."MemberInfo" MODIFY ("MemberName" VARCHAR2(200) NOT NULL  ENABLE NOVALIDATE);

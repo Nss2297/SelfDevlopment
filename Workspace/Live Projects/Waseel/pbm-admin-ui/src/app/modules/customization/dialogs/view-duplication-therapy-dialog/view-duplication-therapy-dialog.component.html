@@ -1,0 +1,63 @@
+<div class="p-16 flex items-center border-solid border-b-light-border dark:border-b-neutral-600 border-b-[1px]">
+    <h6 class="subtitle-1">{{'customization.duplicationtherapyCustomizationDetail'|translate}}</h6>
+    <waseel-icon-button class="-mt-12 -mb-12 ltr:ml-auto rtl:mr-auto ltr:-mr-12 rtl:-ml-12 system-transition opacity-[.64] hover:opacity-100 focus:opacity-100 active:opacity-100"
+                        icon="close"
+                        (onClick)="closeDialog()"
+                        color="default"
+                        variant="transparent"></waseel-icon-button>
+</div>
+<div class="p-16 pb-0">
+    <div class="row small-gutter">
+        <div class="col-md-6">
+            <div class="pb-16">
+                <label class="body-2 text-secondary dark:text-neutral-200 !pb-2">{{'customization.serviceCode' |
+                    translate}}</label>
+                <p class="body-1">{{data?.serviceCode || ''}}</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="pb-16">
+                <label class="body-2 text-secondary dark:text-neutral-200 !pb-2">{{'customization.interactedServiceCode'
+                    |
+                    translate}}</label>
+                <p class="body-1">{{data?.interactedServiceCode}}</p>
+            </div>
+        </div>
+        <div class="col-md-6"
+             *ifHasAnyAllowedAuthority="['101;PBM_ADMIN',]">
+            <div class="pb-16">
+                <label class="body-2 text-secondary dark:text-neutral-200 !pb-2">{{'customization.payer'
+                    | translate}}</label>
+                <p class="body-1">{{data?.payerId || ''}}</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="pb-16">
+                <label class="body-2 text-secondary dark:text-neutral-200 !pb-2">{{'customization.serviceStatus'
+                    | translate}}</label>
+                <p class="body-1-medium"
+                   [ngClass]="{'text-success':data?.serviceStatus === 'Approved', 'text-error': data?.serviceStatus === 'Rejected'}">
+                    {{(data?.serviceStatus || '') | translate}}</p>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="pb-16">
+                <label class="body-2 text-secondary dark:text-neutral-200 !pb-2">{{'customization.module' |
+                    translate}}</label>
+                <p class="body-1">{{data?.moduleName || ''}}</p>
+            </div>
+        </div>
+        <div class="col-md-6"
+             *ngIf="data?.serviceStatus !== 'Approved'">
+            <div class="pb-16">
+                <label class="body-2 text-secondary dark:text-neutral-200 !pb-2">{{'customization.rejectionReason'|
+                    translate}}</label>
+                <p class="body-1">{{data?.additionalRejectionReason || ''}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="py-12 px-16 flex justify-end border-solid border-t-light-border dark:border-t-neutral-600 border-t-[1px]">
+    <waseel-button (onClick)="closeDialog()">{{'CLOSE'|translate}}</waseel-button>
+</div>

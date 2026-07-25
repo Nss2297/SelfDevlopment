@@ -1,0 +1,171 @@
+<section class="md:px-24 md:py-48 px-16 py-32 min-h-screen bg-center bg-cover bg-no-repeat bg-[url('./assets/abstract-background.svg')]">
+    <div class="flex items-center justify-between max-w-[1320px] mx-auto md:mb-48 mb-32">
+        <img src="./assets/logo.svg" alt="Logo" class="block md:h-48 md:w-[146px] h-40 w-[110px]">
+        <app-language-switcher></app-language-switcher>
+    </div>
+
+
+    <div class="flex max-w-[1320px] mx-auto xl:items-start xl:flex-row flex-col">
+        <div
+            class="bg-white shadow-1 rounded-[8px] flex-grow-0 flex-shrink-0 xl:basis-[320px] xl:max-w-[320px] basis-full max-w-full xl:ltr:mr-24 xl:rtl:ml-24 xl:mb-0 md:mb-24 mb-16">
+            <div class="md:px-24 md:py-20 p-16 border-b border-b-light-border headline-6">{{payerMemberPhysicianInfoData.memberInfoModel?.memberName}}</div>
+            <div class="md:px-24 md:py-20 p-16">
+                <div class="row">
+                    <div class="col-xl-12 col-md-6">
+                        <div class="pb-16">
+                            <label class="body-2 text-secondary !pb-2">{{'NATIONAL-ID-IQAMA-ID'| translate}}</label>
+                            <p class="body-1">{{payerMemberPhysicianInfoData.memberInfoModel?.idNumber}}</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-md-6">
+                        <div class="pb-16">
+                            <label class="body-2 text-secondary !pb-2">{{'DOB'| translate}}</label>
+                            <p class="body-1">{{payerMemberPhysicianInfoData.memberInfoModel?.dob}}</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-md-6">
+                        <div class="pb-16">
+                            <label class="body-2 text-secondary !pb-2">{{'AGE'| translate}}</label>
+                            <p class="body-1">{{payerMemberPhysicianInfoData.memberInfoModel?.age}}</p>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-md-6">
+                        <div class="pb-16">
+                            <label class="body-2 text-secondary !pb-2">{{'GENDER'| translate}}</label>
+                            <p class="body-1">{{payerMemberPhysicianInfoData.memberInfoModel?.gender}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label class="body-2 text-secondary !pb-2">{{'customization.payer'| translate}}</label>
+                    <p class="body-1">{{payerMemberPhysicianInfoData.payerName}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="flex-grow-0 flex-shrink-0 xl:basis-[calc(100%-344px)] xl:max-w-[calc(100%-344px)] basis-full max-w-full">
+            <div class="bg-white shadow-1 rounded-[8px] md:mb-24 mb-16">
+                <div class="md:px-24 md:py-20 p-16 border-b border-b-light-border headline-6 flex md:flex-row flex-col md:justify-between">
+                    <span class="block md:!pb-0 !pb-4">{{'PRESCRIPTION-INFO' | translate}}</span>
+                    <span class="text-tertiary md:ltr:text-right ltr:text-left md:rtl:text-left rtl:text-right">{{ePrescriptionReferenceNumber}}</span>
+                </div>
+                <div class="md:px-24 md:pt-20 md:pb-24 p-16">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="pb-16">
+                                <label class="body-2 text-secondary !pb-2">{{'PRESCRIPTION-STATUS'| translate}}</label>
+                                <p class="text-success body-1-medium" *ngIf="payerMemberPhysicianInfoData.status === 'APPROVED' ||
+                                payerMemberPhysicianInfoData.status === 'PARTIAL_APPROVED' ||
+                                payerMemberPhysicianInfoData.status === 'PARTIAL_DISPENSED' ||
+                                payerMemberPhysicianInfoData.status === 'DISPENSED'">
+                                    <ng-container *ngIf="payerMemberPhysicianInfoData.status">{{payerMemberPhysicianInfoData.status | translate}}</ng-container>
+                                </p>
+                                <p class="text-error body-1-medium" *ngIf="payerMemberPhysicianInfoData.status === 'REJECTED' 
+                                || payerMemberPhysicianInfoData.status === 'CANCELLED'">
+                                    <ng-container *ngIf="payerMemberPhysicianInfoData.status">{{payerMemberPhysicianInfoData.status | translate}}</ng-container>
+                                </p>
+                                <p class="text-warning body-1-medium" *ngIf="payerMemberPhysicianInfoData.status === 'PENDING'">
+                                    <ng-container *ngIf="payerMemberPhysicianInfoData.status">{{payerMemberPhysicianInfoData.status | translate}}</ng-container>
+                                </p>
+                                <p class="body-1-medium" *ngIf="payerMemberPhysicianInfoData.status !== 'REJECTED' && payerMemberPhysicianInfoData.status !== 'APPROVED'
+                                && payerMemberPhysicianInfoData.status !== 'DISPENSED' && payerMemberPhysicianInfoData.status !== 'CANCELLED'
+                                && payerMemberPhysicianInfoData.status !== 'PENDING' && payerMemberPhysicianInfoData.status !== 'PARTIAL_APPROVED'
+                                && payerMemberPhysicianInfoData.status !== 'PARTIAL_DISPENSED'">
+                                    <ng-container *ngIf="payerMemberPhysicianInfoData.status">{{payerMemberPhysicianInfoData.status | translate}}</ng-container>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="pb-16">
+                                <label class="body-2 text-secondary !pb-2">{{'CLINICIAN'| translate}}</label>
+                                <p class="body-1">{{payerMemberPhysicianInfoData.physicianModel?.physicianName}} -
+                                    {{payerMemberPhysicianInfoData.physicianModel?.physicianLicenseNumber}}</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="pb-16">
+                                <label class="body-2 text-secondary !pb-2">{{'PROVIDER-NAME'| translate}}</label>
+                                <p class="body-1">Dallal Hospital</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="pb-16">
+                                <label class="body-2 text-secondary !pb-2">{{'TOTAL-PATIENT-SHARE'| translate}}</label>
+                                <p class="body-1">{{payerMemberPhysicianInfoData.totalPatientShare}} SAR</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="pb-16">
+                                <label class="body-2 text-secondary !pb-2">{{'TOTAL-NET-APPROVED'| translate}}</label>
+                                <p class="body-1">{{payerMemberPhysicianInfoData.totalNet}} SAR</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="pb-16">
+                                <label class="body-2 text-secondary !pb-2">{{'CASE-TYPE'| translate}}</label>
+                                <p class="body-1">Inpatient</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pb-24">
+                        <label class="body-2 text-secondary !pb-2">{{'STATUS-DESCRIPTION'| translate}}</label>
+                        <p class="body-1">{{payerMemberPhysicianInfoData.statusDescription}}</p>
+                    </div>
+
+                    <p class="subtitle-1 pb-16">{{'DIAGNOSIS'|translate}}</p>
+                    <div class="mb-24"><list-view [list]="diagnosisData" [prototype]="diagnosisListPrototype" [translateData]="[':4']" [showEditButton]="false"
+                            [showDeleteButton]="false" [isLoading]="listIsLoading" [showEmptyRows]="false"
+                            (onNext)="diagnosisDataControl.pageNumber = $event.pageNumber; fetchData()"
+                            (onPrevious)="diagnosisDataControl.pageNumber = $event.pageNumber; fetchData()"
+                            [showItemsPerPageSelection]="showItemPerPageDropdown(diagnosisData.totalElements!)"
+                            (onSizeChange)="diagnosisDataControl.recordSize = $event.pageSize; diagnosisDataControl.pageNumber=0; fetchData()"></list-view></div>
+
+                    <p class="subtitle-1 pb-16">{{'DRUGS'|translate}}</p>
+                    <div class="mb-24">
+                        <list-view [list]="drugData" [extraClasses]="getExtraClassesForListView()" [prototype]="drugListPrototype" [translateData]="[':4']" [showEditButton]="false"
+                            [showDeleteButton]="false" [isLoading]="listIsLoading" [showEmptyRows]="false" (onNext)="drugsDataControl.pageNumber = $event.pageNumber; fetchData()"
+                            [customCells]="{quantity:quantityCustomView, useUnitType:useCustomView, duration:durationCustomView, unitPrice:priceCustomView, net:netCustomView, patientShare:patientShareCustomView,totalOfNetAndPatientShare:totalOfNetAndPatientShareCustomView }"
+                            [showItemsPerPageSelection]="showItemPerPageDropdown(drugData.totalElements!)"
+                            (onPrevious)="drugsDataControl.pageNumber = $event.pageNumber; fetchData()"
+                            (onSizeChange)="drugsDataControl.recordSize = $event.pageSize; drugsDataControl.pageNumber=0; fetchData()"></list-view>
+                        <ng-template #quantityCustomView let-row="row">
+                            {{row.quantity}} {{row.unitType}}
+                        </ng-template>
+                        <ng-template #useCustomView let-row="row">
+                            {{row.useUnitValue}} {{row.useUnitType}}
+                        </ng-template>
+                        <ng-template #durationCustomView let-row="row">
+                            {{row.duration}} day(s)
+                        </ng-template>
+                        <ng-template #priceCustomView let-row="row">
+                            {{row.unitPrice}} SAR
+                        </ng-template>
+                        <ng-template #totalOfNetAndPatientShareCustomView let-row="row">
+                            {{row.totalOfNetAndPatientShare}} SAR
+                        </ng-template>
+                        <ng-template #netCustomView let-row="row">
+                            {{row.net}} SAR
+                        </ng-template>
+                        <ng-template #patientShareCustomView let-row="row">
+                            {{row.patientShare}} SAR
+                        </ng-template>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="bg-white shadow-1 rounded-[8px]">
+                <div class="md:px-24 md:py-20 p-16 border-b border-b-light-border headline-6">
+                    {{'DISPENSE-DETAILS' | translate}}
+                </div>
+                <div class="md:p-24 p-16">
+                    <list-view [list]="dispensedDetails" [extraClasses]="getExtraClassesForListView()" [prototype]="dispensedListPrototype" [translateData]="[':4']"
+                        [showEditButton]="false" [showDeleteButton]="false" [isLoading]="listIsLoading" [showEmptyRows]="false"
+                        (onNext)="dispenseDataControl.pageNumber = $event.pageNumber; fetchData()" (onPrevious)="dispenseDataControl.pageNumber = $event.pageNumber; fetchData()"
+                        (onSizeChange)="dispenseDataControl.recordSize = $event.pageSize; dispenseDataControl.pageNumber=0; fetchData()"></list-view>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p class="text-tertiary text-center body-2 md:pt-48 pt-32">&copy; {{'copyRights' | translate: {value: getYear()} }}</p>
+</section>

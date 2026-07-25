@@ -1,0 +1,12 @@
+<header class="shadow-1 flex items-center fixed system-transition px-24 bg-white dark:bg-neutral-800 py-10 header top-0">
+    <div class="flex items-center">
+        <waseel-icon-button [tooltip]="'TOGGLE-MENU'|translate" variant="transparent" color="default" (onClick)="onMenuIconClick()" icon="menu"
+            class="system-transition menu-toggle"></waseel-icon-button>
+        <waseel-icon-button [tooltip]="'GO-BACK'|translate" variant="transparent" *ngIf="onBackClick" (onClick)="onBackClick()" color="default" [iconRtlInvert]="true"
+            icon="arrow-left" class="system-transition ltr:mr-8 ltr:-ml-8 rtl:ml-8 rtl:-mr-8"></waseel-icon-button>
+        <h4 class="headline-6 text-primary dark:text-primary-200">{{titleCode}}</h4>
+    </div>
+    <div class="ltr:ml-auto rtl:mr-auto flex items-center">
+        <ng-content></ng-content>
+    </div>
+</header>

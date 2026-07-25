@@ -1,0 +1,135 @@
+<div class="p-16 flex items-center border-solid border-b-light-border dark:border-b-neutral-600 border-b-[1px]">
+    <h6 class="subtitle-1 text-text dark:text-neutral-25">{{ (dialogMode === 'edit' ? 'EDIT-SFDA-DRUG-DETAILS' :
+        'ADD-SFDA-DRUG-DETAILS') | translate }}</h6>
+    <waseel-icon-button class="-mt-12 -mb-12 ltr:ml-auto rtl:mr-auto ltr:-mr-12 rtl:-ml-12 system-transition opacity-[.64] hover:opacity-100 focus:opacity-100 active:opacity-100"
+                        icon="close"
+                        (onClick)="closeDialog()"
+                        color="default"
+                        variant="transparent"></waseel-icon-button>
+</div>
+<form [formGroup]="editSfdaDrugDetailForm"
+      (submit)="saveData()">
+    <div class="p-16 pb-0">
+        <div class="row small-gutter">
+            <div class="col-md-6">
+                <waseel-textbox [label]="'SFDA-CODE' | translate"
+                                [placeholder]="'ENTER-HERE' | translate"
+                                name="sfdaCode"
+                                [disabled]="dialogMode === 'edit'"
+                                formControlName="sfdaCode"
+                                [maxLength]="50">
+                </waseel-textbox>
+            </div>
+            <div class="col-md-6">
+                <waseel-textbox [label]="'GTIN-CODE' | translate"
+                                [placeholder]="'ENTER-HERE' | translate"
+                                name="gtinCode"
+                                formControlName="gtinCode"
+                                [maxLength]="100">
+                </waseel-textbox>
+            </div>
+        </div>
+        <waseel-textbox [label]="'TRADE-NAME' | translate"
+                        [placeholder]="'ENTER-HERE' | translate"
+                        name="tradeName"
+                        formControlName="tradeName"
+                        [maxLength]="100">
+        </waseel-textbox>
+        <div class="row small-gutter">
+            <div class="col-md-6">
+                <waseel-textbox [label]="'SCIENTIFIC-CODE' | translate"
+                                [placeholder]="'ENTER-HERE' | translate"
+                                name="scientificCode"
+                                formControlName="scientificCode"
+                                [maxLength]="50">
+                </waseel-textbox>
+            </div>
+            <div class="col-md-6">
+                <waseel-textbox [label]="'SCIENTIFIC-NAME' | translate"
+                                [placeholder]="'ENTER-HERE' | translate"
+                                name="scientificName"
+                                formControlName="scientificName"
+                                [maxLength]="2000">
+                </waseel-textbox>
+            </div>
+            <div class="col-md-6">
+                <waseel-select [label]="'DOSAGE-FORM' | translate"
+                               [options]="(dssLovService.dosageForm$ | async) || []"
+                               [placeholder]="'SELECT' | translate"
+                               name="dosageForm"
+                               formControlName="dosageForm"
+                               [maxlength]="100">
+                </waseel-select>
+            </div>
+            <div class="col-md-6">
+                <waseel-textbox [label]="'ADMINISTRATION-ROUTE' | translate"
+                                [placeholder]="'ENTER-HERE' | translate"
+                                name="administrationRoute"
+                                formControlName="administrationRoute"
+                                [maxLength]="100">
+                </waseel-textbox>
+            </div>
+            <div class="col-md-6">
+                <waseel-textbox [label]="'PACKAGE-SIZE' | translate"
+                                [placeholder]="'ENTER-HERE' | translate"
+                                name="packageSize"
+                                formControlName="packageSize"
+                                [maxLength]="100">
+                </waseel-textbox>
+            </div>
+            <div class="col-md-6">
+                <waseel-select [label]="'PACKAGE-TYPE' | translate"
+                               [options]="(dssLovService.packageTypes$ | async) || []"
+                               [placeholder]="'SELECT' | translate"
+                               name="packageType"
+                               formControlName="packageType"
+                               [maxlength]="100">
+                </waseel-select>
+            </div>
+            <div class="col-md-6">
+                <waseel-textbox [label]="'GRANULAR-UNIT' | translate"
+                                [placeholder]="'ENTER-HERE' | translate"
+                                name="granularUnit"
+                                formControlName="granularUnit"
+                                (onSearch)="checkNumberType($event)"
+                                [maxLength]="4">
+                </waseel-textbox>
+            </div>
+            <div class="col-md-6">
+                <waseel-textbox [label]="'STRENGTH' | translate"
+                                [placeholder]="'ENTER-HERE' | translate"
+                                name="strength"
+                                formControlName="strength"
+                                [maxLength]="2000">
+                </waseel-textbox>
+            </div>
+            <div class="col-md-6">
+                <waseel-select [label]="'STRENGTH-UNIT' | translate"
+                               [options]="(dssLovService.strengthUnit$ | async) || []"
+                               [placeholder]="'SELECT' | translate"
+                               name="strengthUnit"
+                               formControlName="strengthUnit"
+                               [maxlength]="10">
+                </waseel-select>
+            </div>
+            <div class="col-md-6">
+                <waseel-textbox [label]="'PRICE' | translate"
+                                [placeholder]="'ENTER-HERE' | translate"
+                                name="price"
+                                formControlName="price"
+                                [maxLength]="15"
+                                (keyup)="onKeyUp($event)">
+                </waseel-textbox>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="py-12 px-16 flex justify-end border-solid border-t-light-border dark:border-t-neutral-600 border-t-[1px]">
+    <waseel-button variant="tonal"
+                   class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                   type="button"
+                   (onClick)="closeDialog()">{{'CANCEL'|translate}}</waseel-button>
+    <waseel-button class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0"
+                   [disabled]="editSfdaDrugDetailForm.invalid || (dialogMode == 'edit' && !dataHasChanged()) || (dialogMode == 'add' && !dataHasChanged())"
+                   (onClick)="saveData()">{{'SAVE'|translate}}</waseel-button>
+</div>

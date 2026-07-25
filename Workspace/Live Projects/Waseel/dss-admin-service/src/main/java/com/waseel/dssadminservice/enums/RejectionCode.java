@@ -1,0 +1,21 @@
+package com.waseel.dssadminservice.enums;
+
+public enum RejectionCode {
+
+    IDF_INDICATION("IDF_CPINDI001"), IDF_CONTRAINDICATION("IDF_CPINDC001"),
+    FDB_INDICATION("FDB_CPINDI001"), FDB_CONTRAINDICATION("FDB_CPINDC001"),
+    PAYER_CUSTOMIZATION("CUS_CPINDI001"), FDB_QUANTITY_LIMIT_CHECK("FDB_CPQTL912"),
+    IDF_QUANTITY_LIMIT_CHECK("IDF_CPQTL912"), FDB_AGE("FDB_CPAGE902"),
+    IDF_AGE("IDF_CPAGE902"), FDB_GENDER("FDB_CPGNDR403"),
+    IDF_GENDER("IDF_CPGNDR403"), IDF_DRUG_TO_DRUG("IDF_CPDDI701"), FDB_DRUG_TO_DRUG("FDB_CPDDI701"),
+    FDB_DUPLICATE_THERAPY("FDB_CPTDE0001"), IDF_DUPLICATE_THERAPY("IDF_CPTDE0001");
+    private final String value;
+
+    private RejectionCode(String value) {
+        this.value = value;
+    }
+
+    public String code() {
+        return this.value;
+    }
+}

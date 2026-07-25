@@ -1,0 +1,153 @@
+spring:
+  profiles:
+    active: '@activatedSpringProperties@'
+  cloud:
+    gateway:
+      enabled: true
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: '*'
+            allowedMethods: '*'
+  security:
+    oauth2:
+      resourceserver:
+        opaquetoken:
+          client-id: GatewayService
+          client-secret: gateway-service-secret
+          introspection-uri: '@oauthUrl@/users/current'
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+gateway:
+  routes:
+  - routeName: oauth
+    path: /oauth/**
+    rewrite-path-regex: /oauth(?<segment>/?.*)
+    rewrite-path-replacement: ${segment}
+    uri: '@oauthUrl@'
+    permit-paths:
+    - /actuator/**
+    - /oauth/**
+    - /api/v3/api-docs/**
+    - /v3/api-docs/**
+    - /swagger-ui/**
+    - /webjars/**
+    - /prescription/v3/**
+  - routeName: admin-customization-uri
+    path: /customizations/**
+    uri: '@pbm-admin-service-serviceUrl@'
+  - routeName: admin-fdb-uri
+    path: /fdb/**
+    uri: '@pbm-admin-service-serviceUrl@'
+  - routeName: admin-idf-uri
+    path: /idf/**
+    uri: '@pbm-admin-service-serviceUrl@'
+  - routeName: admin-drugs-gcn-number-uri
+    path: /drugs/**
+    uri: '@pbm-admin-service-serviceUrl@'
+  - routeName: admin-dss-uri
+    path: /dss/**
+    uri: '@pbm-admin-service-serviceUrl@'
+  - routeName: admin-common-uri
+    path: /lov/**
+    uri: '@pbm-admin-service-serviceUrl@'
+  - routeName: admin-drug-formulary-uri
+    path: /drug-formulary/**
+    uri: '@pbm-admin-service-serviceUrl@'    
+  - routeName: admin-drug-exclusion-uri
+    path: /drug-exclusion/**
+    uri: '@pbm-admin-service-serviceUrl@'     
+  - routeName: admin-member-management-uri
+    path: /member-management/**
+    uri: '@pbm-admin-service-serviceUrl@'    
+  - routeName: dss
+    pathRegex: \/dss-service.*
+    uri: '@dss-serviceUrl@'
+  - routeName: idf
+    pathRegex: \/idf-validation-service.*
+    uri: '@idf-serviceUrl@'
+  - routeName: fdb
+    pathRegex: \/fdb-validation-service.*
+    uri: '@fdb-serviceUrl@'
+  - routeName: rts
+    pathRegex: \/rts-service.*
+    uri: '@rts-serviceUrl@'
+  - routeName: payer-customization
+    pathRegex: \/payer-customization.*
+    uri: '@payer-customization-serviceUrl@'
+  - routeName: pbm-admin-service
+    pathRegex: \/pbm-admin-service.*
+    uri: '@pbm-admin-service-serviceUrl@'
+  - routeName: prescription
+    pathRegex: \/payers\/.*\/prescriptions.*
+    uri: '@prescription-service-serviceUrl@'
+  - routeName: prescriptionSwagger
+    path: /prescription/v3/api-docs
+    rewrite-path-regex: /prescription(?<segment>/?.*)
+    rewrite-path-replacement: ${segment}
+    uri: '@prescription-service-serviceUrl@'
+  - routeName: authenticationSwagger
+    path: /oauth/v3/api-docs
+    rewrite-path-regex: /oauth(?<segment>/?.*)
+    rewrite-path-replacement: ${segment}
+    uri: '@oauthUrl@'
+  - routeName: prescription-common-uri
+    pathRegex: \/prescriptions.*
+    uri: '@prescription-service-serviceUrl@'
+  - routeName: ePrescripiton-notification
+    path: /pbm-notification/eprescription/notifications
+    uri: '@pbm-notification-service-serviceUrl@'
+  - routeName: admin-sfda-management-uri
+    path: /sfda-management/**
+    uri: '@dss-admin-service-serviceUrl@' 
+  - routeName: admin-member-chronic-disease-uri
+    path: /member-chronic-disease/**
+    uri: '@dss-admin-service-serviceUrl@' 
+  - routeName: admin-dss-lov-uri
+    path: /dss-lov/**
+    uri: '@dss-admin-service-serviceUrl@'  
+  - routeName: dss-customization
+    path: /dss-customizations/**
+    uri: '@dss-admin-service-serviceUrl@'  
+routes:
+  oauthUrl: '@oauthUrl@'
+swagger:
+  urls: '@pbm-gatewayUrl@/prescription/v3/api-docs, @pbm-gatewayUrl@/oauth/v3/api-docs'
+server:
+  forward-headers-strategy: framework
+springdoc:
+  swagger-ui.configUrl: /api/v3/api-docs/swagger-config
+  swagger-ui.disable-swagger-default-url: true
+  swagger-ui:
+    urls:
+    - url: '@pbm-gatewayUrl@/prescription/v3/api-docs'
+      name: prescription
+      display-name: Prescription APIs
+    - url: '@pbm-gatewayUrl@/oauth/v3/api-docs'
+      name: authentication
+      display-name: Authentication APIs
+management:
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  info:
+    env:
+      enabled: true
+info:
+  app:
+    name: Gateway-service
+    version: 11
+    type: Spring Boot-Microservice

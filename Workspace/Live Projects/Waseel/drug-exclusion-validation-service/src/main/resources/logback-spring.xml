@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+	<include
+			resource="org/springframework/boot/logging/logback/defaults.xml" />
+	<include
+			resource="org/springframework/boot/logging/logback/console-appender.xml" />
+	<include
+			resource="org/springframework/boot/logging/logback/file-appender.xml" />
+	<springProfile name="local">
+		<root level="INFO">
+			<appender-ref ref="CONSOLE" />
+		</root>
+	</springProfile>
+	<springProfile name="test">
+		<root level="INFO">
+			<appender-ref ref="CONSOLE" />
+		</root>
+	</springProfile>
+	<springProfile name="qa">
+		<property name="logstash-host-port" value="10.100.5.191:5000" />
+		<appender name="LOGSTASH"
+				  class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+			<destination>${logstash-host-port}</destination>
+			<encoder class="net.logstash.logback.encoder.LogstashEncoder">
+				<includeCallerData>true</includeCallerData>
+				<customFields>{"appname":"@appName@"}</customFields>
+			</encoder>
+			<keepAliveDuration>5 minutes</keepAliveDuration>
+		</appender>
+		<root level="INFO">
+			<appender-ref ref="LOGSTASH" />
+			<appender-ref ref="CONSOLE" />
+		</root>
+	</springProfile>
+	<springProfile name="stg">
+		<property name="logstash-host-port" value="10.100.5.191:5000" />
+		<appender name="LOGSTASH"
+				  class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+			<destination>${logstash-host-port}</destination>
+			<encoder class="net.logstash.logback.encoder.LogstashEncoder">
+				<includeCallerData>true</includeCallerData>
+				<customFields>{"appname":"@appName@"}</customFields>
+			</encoder>
+			<keepAliveDuration>5 minutes</keepAliveDuration>
+		</appender>
+		<root level="INFO">
+			<appender-ref ref="LOGSTASH" />
+			<appender-ref ref="CONSOLE" />
+		</root>
+	</springProfile>
+	<springProfile name="prod">
+		<property name="logstash-host-port" value="10.100.5.191:5000" />
+		<appender name="LOGSTASH"
+				  class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+			<destination>${logstash-host-port}</destination>
+			<encoder class="net.logstash.logback.encoder.LogstashEncoder">
+				<includeCallerData>true</includeCallerData>
+				<customFields>{"appname":"@appName@"}</customFields>
+			</encoder>
+			<keepAliveDuration>5 minutes</keepAliveDuration>
+		</appender>
+		<root level="INFO">
+			<appender-ref ref="LOGSTASH" />
+			<appender-ref ref="CONSOLE" />
+		</root>
+	</springProfile>
+</configuration>

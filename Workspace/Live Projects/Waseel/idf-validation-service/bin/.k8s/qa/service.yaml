@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: idf-validation-service-qa-service
+  namespace: pbm-qa
+  labels:
+    app: idf-validation-service-qa-service
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  type: ClusterIP
+  selector:
+    app: idf-validation-service-qa-deployment

@@ -1,0 +1,33 @@
+<div class="flex md:flex-row flex-col min-h-screen bg-white dark:bg-neutral-900">
+    <div
+        class="grow-0 shrink-0 basis-[360px] max-w-[360px] lg:basis-[480px] lg:max-w-[480px] xl:basis-[560px] xl:max-w-[560px] login-gradient relative justify-center items-center md:flex hidden">
+        <img src="assets/logo-white.svg" alt="Waseel" class="h-[72px] block relative z-[1]">
+    </div>
+    <div class="md:grow-0 shrink-0 basis-full max-w-full md:basis-[calc(100%-360px)] md:max-w-[calc(100%-360px)] lg:basis-[calc(100%-480px)] lg:max-w-[calc(100%-480px)]
+        xl:basis-[calc(100%-560px)] xl:max-w-[calc(100%-560px)] flex flex-col grow-[1] px-16 pt-16 pb-24">
+        <div class="flex items-center">
+            <img src="assets/logo.svg" alt="Waseel" class="h-[40px] block dark:hidden md:hidden">
+            <img src="assets/logo-white.svg" alt="Waseel" class="h-[40px] hidden dark:block md:hidden">
+            <app-language-switcher class="ltr:ml-auto rtl:mr-auto ltr:-mr-8 ltr:md:mr-0 rtl:-ml-8 rtl:md:ml-0"></app-language-switcher>
+        </div>
+        <div class="md:p-32 px-0 my-auto">
+            <form [formGroup]="signInForm" (ngSubmit)="signIn()" class="max-w-[320px] mx-auto">
+                <h5 class="headline-5">{{'auth.signInPageTitle' | translate}}</h5>
+                <p class="text-tertiary dark:text-neutral-400 !pt-4 body-2 pb-16">{{'auth.signInPageSubTitle' | translate}}</p>
+                <waseel-textbox name="username" id="username" formControlName="username" placeholder="ex. john.doe" [label]="'auth.username' | translate"></waseel-textbox>
+                <waseel-textbox name="password" id="password" formControlName="password" type="password" [placeholder]="'auth.enterYourPassword' | translate"
+                    [label]="'auth.password' | translate"></waseel-textbox>
+                <div class="ltr:text-right rtl:text-left pb-16 -mt-8">
+                    <a href="#" (click)="$event.preventDefault();" [title]="'auth.forgotPassword'|translate"
+                        class="body-2 text-secondary dark:text-neutral-100 hover:text-primary-700 focus:text-primary-700 active:text-primary-700 dark:hover:text-primary-200 dark:focus:text-primary-200 dark:active:text-primary-200">{{'auth.forgotPassword'|translate}}</a>
+                </div>
+                <waseel-button [disabled]="!signInForm.valid || (isLoading$ | async)" type="submit" [size]="'large'" class="block" cssClass="w-full">{{'auth.signIn' |
+                    translate}}</waseel-button>
+                <waseel-alert *ngIf="errorCode.length > 0" class="mt-16 block">
+                    {{ errorCode | translate }}
+                </waseel-alert>
+            </form>
+        </div>
+        <p class="text-tertiary dark:text-neutral-400 text-center body-2">&copy; {{'copyRights' | translate: {value: getYear()} }}</p>
+    </div>
+</div>

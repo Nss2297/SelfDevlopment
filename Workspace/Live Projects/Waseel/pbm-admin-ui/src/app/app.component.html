@@ -1,0 +1,18 @@
+<router-outlet #outlet="outlet"></router-outlet>
+
+<div *ngIf="!outlet.isActivated" class="flex fixed h-screen w-screen items-center inset-0 justify-center bg-white dark:bg-neutral-900 flex-col z-50">
+    <img src="assets/logo.svg" alt="Waseel ASP Ltd." class="h-64 block dark:hidden mb-32">
+    <img src="assets/logo-white.svg" alt="Waseel ASP Ltd." class="h-64 hidden dark:block mb-32">
+    <div class="loader">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+<waseel-loading-overlay *ngIf="authService.systemLoaderVisible"></waseel-loading-overlay>
+
+
+<alert-confirm-dialog *ngIf="dialogService.alertConfirmDialogOpen$ | async" (onClose)="runOnConfirmDialogCloseCallBack($event)"
+    [config]="dialogService.alertConfirmDialogConfig"></alert-confirm-dialog>

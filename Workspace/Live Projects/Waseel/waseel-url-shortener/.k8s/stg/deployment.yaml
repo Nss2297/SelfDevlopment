@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: waseel-url-shortener
+  namespace: pbm-stg
+  labels:
+    app: waseel-url-shortener
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: waseel-url-shortener
+  template:
+    metadata:
+      labels:
+        app: waseel-url-shortener
+    spec:
+      containers:
+        - name: waseel-url-shortener-stg-container
+          image: me-jeddah-1.ocir.io/ax7dvcawpc84/pbm/stg/waseel-url-shortener:latest
+          env:
+          - name: TZ
+            value: Asia/Riyadh
+          - name: URL_SHORTENER_CLIENT_ID
+            valueFrom:
+              secretKeyRef:
+                name: url-shortener-secrets
+                key: URL_SHORTENER_CLIENT_ID
+          - name: URL_SHORTENER_CLIENT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: url-shortener-secrets
+                key: URL_SHORTENER_CLIENT_SECRET
+          - name: REDIS_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: url-shortener-secrets
+                key: REDIS_USERNAME
+          - name: REDIS_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: url-shortener-secrets
+                key: REDIS_PASSWORD
+          ports:
+          - containerPort: 8080
+      imagePullSecrets:
+        - name: waseel-docker-registry-cred

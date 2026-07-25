@@ -1,0 +1,5 @@
+--liquibase formatted sql
+
+--changeset Prescription:0036
+
+ALTER TABLE PRESCRIPTION_REJECTION MODIFY (ELIGIBILITY_REFERENCE_NUMBER NULL);

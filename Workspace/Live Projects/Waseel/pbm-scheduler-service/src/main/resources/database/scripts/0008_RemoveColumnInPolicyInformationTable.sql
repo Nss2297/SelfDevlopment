@@ -1,0 +1,6 @@
+--liquibase formatted sql
+
+--changeset PBM Scheduler Service:0008
+
+ALTER TABLE PBM_BUSINESS_RULES.POLICY_INFORMATION 
+DROP COLUMN ENDORSEMENT;

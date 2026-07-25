@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: policy-consumption-service
+  namespace: pbm-prod
+  labels:
+    app: policy-consumption-service
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  type: ClusterIP
+  selector:
+    app: policy-consumption-service

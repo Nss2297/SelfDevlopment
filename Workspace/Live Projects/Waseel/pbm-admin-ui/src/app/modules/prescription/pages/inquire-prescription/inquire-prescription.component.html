@@ -1,0 +1,62 @@
+<app-base-page>
+    <div page-main-section class="pb-24 pt-88 system-transition main-content">
+        <waseel-icon icon="search-multicolor" cssClass="h-80 w-80 block mb-16 mx-auto mt-24"></waseel-icon>
+        <div class="pb-24">
+            <h5 class="headline-5 text-secondary !pb-3 text-center">{{'prescription.inquire'| translate}}</h5>
+            <p class="body-2 text-center text-tertiary">{{'INQUIRE-SUBTITLE' | translate}}</p>
+        </div>
+
+        <div class="bg-white p-24 shadow-1 rounded-[8px] max-w-[400px] mx-auto">
+            <div class="pb-16">
+                <label class="body-2 block pb-8">{{'INQUIRE-BY'|translate}}</label>
+                <div class="flex items-center flex-wrap -mb-8">
+                    <label class="relative radio ltr:pr-16 rtl:pl-16 pb-8">
+                        <input type="radio" name="inquire-by" [(ngModel)]="inquireBy" value="ref-no" class="absolute top-0 left-0 opacity-0">
+                        <span class="body-2 flex items-start ">
+                            <waseel-icon *ngIf="inquireBy!='ref-no'" icon="radio-unchecked" cssClass="h-24 w-24 block text-tertiary"></waseel-icon>
+                            <waseel-icon *ngIf="inquireBy=='ref-no'" icon="radio-checked" cssClass="h-24 w-24 block text-primary"></waseel-icon>
+                            <span class="inline-block ltr:pl-6 rtl:pr-6 align-top !pt-2">{{'REF-NO' |
+                                translate}}</span>
+                        </span>
+                    </label>
+                    <label class="relative radio ltr:pr-16 rtl:pl-16 pb-8">
+                        <input type="radio" name="inquire-by" [(ngModel)]="inquireBy" value="member-id" class="absolute top-0 left-0 opacity-0">
+                        <span class="body-2 flex items-start">
+                            <waseel-icon *ngIf="inquireBy!='member-id'" icon="radio-unchecked" cssClass="h-24 w-24 block text-tertiary"></waseel-icon>
+                            <waseel-icon *ngIf="inquireBy=='member-id'" icon="radio-checked" cssClass="h-24 w-24 block text-primary"></waseel-icon>
+                            <span class="inline-block ltr:pl-6 rtl:pr-6 align-top !pt-2">{{'MEMBER-ID' |
+                                translate}}</span>
+                        </span>
+                    </label>
+                    <label class="relative radio pb-8">
+                        <input type="radio" name="inquire-by" [(ngModel)]="inquireBy" value="national-id" class="absolute top-0 left-0 opacity-0">
+                        <span class="body-2 flex items-start">
+                            <waseel-icon *ngIf="inquireBy!='national-id'" icon="radio-unchecked" cssClass="h-24 w-24 block text-tertiary"></waseel-icon>
+                            <waseel-icon *ngIf="inquireBy=='national-id'" icon="radio-checked" cssClass="h-24 w-24 block text-primary"></waseel-icon>
+                            <span class="inline-block ltr:pl-6 rtl:pr-6 align-top !pt-2">{{'NATIONAL-ID' |
+                                translate}}</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <form [formGroup]="searchForm" (submit)="applyFilter()">
+                <waseel-textbox *ngIf="inquireBy=='ref-no'" label="{{'PRESCRIPTION-REFERENCE-NO'| translate}}" placeholder="{{'ENTER-REF-NO'|translate}}" name="referenceNo"
+                    value="referenceNo"  [(ngModel)]="refNo" formControlName="referenceNo" [error]="refErrorCode.length > 0 
+                    ? ('prescription.memberError' | translate) : (refRequiredMsg.length > 0 ? ('prescription.referenceRequired'  | translate) :'')"></waseel-textbox>
+                <waseel-textbox *ngIf="inquireBy=='member-id'" label="{{'MEMBER-ID'| translate}}" placeholder="{{'ENTER-MEMBER-ID'|translate}}" name="memberId"
+                    formControlName="memberId" [minLength]="3" [maxLength]="30" (keydown.space)="$event.preventDefault()" [error]="memberErrorCode.length > 0 
+                    ? (memberErrorCode) : (memberRequiredMsg.length > 0 ? ('prescription.memberIdRequired' | translate) :'')"></waseel-textbox>
+                <waseel-textbox *ngIf="inquireBy=='member-id'" label="{{'POLICY-NO'| translate}}" placeholder="{{'ENTER-POLICY-NO'|translate}}" name="policyNumber"
+                    formControlName="policyNumber" [minLength]="3" [maxLength]="15" (keydown.space)="$event.preventDefault()" [error]="policyNoErrorCode.length > 0 
+                    ? (policyNoErrorCode) : (policyNoRequiredMsg.length > 0 ? ('prescription.policyNoRequired' | translate) :'')"></waseel-textbox>
+                <waseel-textbox *ngIf="inquireBy=='national-id'" label="{{'NATIONAL-ID'| translate}}" placeholder="{{'ENTER-NATIONAL-ID'|translate}}" name="idNumber"
+                    formControlName="idNumber" [minLength]="10" [maxLength]="10" [error]="idErrorCode.length > 0 
+                    ? ('prescription.idError' | translate) : (idRequiredMsg.length > 0 ? ('prescription.idRequired' | translate) :'')"
+                    (keydown.space)="$event.preventDefault();"></waseel-textbox>
+                <waseel-button size="large" cssClass="w-full" icon="left" class="w-full" iconName="search" type="submit">{{'SEARCH-PRESCRIPTION'|
+                    translate}}</waseel-button>
+            </form>
+        </div>
+
+    </div>
+</app-base-page>

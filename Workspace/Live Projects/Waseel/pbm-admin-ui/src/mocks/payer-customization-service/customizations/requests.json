@@ -1,0 +1,164 @@
+{
+    "content": [
+        {
+            "lastUpdatedDate": "2023-08-17",
+            "drugCode": "34-325-01",
+            "drugName": "GUAPHAN DM",
+            "moduleName": "Payer_Customization_Gender",
+            "status": "PENDING",
+            "customizationRequestId": 144,
+            "customizationDetails": [
+                {
+                    "lable": "Gender",
+                    "value": "MALE"
+                }
+            ]
+        },
+        {
+            "lastUpdatedDate": "2023-08-17",
+            "drugCode": "2-407-03",
+            "drugName": "UCIDERM -B CREAM",
+            "moduleName": "FDB_DuplicateTherapy",
+            "status": "PENDING",
+            "customizationRequestId": 143,
+            "customizationDetails": []
+        },
+        {
+            "lastUpdatedDate": "2023-08-17",
+            "drugCode": "256-212-09",
+            "drugName": "FEVADOL FAST 500MG TABLETS",
+            "moduleName": "FDB_DuplicateTherapy",
+            "status": "ACCEPTED",
+            "customizationRequestId": 142,
+            "customizationDetails": [
+                {
+                    "lable": "Interacted Drug Code",
+                    "value": " 40-785-22"
+                }
+            ]
+        },
+        {
+            "lastUpdatedDate": "2023-08-17",
+            "drugCode": "68-188-12",
+            "drugName": "AMINOPLASMAL B BRAUN 10%",
+            "moduleName": "Payer_Customization_DuplicateTherapy",
+            "status": "REJECTED",
+            "customizationRequestId": 141,
+            "customizationDetails": [
+                {
+                    "lable": "Interacted Drug Code",
+                    "value": " 40-785-22"
+                }
+            ]
+        },
+        {
+            "lastUpdatedDate": "2023-08-17",
+            "drugCode": "67-188-12",
+            "drugName": "AMINOPLASMAL B BRAUN 10%",
+            "moduleName": "Payer_Customization_DuplicateTherapy",
+            "status": "PENDING",
+            "customizationRequestId": 140,
+            "customizationDetails": [
+                {
+                    "lable": "Interacted Drug Code",
+                    "value": " 40-785-22"
+                }
+            ]
+        },
+        {
+            "lastUpdatedDate": "2023-08-17",
+            "drugCode": "1-848-12",
+            "drugName": "DAONIL M 250/1.25MG TABLETS",
+            "moduleName": "FDB_DrugToDrugInteraction",
+            "status": "PENDING",
+            "customizationRequestId": 139,
+            "customizationDetails": [
+                {
+                    "lable": "Interacted Drug Code",
+                    "value": "40-785-22"
+                }
+            ]
+        },
+        {
+            "lastUpdatedDate": "2023-08-17",
+            "drugCode": "105-368-09",
+            "drugName": "VOLTIC 1% EMULGEL",
+            "moduleName": "IDF_ConcurrentMedication",
+            "status": "PENDING",
+            "customizationRequestId": 138,
+            "customizationDetails": [
+                {
+                    "lable": "Interacted Drug Code",
+                    "value": "40-785-22"
+                }
+            ]
+        },
+        {
+            "lastUpdatedDate": "2023-08-17",
+            "drugCode": "1-229-96",
+            "drugName": "TELEBRIX 12 SODIUM 120MG-ML INFUSION",
+            "moduleName": "IDF_ConcurrentMedication",
+            "status": "PENDING",
+            "customizationRequestId": 137,
+            "customizationDetails": [
+                {
+                    "lable": "Interacted Drug Code",
+                    "value": "40-785-22"
+                }
+            ]
+        },
+        {
+            "lastUpdatedDate": "2023-08-17",
+            "drugCode": "264-149-02",
+            "drugName": "SODIUM CHLORIED 7.5 % W- V SOLUTION",
+            "moduleName": "Payer_Customization_DrugToDrugInteraction",
+            "status": "PENDING",
+            "customizationRequestId": 136,
+            "customizationDetails": [
+                {
+                    "lable": "Interacted Drug Code",
+                    "value": "40-785-22"
+                }
+            ]
+        },
+        {
+            "lastUpdatedDate": "2023-08-17",
+            "drugCode": "263-149-02",
+            "drugName": "SODIUM CHLORIED 7.5 % W- V SOLUTION",
+            "moduleName": "Payer_Customization_DrugToDrugInteraction",
+            "status": "PENDING",
+            "customizationRequestId": 135,
+            "customizationDetails": [
+                {
+                    "lable": "Interacted Drug Code",
+                    "value": "40-785-22"
+                }
+            ]
+        }
+    ],
+    "pageable": {
+        "sort": {
+            "sorted": false,
+            "unsorted": true,
+            "empty": true
+        },
+        "pageNumber": 0,
+        "pageSize": 10,
+        "offset": 0,
+        "paged": true,
+        "unpaged": false
+    },
+    "last": false,
+    "totalPages": 3,
+    "totalElements": 21,
+    "sort": {
+        "sorted": false,
+        "unsorted": true,
+        "empty": true
+    },
+    "first": true,
+    "number": 0,
+    "numberOfElements": 10,
+    "size": 10,
+    "empty": false
+}

@@ -1,0 +1,9 @@
+<div class="px-24 py-96 text-center flex flex-col justify-center items-center">
+    <waseel-icon icon="empty-state" [cssClass]="'h-80 w-80 block text-primary dark:text-primary-300 mb-24'"></waseel-icon>
+    <p class="headline-5 text-secondary dark:text-neutral-100">{{emptyStateMessage|translate}}</p>
+    <span *ngIf="subtitle" class="body-2 text-tertiary pt-8 pb-24 max-w-[420px] mx-auto">{{subtitle}}</span>
+
+    <waseel-button *ngIf="isSearchAgain" icon="left" class="ltr:mr-8 rtl:ml-8 ltr:last:mr-0 rtl:last:ml-0" iconName="refresh"
+        (click)="navigateToReturnUrl()">{{'prescription.searchAgain'|translate}}</waseel-button>
+    <ng-content select="[no-content-action]"></ng-content>
+</div>

@@ -1,0 +1,25 @@
+<div [class]="'pb-16 group '+wrapperCssClass">
+    <label *ngIf="label" [for]="id" class="body-2 dark:text-neutral-25 block !pb-4">{{label}} <span *ngIf="isRequired" class="text-error-500">*</span></label>
+    <input readonly [disabled]="disabled ? true : false" [name]="name" [placeholder]="placeholder" (blur)="onTouched()" [(ngModel)]="valuePreview" #refEl
+        [class]="'h-[44px] enabled:border-solid disabled:border-dashed border border-border dark:border-neutral-600 enabled:bg-white disabled:bg-light-grey disabled:cursor-not-allowed dark:bg-neutral-800 rounded-[8px] ltr:pl-16 rtl:pr-16 !py-4 focus:border-primary dark:focus:border-primary-300 w-full text-text dark:text-neutral-25 focus-shadow-primary body-1 system-transition select ltr:pr-40 rtl:pl-40 '+cssClass" />
+    <div class="relative hidden group-focus-within:block">
+        <div class="absolute hidden max-h-[300px] overflow-auto group-focus-within:block rounded-[8px] shadow-4 bg-white dark:bg-neutral-800 left-0 top-[100%] right-0 z-[1]">
+            <div class="p-12 border-solid border-b-light-border dark:border-b-neutral-600 border-b-[1px]">
+                <input name="select-filter" (keyup)="onSearchInputFieldKeyUp($event)" [formControl]="searchFieldControl"
+                    [class]="'h-[40px] border-solid border border-border dark:border-neutral-600 bg-white dark:bg-neutral-800 rounded-[8px] ltr:pr-16 rtl:pl-16 !py-4 focus:border-primary dark:focus:border-primary-300 w-full text-text dark:text-neutral-25 focus-shadow-primary body-1 system-transition ltr:pl-40 rtl:pr-40 search-box'" />
+            </div>
+            <ul class="pb-8">
+                <li>
+                    <button *ngFor="let option of options; let i = index" (click)="selectItem(option)"
+                        class="w-full text-start px-16 block py-10 body-2 text-text dark:text-neutral-25 system-transition hover:bg-neutral-50 dark:hover:bg-neutral-700 focus:bg-neutral-50 dark:focus:bg-neutral-700 active:bg-neutral-50 dark:active:bg-neutral-700">
+                        {{option.value}}
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <span class="caption text-error flex items-center !pt-4" *ngIf="error">
+        <waseel-icon icon="error" [cssClass]="'h-20 w-20 block ltr:mr-4 rtl:ml-4'"></waseel-icon>
+        <span>{{error}}</span>
+    </span>
+</div>

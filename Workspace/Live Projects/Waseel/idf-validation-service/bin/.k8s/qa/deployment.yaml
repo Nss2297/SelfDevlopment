@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: idf-validation-service-qa-deployment
+  namespace: pbm-qa
+  labels:
+    app: idf-validation-service-qa-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: idf-validation-service-qa-deployment
+  template:
+    metadata:
+      labels:
+        app: idf-validation-service-qa-deployment
+    spec:
+      containers:
+        - name: idf-validation-service-qa-container
+          image: me-jeddah-1.ocir.io/ax7dvcawpc84/pbm-qa/idf-validation-service:latest
+          env:
+          - name: TZ
+            value: Asia/Riyadh
+          ports:
+          - containerPort: 8080
+      imagePullSecrets:
+        - name: waseel-docker-registry-cred

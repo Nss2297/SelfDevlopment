@@ -1,0 +1,6 @@
+--liquibase formatted sql
+
+--changeset Payer-Customization-Service:058
+
+ALTER TABLE "MDSS"."CUSTOMIZATION_REQUEST_METADATA"
+ADD (IS_CUSTOMIZABLE CHAR(1) DEFAULT ('0') NOT NULL ENABLE NOVALIDATE);

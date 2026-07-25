@@ -1,0 +1,5 @@
+--liquibase formatted sql
+
+--changeset BR Service:0004
+
+ALTER TABLE "PBM_BUSINESS_RULES"."DRUG_FORMULARY_DETAILS" ADD "PATIENT_SHARE" Number(14,2) DEFAULT NULL;

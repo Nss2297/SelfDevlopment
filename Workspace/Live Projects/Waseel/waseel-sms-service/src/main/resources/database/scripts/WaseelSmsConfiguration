@@ -1,0 +1,10 @@
+--WaseelSmsConfiguration script
+
+CREATE TABLE "WaseelSmsConfiguration" (
+"SmsConfigurationId" NUMBER NOT NULL,
+"AppName" VARCHAR(100) NOT NULL,
+"UnifonicAppId" VARCHAR(100) NOT NULL,
+"SenderID" VARCHAR(100) NOT NULL,
+"IsEnabled" CHAR(1) DEFAULT '1' NOT NULL,
+CONSTRAINT "WaseelSmsConfiguration_Pk" PRIMARY KEY ("SmsConfigurationId")
+);

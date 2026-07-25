@@ -1,0 +1,64 @@
+
+
+name: QA - Deploy Latest
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - qa
+      
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Cache node modules
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    - name: Node ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: npm install and npm run build
+      run: |
+        npm install -s
+        npm run buildQa
+
+    - name: docker login
+      env:
+        DOCKER_USER: ${{ secrets.DOCKER_USER }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      run: docker login me-jeddah-1.ocir.io -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+    - name: Docker Build
+      run: docker build . -t me-jeddah-1.ocir.io/ax7dvcawpc84/pbm-qa/pbm-admin-ui:latest -t me-jeddah-1.ocir.io/ax7dvcawpc84/pbm-qa/pbm-admin-ui:${{ github.sha }}
+
+    - name: Docker Push
+      run: docker push --all-tags me-jeddah-1.ocir.io/ax7dvcawpc84/pbm-qa/pbm-admin-ui
+
+    - name: Deploy to K8S
+      uses: waseel-asp/kubectl@v1.17.9
+      env:
+        KUBE_CONFIG: ${{ secrets.PORTAL_KUBE_CONFIG_QA }}
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+      with:
+        args: set image --record deployment/pbm-admin-ui pbm-admin-ui=me-jeddah-1.ocir.io/ax7dvcawpc84/pbm-qa/pbm-admin-ui:${{ github.sha }} -n pbm-qa
+
+    - name: Verify Deployment
+      uses: waseel-asp/kubectl@v1.17.9
+      env:
+        KUBE_CONFIG: ${{ secrets.PORTAL_KUBE_CONFIG_QA }}
+        ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+      with:
+        args: '"rollout status deployment/pbm-admin-ui -n pbm-qa"'

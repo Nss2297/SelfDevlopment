@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pbm-gateway-service-prod-deployment
+  namespace: pbm-prod
+  labels:
+    app: pbm-gateway-service-prod-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pbm-gateway-service-prod-deployment
+  template:
+    metadata:
+      labels:
+        app: pbm-gateway-service-prod-deployment
+    spec:
+      containers:
+        - name: pbm-gateway-service-prod-container
+          image: me-jeddah-1.ocir.io/ax7dvcawpc84/pbm-prod/pbm-gateway-service:latest
+          env:
+          - name: TZ
+            value: Asia/Riyadh
+          ports:
+          - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+              scheme: HTTP
+            timeoutSeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 20
+      imagePullSecrets:
+        - name: waseel-docker-registry-cred
