@@ -1,0 +1,35 @@
+"Hash code and equals must override to perform Hashmap, Hashset,Hashtable accurately.
+Override both methods is part of contract. Avoid overrding any one method will result malfunction
+if we override only hashcode -> Equals will not same results even if values are same. So duplicates items will store
+if we overrdie only equals -> Hashcode will not be same for equals value object, so it will store values in different bucket in map 
+https://www.baeldung.com/java-equals-hashcode-contracts
+https://www.geeksforgeeks.org/override-equalsobject-hashcode-method/
+https://www.techiedelight.com/why-override-equals-and-hashcode-methods-java/#:~:text=If%20we%20only%20override%20the,t%20find%20any%20as%20e2.
+"
+
+https://www.baeldung.com/spring-transactional-propagation-isolation
+https://chatgpt.com/share/66f16392-7fc8-8010-8b04-7ca26e390469
+
+Wrapper class 
+https://www.geeksforgeeks.org/wrapper-classes-java/
+
+Serialization 
+https://www.javamadesoeasy.com/2015/02/serialization-top-25-interview.html
+
+Comparable - Only sorting based on 1 param
+- Needs to implement Comparable interface 
+- Override compareTo() method 
+
+people.sort(Comparator.comparingInt(Person::getAge));
+
+Comparator - Can short based on multiple parameters 
+-Create new class that implements Comparator interface
+-compare method 
+
+people.sort(
+    Comparator.comparingInt(Person::getAge)
+              .thenComparing(Person::getName)
+);
+
+
+Collections.reverSort()

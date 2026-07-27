@@ -1,0 +1,39 @@
+Core Java/Advance Java
+Multi threading concept
+Schedular/Executor (Async) with Future and CompletableFuture
+Java 8 Stream with fundamentals
+How to debug stream using IDE
+Spring / Spring Boot / Spring Security
+REST and API Design & Validation
+JPA and Hibernate
+Unit testing and Mock framework
+Microservice architecture
+Service to service communication via REST(i.e. RestTemplate, WebClient etc.)
+Transaction Management in microservice - SAGA Pattern
+Circuit Breaker Pattern
+Ways to create docker image for microservice(JIB, Spotify Docker Plugin)
+Oauth 2.0 / OpenID Connect
+JWT (Structure, Create, Validate)
+OWASP Top 10 vulnerabilities
+Maven (Dependency Management, Plugin configuration, distribution management, BOM,  Profile, Scope etc.)
+CI/CD High Level
+Docker & K8s - Optional
+Reactive Programming - Optional
+Schema Migration Strategy (i.e. Liquibase, Flyway)
+
+
+
+Spring security- pass some request without filter
+Hibernate - how to use criteria query
+Jpa - how to use triggers
+Java - return type of hashmap put method
+Use of parallel stream and flat map 
+Use of optional interface. What is the issue in traditional null check why option come into the picture
+Program -> sort aaray based on even number first and odd numbers last. Don't use any other array and try to optimize way to do it.
+Jms- how to disable number of consumer at run time
+Spring profiles
+Spring bean life cycle
+How to identify memory lickages and how to resolve it.
+Spring boot deployment
+Junit test cases annotations
+How to configure two database in single spring boot project

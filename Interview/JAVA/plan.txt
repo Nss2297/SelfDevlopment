@@ -1,0 +1,11 @@
+11/11 - Hibernate -Success
+12/11 - JPA, Transactional -Success
+13/11 - Exception, Hash equals, Serialization, Externalization,wrapper class -Success
+14/11 - Thread, Scheduler, Async,Comparator vs Comparable, Fail fast fail safe -Success
+15/11 - Java 8,Collection -Success
+16/11 - Core -Success
+17/11 - 
+18/11 - Design pattern
+19/11 - Spring boot, AOP
+20/11 - Spring Security, Basic
+21/11 - Interview Question notes

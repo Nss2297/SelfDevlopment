@@ -1,0 +1,41 @@
+core java
+OOPS
+string 
+thread 
+Collection 
+hash code equals 
+exception handling 
+Comparator vs Comparable
+Serialization 
+wrapper class
+
+Java 8
+Stream
+filter
+map
+functional interface 
+Splitator
+Lambda 
+Why java 8 
+Schedular/Executor (Async) with Future and CompletableFuture
+Java 8 Stream with fundamentals
+How to debug stream using IDE
+java8 vs java17
+
+
+Thread 
+Concurrency
+Executor class
+Channel
+Parallel stream
+
+Hibernate and JPA
+
+Spring 
+Spring / Spring Boot / Spring Security
+
+
+
+https://shorturl.at/xAIQ3
+
+Design pattern 

@@ -1,0 +1,244 @@
+Hash code and equals 
+https://www.baeldung.com/java-equals-hashcode-contracts
+https://www.geeksforgeeks.org/override-equalsobject-hashcode-method/
+https://www.techiedelight.com/why-override-equals-and-hashcode-methods-java/#:~:text=If%20we%20only%20override%20the,t%20find%20any%20as%20e2.
+
+Serialization :https://www.javamadesoeasy.com/2015/02/serialization-top-25-interview.html
+
+JPA : https://www.baeldung.com/learn-jpa-hibernate
+Hibernate : https://www.interviewbit.com/jpa-interview-questions/#what-types-of-cascades-does-jpa-support
+https://www.baeldung.com/jpa-join-column - Explained well
+
+https://www.baeldung.com/jpa-one-to-one
+https://www.baeldung.com/jpa-many-to-many
+
+
+https://www.baeldung.com/spring-transactional-propagation-isolation
+https://chatgpt.com/share/66f16392-7fc8-8010-8b04-7ca26e390469
+
+Comparable - Only sorting based on 1 param
+people.sort(Comparator.comparingInt(Person::getAge));
+
+Comparator - Can short based on multiple parameters 
+people.sort(
+    Comparator.comparingInt(Person::getAge)
+              .thenComparing(Person::getName)
+);
+
+
+
+Web optimization 
+1 isA and has A 
+2. try with resource statement 
+3. Treeset working
+4. Hash table vs hashmap vs hashset
+5. loose couplinng vs tight coupling
+6. singleton
+7. two db connection in jpa
+8. hibernate sessin factory and session difference
+9. Stringpool
+10. thread.start and tread.run difference
+11. JPQL
+12. merge vs update
+13. spring ioc
+14. dependency injection 
+15. mvc vs boot
+16. @Transactional 
+17. static import
+18. why use static
+19 immutable class
+
+
+Bharti infosoft
+
+
+Native sql in hibernate
+BeanFactory in spring 
+IOC 
+Extends JPA methods to write custom logic.
+Profile method to access different properties
+@Servive vs @Repository
+@Transectional 
+@Primary
+@autowire vs @inject
+restController vs controller
+Where we can use try with resources , on which class we can use this
+
+Collections example uniqe by id , desc by salary
+
+Predicate in java8
+Optional.of(null)
+throw exception in optional
+
+
+interface a
+
+abc extends a
+def extedns a
+
+class demo{
+@Autowire 
+a aobj;
+
+which obj get ??
+}
+
+Aimdek
+
+- Design pattern
+- Maven dependeny scope 
+- jenkinks platform to build
+- way to save details in place of properties
+- how spring boot create object which java functionality it use 
+- load factor 
+- loose couplig -tight coupling
+
+
+memory type in jvm
+jvm jre jdk
+javascript future
+jquery
+JIT compiler
+Autoconfiguration
+Restcontroller
+Application Context
+Session creation in spring
+How autoconfigure work in boot
+Restcontroller
+Rest full name
+what is RESTFULL Api
+spring starteter
+
+
+Cascade in hibernate
+what is controller
+what is configuration
+@Bean
+@Configuration
+static block 
+Producer -consumer
+Concate in db
+Having in db
+outOFMEmoryError => when and how to solve it
+Producer consumer
+
+
+  /* the following code uses a try-with-resources statement
+         * to open a file and then automatically close it when
+         * the try block is left.
+         */
+        try(FileInputStream fin = new FileInputStream(args[0])) {
+            
+            do {
+                i = fin.read();
+                
+                if(i != -1)
+                    System.out.print((char) i);
+                    
+            } while(i != -1);
+            
+        } catch(FileNotFoundException e) {
+            System.out.println("File Not Found..!!");
+            
+			
+
+
+
+
+explain classloader and type in jvm
+what is dependency injection, how many ways we can do dependency injection in spring
+
+ @bean  life cycle 
+@autowired, @components ,@been and @qualifier explain 
+comparator and comparable difference
+
+
+
+what is spring initializr
+Spring MVC flow 
+what is the difference between web server and application server
+elasticsearch internal which algorithm users
+ @bean  scope 
+String StringBuffer and Stringbuilder difference
+ thread  life cycle 
+difference between fail fast and fail safe
+ concurrenthashmap and hashmap difference
+difference between serializable and externalizable 
+
+
+
+
+
+
+
+DRC
+
+Spring bean
+Sping project strcuture
+Polymorphisam
+Static
+Thread 
+Thread pool
+executor service 
+Java8 features
+Array list vs hashset
+linkedlist
+SOAP and rest 
+how to exclude spring  auto configuration and use manual configuratioin
+Batch processing in hibernate
+
+how you used spring in your project 
+do you know how to create spring project from scretch
+How you used spring in your previous project . Expalin functionalities and que based on that 
+class static 
+Reflection API 
+
+
+
+
+Intech
+
+Thread lifecycle
+autowired 
+mode of autowired
+default mode of autowire
+define mode in autowire anotation 
+@Dynamic update hibernate
+where to use @transectional
+
+overloading -> int a & Integer A which call   -first check for int a, if not found then autoboxing unboxing come to picture and call Integer method 
+overridding based on obj which will call
+Hashset internal functionality
+Hashset allow null but hashtable not allow then how it work.
+
+Bean scope
+how to do anotation based configuratioin
+load vs get
+Concurrent hashmap vs hashmap
+
+Thread -> internal 10 thread then how it will wait for completion of that 10 thread 
+open and close mechanism in development 
+AOP in details
+@Bean
+
+Bean scopes
+How session scope work 
+java 8 
+functinal interface
+example of functional interface 
+Stream API
+recent error solved 
+Oops 
+change int to Integer in whole project 
+spring core version 
+why use dialect
+what is bean
+type of injectioin 
+Some features of Spring 
+Backword compatibility
+cyclic dependency -> how to resolve
+Spring web flux 
+inject collection in spring 
+@namedQuery for sql in hibernate 
+
+		
